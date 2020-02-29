@@ -21,7 +21,6 @@
                             @onSelect="setSelected(element.id)"
                             @update="update(element.id,$event)"
                             :styles="{zIndex:element.id === selectedElement?2:1}"
-                            :aspect-ratio="false"
                             :scale-from-center="false"
                     >
                         <div class="element"
@@ -29,6 +28,9 @@
                             {{element.text}}
                         </div>
                     </FreeTransform>
+                </div>
+                <div>
+                  <text>HelloWorld</text>
                 </div>
             </div>
         </div>
@@ -53,7 +55,7 @@
             scaleX: 1,
             scaleY: 1,
             width: 100,
-            height: 100,
+            height: 200,
             angle: 0,
             classPrefix: "tr",
             text: "Scale Enabled, Click to activate",

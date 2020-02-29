@@ -157,9 +157,11 @@
           enableScaleFromCenter: this.scaleFromCenter,
           aspectRatio: this.aspectRatio && event.shiftKey,
           enableAspectRatio: this.aspectRatio
-        }, (payload) => {
-          this.$emit("update", payload)
-        });
+        }
+        // , (payload) => {
+        //   this.$emit("update", payload)
+        // }
+      );
 
         this.onDrag(drag);
       },

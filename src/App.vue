@@ -1,13 +1,65 @@
 <template>
-    <div id="app">
+    <div>
+      <section class="hero is-dark is-bold">
+        <div class="hero-body">
+          <div class="container">
+            <h1 class="title">
+              Capstone Space Allocation Project
+            </h1>
+            <h2 class="subtitle">
+              Map
+            </h2>
+          </div>
+        </div>
+      </section>
+      <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="https://bulma.io">
+            <img src="https://bulma.io/images/bulma-logo.png" alt="Bulma: Free, open source, and modern CSS framework based on Flexbox" width="112" height="28">
+          </a>
+
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="false"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+      </nav>
+      <section>
+        <div class="tile is-ancestor">
+          <div class="tile is-child">
+            <article class="tile is-child notification is-success">
+              <div class="content">
+                <p class="title">Tall tile</p>
+                <p class="subtitle">With even more content</p>
+                <div class="content">
+                  <!-- Content -->
+                </div>
+              </div>
+            </article>
+          </div>
+          <div class="tile is-child is-3">
+            <article class="tile is-child notification is-success">
+              <div class="content">
+                <p class="title">Tall tile</p>
+                <p class="subtitle">With even more content</p>
+                <div class="content">
+                  <!-- Content -->
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
         <div class="App">
             <div class="wrapper">
                 <div class="workspace" ref="workspace">
+                  <div
+                      v-for="element in elements"
+                      :key="element.id">
                     <FreeTransform
-                            v-for="element in elements"
-                            :key="element.id"
-                            :x="element.x"
-                            :y="element.y"
+                            :x=element.x
+                            :y=element.y
                             :scale-x="element.scaleX"
                             :scale-y="element.scaleY"
                             :width="element.width"
@@ -15,7 +67,7 @@
                             :angle="element.angle"
                             :offset-x="offsetX"
                             :offset-y="offsetY"
-                            :disable-scale="element.disableScale === true"
+                            :disable-scale="element.disableScale === false"
                             :selected="element.id === selectedElement"
                             :selectOn="element.selectOn"
                             @onSelect="setSelected(element.id)"
@@ -28,6 +80,7 @@
                             {{element.text}}
                         </div>
                     </FreeTransform>
+                    </div>
                 </div>
                 <div>
                   <text>HelloWorld</text>
@@ -38,20 +91,22 @@
 </template>
 
 <script>
-  import FreeTransform from './components/FreeTransform.vue'
+  // import FreeTransform from './components/FreeTransform.vue'
 
   export default {
     name: 'app',
     components: {
-      FreeTransform
+      // FreeTransform
     },
     data() {
       return {
+        message: "hello worlddllgjfdlkgnlkdsmlk",
+        field_y: 10,
         elements: [
           {
             id: "el-1",
-            x: 100,
-            y: 50,
+            x: 0,
+            y: 0,
             scaleX: 1,
             scaleY: 1,
             width: 100,
@@ -59,7 +114,6 @@
             angle: 0,
             classPrefix: "tr",
             text: "Scale Enabled, Click to activate",
-
             styles: {
               background: "linear-gradient(135deg, #0FF0B3 0%,#036ED9 100%)",
             },
@@ -117,14 +171,19 @@
             selectOn: 'mousedown',
           }
         ],
-        offsetX: 0,
-        offsetY: 0,
-        selectedElement: null
+        prevX: 10,
+        offsetX: 10,
+        offsetY: 10,
+        selectedElement: null,
       }
+    },
+    computed: {
+
     },
     mounted() {
       this.offsetX = this.$refs.workspace.offsetLeft
       this.offsetY = this.$refs.workspace.offsetTop
+      // this.element.y = computeCenterY(this.element)
     },
     methods: {
       update(id, payload) {
@@ -148,28 +207,45 @@
       },
       setSelected(id) {
         this.selectedElement = id
+      },
+      calculateNextStartX(startX, width) {
+        this.prevX = startX + width + this.offsetX;
+        return startX;
+      },
+      computeCenterY(element) {
+        let max = 0;
+        for (let element in this.elements) {
+          if (element.height > max) {
+            max = element.height;
+          }
+        }
+        // this.element.y = max/2 + this.offsetY - element.height/2
+        return max/2 + this.offsetY - element.height/2
       }
     }
   }
 </script>
 
 <style>
-    #app {
+    /* #app {
         display: flex;
         background: #F8FAFC;
-    }
+        width: inherit;
+    } */
 
     .wrapper {
         flex: 1;
+        width: inherit;
     }
 
     .workspace {
-        width: 800px;
-        height: 800px;
+        width: inherit;
+        height: 300px;
         margin: 25px auto;
         box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.10);
         border: 1px solid rgba(0, 0, 0, 0.10);
         background: #fff;
+        overflow:scroll;
     }
 
     * {

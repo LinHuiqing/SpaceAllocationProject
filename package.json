@@ -11,7 +11,7 @@
     "buefy": "^0.8.12",
     "core-js": "^3.6.4",
     "vue": "^2.6.11",
-    "vue-free-transform": "^1.0.11"
+    "vue-draggable-resizable": "^2.1.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.2.0",

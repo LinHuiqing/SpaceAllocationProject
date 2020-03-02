@@ -12,12 +12,11 @@
           </div>
         </div>
       </section>
-      <nav class="navbar" role="navigation" aria-label="main navigation">
+      <nav class="navbar is-light" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
           <a class="navbar-item" href="https://bulma.io">
             <img src="https://bulma.io/images/bulma-logo.png" alt="Bulma: Free, open source, and modern CSS framework based on Flexbox" width="112" height="28">
           </a>
-
           <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
             <span aria-hidden="false"></span>
             <span aria-hidden="true"></span>
@@ -27,312 +26,185 @@
       </nav>
       <section>
         <div class="tile is-ancestor">
-          <div class="tile is-child">
-            <article class="tile is-child notification is-success">
-              <div class="content">
-                <p class="title">Tall tile</p>
-                <p class="subtitle">With even more content</p>
-                <div class="content">
-                  <!-- Content -->
-                </div>
+          <div class="tile is-vertical">
+            <div class="tile">
+              <div class="tile is-parent is-3">
+                <article class="tile is-child notification is-dark">
+                  <p class="title">Random Info?</p>
+                  <p class="subtitle">Maybe Navigation</p>
+                  <figure class="image is-4by3">
+                    <img src="https://bulma.io/images/placeholders/640x480.png">
+                  </figure>
+                </article>
               </div>
-            </article>
-          </div>
-          <div class="tile is-child is-3">
-            <article class="tile is-child notification is-success">
-              <div class="content">
-                <p class="title">Tall tile</p>
-                <p class="subtitle">With even more content</p>
-                <div class="content">
-                  <!-- Content -->
-                </div>
+              <div class="tile is-parent is-vertical">
+                <article class="tile is-child notification is-white">
+                  <p class="title">Map</p>
+                  <p class="subtitle">Campus Centre Level 1</p>
+                  <div>
+                    <figure class="image">
+                      <img src="https://bulma.io/images/placeholders/128x128.png">
+                    </figure>
+                  </div>
+                </article>
+                <article class="tile is-child notification is-light">
+                  <p class="title">Groups to be Allocated</p>
+                  <p class="subtitle">Drag and Drop on to Map</p>
+                  <div :style="{ height: heightOfSpace() + 'px' }">
+                    <vue-draggable-resizable v-for="element in unallocated" :key="element.id" :x="element.x" :y="unallocatedY(heightOfSpace(), element)" :w="element.w" :h="element.h" :resizable.sync="resizable">
+                      <p>Basic component that is {{ resizable ? 'also' : 'not' }} resizable.</p>
+                    </vue-draggable-resizable>
+                  </div>
+                </article>
               </div>
-            </article>
+            </div>
           </div>
         </div>
       </section>
-        <div class="App">
-            <div class="wrapper">
-                <div class="workspace" ref="workspace">
-                  <div
-                      v-for="element in elements"
-                      :key="element.id">
-                    <FreeTransform
-                            :x=element.x
-                            :y=element.y
-                            :scale-x="element.scaleX"
-                            :scale-y="element.scaleY"
-                            :width="element.width"
-                            :height="element.height"
-                            :angle="element.angle"
-                            :offset-x="offsetX"
-                            :offset-y="offsetY"
-                            :disable-scale="element.disableScale === false"
-                            :selected="element.id === selectedElement"
-                            :selectOn="element.selectOn"
-                            @onSelect="setSelected(element.id)"
-                            @update="update(element.id,$event)"
-                            :styles="{zIndex:element.id === selectedElement?2:1}"
-                            :scale-from-center="false"
-                    >
-                        <div class="element"
-                             :style="getElementStyles(element)">
-                            {{element.text}}
-                        </div>
-                    </FreeTransform>
-                    </div>
-                </div>
-                <div>
-                  <text>HelloWorld</text>
-                </div>
-            </div>
+      <footer class="footer">
+        <div class="content has-text-centered">
+          <p>
+            <strong>Capstone Space Allocation Project</strong> by <a href="https://github.com/LinHuiqing/SpaceAllocationProject">Cohort 3 Group 11</a>. The source code is licensed
+            <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
+            is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+          </p>
         </div>
+      </footer>
     </div>
 </template>
 
 <script>
-  // import FreeTransform from './components/FreeTransform.vue'
+  import VueDraggableResizable from 'vue-draggable-resizable'
 
   export default {
     name: 'app',
     components: {
-      // FreeTransform
+      VueDraggableResizable
     },
     data() {
       return {
-        message: "hello worlddllgjfdlkgnlkdsmlk",
-        field_y: 10,
-        elements: [
+        unallocated: [
           {
-            id: "el-1",
-            x: 0,
+            x: 20,
             y: 0,
-            scaleX: 1,
-            scaleY: 1,
-            width: 100,
-            height: 200,
-            angle: 0,
-            classPrefix: "tr",
-            text: "Scale Enabled, Click to activate",
-            styles: {
-              background: "linear-gradient(135deg, #0FF0B3 0%,#036ED9 100%)",
-            },
-            selectOn: 'click',
-          },
-          {
-            id: "el-2",
-            x: 225,
-            y: 225,
-            scaleX: 1,
-            scaleY: 1,
-            width: 100,
-            height: 100,
-            angle: 0,
-            classPrefix: "tr2",
-            text: "Scale Enabled, mousedown to activate",
-            selectOn: 'mousedown',
-            styles: {
-              padding: `5px`,
-              background: "linear-gradient(135deg, #fad961 0%,#f76b1c 100%)",
-            },
-          },
-          {
-            id: "el-3",
-            x: 100,
-            y: 225,
-            scaleX: 1,
-            scaleY: 1,
-            width: 100,
-            height: 100,
-            angle: 0,
-            classPrefix: "tr2",
-            text: "Scale Disabled, double click to activate",
-            selectOn: 'dblclick',
-            styles: {
-              width: "100%",
-              height: "100%",
-              background: "linear-gradient(135deg, #fad961 0%,#f76b1c 100%)",
-            },
-            disableScale: true
-          },
-          {
-            id: "el-4",
-            x: 100,
-            y: 400,
-            scaleX: 1,
-            scaleY: 1,
-            width: 100,
-            height: 100,
-            angle: 45,
-            classPrefix: "tr3",
-            styles: {
-              background: "linear-gradient(135deg, #b1ea4d 0%,#459522 100%)",
-            },
-            selectOn: 'mousedown',
+            w: 100,
+            h: 100
+          }, {
+            x: 140,
+            y: 0,
+            w: 100,
+            h: 100
+          }, {
+            x: 260,
+            y: 0,
+            w: 100,
+            h: 100
+          }, {
+            x: 380,
+            y: 0,
+            w: 100,
+            h: 100
+          }, {
+            x: 500,
+            y: 0,
+            w: 100,
+            h: 100
+          }, {
+            x: 620,
+            y: 0,
+            w: 100,
+            h: 100
+          }, {
+            x: 740,
+            y: 0,
+            w: 200,
+            h: 100
+          }, {
+            x: 960,
+            y: 0,
+            w: 200,
+            h: 200
+          }, {
+            x: 1180,
+            y: 0,
+            w: 200,
+            h: 200
           }
         ],
-        prevX: 10,
-        offsetX: 10,
-        offsetY: 10,
-        selectedElement: null,
+        resizable: false,
+        prevX: 20,
+        offsetX: 20,
+        // unallocatedY: 0
       }
-    },
-    computed: {
-
-    },
-    mounted() {
-      this.offsetX = this.$refs.workspace.offsetLeft
-      this.offsetY = this.$refs.workspace.offsetTop
-      // this.element.y = computeCenterY(this.element)
     },
     methods: {
-      update(id, payload) {
-        this.elements = this.elements.map(item => {
-          if (item.id === id) {
-            return {
-              ...item,
-              ...payload
-            }
-          }
-          return item
-        })
-      },
-      getElementStyles(element) {
-        const styles = element.styles ? element.styles : {}
-        return {
-          width: `${element.width}px`,
-          height: `${element.height}px`,
-          ...styles
-        }
-      },
-      setSelected(id) {
-        this.selectedElement = id
-      },
-      calculateNextStartX(startX, width) {
-        this.prevX = startX + width + this.offsetX;
-        return startX;
-      },
-      computeCenterY(element) {
+      heightOfSpace() {
         let max = 0;
-        for (let element in this.elements) {
-          if (element.height > max) {
-            max = element.height;
+        // console.log(this.unallocated)
+        for (const element of this.unallocated) {
+          // console.log(element.h)
+          if (element.h > max) {
+            max = element.h
           }
         }
-        // this.element.y = max/2 + this.offsetY - element.height/2
-        return max/2 + this.offsetY - element.height/2
-      }
+        // console.log(max)
+        return max
+      },
+      unallocatedY(max, element) {
+        return (max-element.h)/2 + 100
+      },
+      // unallocatedX() {
+      //   // let start = JSON.parse(JSON.stringify(this.prevX))
+      //   this.prevX += 20
+      //   // element
+      //   // return this.prevX
+      // }
     }
+    // computed: {
+    //
+    // },
+    // mounted() {
+    //   this.offsetX = this.$refs.workspace.offsetLeft
+    //   this.offsetY = this.$refs.workspace.offsetTop
+    //   // this.element.y = computeCenterY(this.element)
+    // },
+    // methods: {
+    //   update(id, payload) {
+    //     this.elements = this.elements.map(item => {
+    //       if (item.id === id) {
+    //         return {
+    //           ...item,
+    //           ...payload
+    //         }
+    //       }
+    //       return item
+    //     })
+    //   },
+    //   getElementStyles(element) {
+    //     const styles = element.styles ? element.styles : {}
+    //     return {
+    //       width: `${element.width}px`,
+    //       height: `${element.height}px`,
+    //       ...styles
+    //     }
+    //   },
+    //   setSelected(id) {
+    //     this.selectedElement = id
+    //   },
+    //   calculateNextStartX(startX, width) {
+    //     this.prevX = startX + width + this.offsetX;
+    //     return startX;
+    //   },
+    //   computeCenterY(element) {
+    //     let max = 0;
+    //     for (let element in this.elements) {
+    //       if (element.height > max) {
+    //         max = element.height;
+    //       }
+    //     }
+    //     // this.element.y = max/2 + this.offsetY - element.height/2
+    //     return max/2 + this.offsetY - element.height/2
+    //   }
+    // }
   }
 </script>
-
-<style>
-    /* #app {
-        display: flex;
-        background: #F8FAFC;
-        width: inherit;
-    } */
-
-    .wrapper {
-        flex: 1;
-        width: inherit;
-    }
-
-    .workspace {
-        width: inherit;
-        height: 300px;
-        margin: 25px auto;
-        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.10);
-        border: 1px solid rgba(0, 0, 0, 0.10);
-        background: #fff;
-        overflow:scroll;
-    }
-
-    * {
-        box-sizing: border-box;
-    }
-
-    .tr-transform--active {
-        position: absolute;
-        z-index: 5;
-    }
-
-    .tr-transform__content {
-        user-select: none;
-    }
-    .tr-transform__content .element{
-        padding:5px;
-    }
-
-    .tr-transform__rotator {
-        top: -45px;
-        left: calc(50% - 7px);
-    }
-
-    .tr-transform__rotator,
-    .tr-transform__scale-point {
-        background: #fff;
-        width: 15px;
-        height: 15px;
-        border-radius: 50%;
-        position: absolute;
-        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        cursor: pointer;
-    }
-
-    .tr-transform__rotator:hover,
-    .tr-transform__scale-point:hover {
-        background: #F1F5F8;
-    }
-
-    .tr-transform__rotator:active,
-    .tr-transform__scale-point:active {
-        background: #DAE1E7;
-    }
-
-    .tr-transform__scale-point {
-
-    }
-
-    .tr-transform__scale-point--tl {
-        top: -7px;
-        left: -7px;
-    }
-
-    .tr-transform__scale-point--ml {
-        top: calc(50% - 7px);
-        left: -7px;
-    }
-
-    .tr-transform__scale-point--tr {
-        left: calc(100% - 7px);
-        top: -7px;
-    }
-
-    .tr-transform__scale-point--tm {
-        left: calc(50% - 7px);
-        top: -7px;
-    }
-
-    .tr-transform__scale-point--mr {
-        left: calc(100% - 7px);
-        top: calc(50% - 7px);
-    }
-
-    .tr-transform__scale-point--bl {
-        left: -7px;
-        top: calc(100% - 7px);
-    }
-
-    .tr-transform__scale-point--bm {
-        left: calc(50% - 7px);
-        top: calc(100% - 7px);
-    }
-
-    .tr-transform__scale-point--br {
-        left: calc(100% - 7px);
-        top: calc(100% - 7px);
-    }
-
-</style>

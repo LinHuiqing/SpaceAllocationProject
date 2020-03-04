@@ -32,7 +32,9 @@
                 <article class="tile is-child notification is-dark">
                   <!-- <p class="title">Random Info?</p> -->
                   <!-- <p class="subtitle">Maybe Navigation</p> -->
-                    <b-menu>
+                  
+                  <!-- <nav> -->
+                    <!-- <b-menu>
                       <b-menu-list label="Menu">
                           <b-menu-item icon="information-outline" label="Info"></b-menu-item>
                           <b-menu-item
@@ -76,7 +78,8 @@
                       <b-menu-list label="Actions">
                           <b-menu-item label="Logout"></b-menu-item>
                       </b-menu-list>
-                  </b-menu>
+                  </b-menu> -->
+                <!-- </nav> -->
                   <!-- <figure class="image is-4by3">
                     <img src="https://bulma.io/images/placeholders/640x480.png">
                   </figure> -->
@@ -92,7 +95,7 @@
                     </figure>
                   </div>
                   <div class="buttons">
-                    <b-button style="width: 200px; left: 20px top: 10px" type="is-success">Save Layout</b-button>
+                    <b-button style="width: 200px; left: 20px top: 20px" type="is-success">Save Layout</b-button>
                   </div>
                 </article>
                 <article class="tile is-child notification is-light">
@@ -199,7 +202,7 @@
             title: "hello"
           }
         ],
-        resizable: true,
+        resizable: false,
         prevX: 20,
         offsetX: 20,
         isActive: true,

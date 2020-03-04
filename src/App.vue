@@ -30,11 +30,56 @@
             <div class="tile">
               <div class="tile is-parent is-3">
                 <article class="tile is-child notification is-dark">
-                  <p class="title">Random Info?</p>
-                  <p class="subtitle">Maybe Navigation</p>
-                  <figure class="image is-4by3">
+                  <!-- <p class="title">Random Info?</p> -->
+                  <!-- <p class="subtitle">Maybe Navigation</p> -->
+                    <b-menu>
+                      <b-menu-list label="Menu">
+                          <b-menu-item icon="information-outline" label="Info"></b-menu-item>
+                          <b-menu-item
+                              icon="settings"
+                              :active="isActive">
+                              <template slot="label" slot-scope="props">
+                                  Administrator
+                                  <b-icon
+                                      class="is-pulled-right"
+                                      :icon="props.expanded ? 'menu-down' : 'menu-up'">
+                                  </b-icon>
+                              </template>
+                              <b-menu-item icon="account" label="Users"></b-menu-item>
+                              <b-menu-item icon="cellphone-link">
+                                  <template slot="label">
+                                      Devices
+                                      <b-dropdown aria-role="list" class="is-pulled-right" position="is-bottom-left">
+                                      <b-icon icon="dots-vertical" slot="trigger"></b-icon>
+                                          <b-dropdown-item aria-role="listitem">Action</b-dropdown-item>
+                                          <b-dropdown-item aria-role="listitem">Another action</b-dropdown-item>
+                                          <b-dropdown-item aria-role="listitem">Something else</b-dropdown-item>
+                                      </b-dropdown>
+                                  </template>
+                              </b-menu-item>
+                              <b-menu-item icon="cash-multiple" label="Payments" disabled></b-menu-item>
+                          </b-menu-item>
+                          <b-menu-item icon="account" label="My Account">
+                              <b-menu-item label="Account data"></b-menu-item>
+                              <b-menu-item label="Addresses"></b-menu-item>
+                          </b-menu-item>
+                      </b-menu-list>
+                      <b-menu-list>
+                          <b-menu-item
+                              label="Expo"
+                              icon="link"
+                              tag="router-link"
+                              target="_blank"
+                              to="/expo">
+                          </b-menu-item>
+                      </b-menu-list>
+                      <b-menu-list label="Actions">
+                          <b-menu-item label="Logout"></b-menu-item>
+                      </b-menu-list>
+                  </b-menu>
+                  <!-- <figure class="image is-4by3">
                     <img src="https://bulma.io/images/placeholders/640x480.png">
-                  </figure>
+                  </figure> -->
                 </article>
               </div>
               <div class="tile is-parent is-vertical">
@@ -46,13 +91,17 @@
                       <img src="./assets/capstone1.jpg">
                     </figure>
                   </div>
+                  <div class="buttons">
+                    <b-button style="width: 200px; left: 20px top: 10px" type="is-success">Save Layout</b-button>
+                  </div>
                 </article>
                 <article class="tile is-child notification is-light">
                   <p class="title">Groups to be Allocated</p>
                   <p class="subtitle">Drag and Drop on to Map</p>
                   <div :style="{ height: heightOfSpace() + 'px' }">
                     <vue-draggable-resizable v-for="element in unallocated" :key="element.id" :x="element.x" :y="unallocatedY(heightOfSpace(), element)" :w="element.w" :h="element.h" :resizable.sync="resizable">
-                      <p>Basic component that is {{ resizable ? 'also' : 'not' }} resizable.</p>
+                      <p>Group {{element.group_no}}</p>
+                      <p>Name: {{element.title}}</p>
                     </vue-draggable-resizable>
                   </div>
                 </article>
@@ -75,6 +124,7 @@
 
 <script>
   import VueDraggableResizable from 'vue-draggable-resizable'
+  import './components/vuedraggable.css'
 
   export default {
     name: 'app',
@@ -88,52 +138,71 @@
             x: 20,
             y: 0,
             w: 100,
-            h: 100
+            h: 100, 
+            group_no:7,
+            title: "drones"
           }, {
             x: 140,
             y: 0,
             w: 100,
-            h: 100
+            h: 100, 
+            group_no:3,
+            title: "healthcare"
           }, {
             x: 260,
             y: 0,
             w: 100,
-            h: 100
+            h: 100, 
+            group_no: 12,
+            title: "software"
           }, {
             x: 380,
             y: 0,
             w: 100,
-            h: 100
+            h: 100,
+            group_no:10,
+            title: "hello"
           }, {
             x: 500,
             y: 0,
             w: 100,
-            h: 100
+            h: 100,
+            group_no:7,
+            title: "hello"
           }, {
             x: 620,
             y: 0,
             w: 100,
-            h: 100
+            h: 100,
+            group_no:7,
+            title: "hello"
           }, {
             x: 740,
             y: 0,
             w: 200,
-            h: 100
+            h: 100,
+            group_no:7,
+            title: "hello"
           }, {
             x: 960,
             y: 0,
             w: 200,
-            h: 200
+            h: 200,
+            group_no:7,
+            title: "hello"
           }, {
             x: 1180,
             y: 0,
             w: 200,
-            h: 200
+            h: 200,
+            group_no:7,
+            title: "hello"
           }
         ],
-        resizable: false,
+        resizable: true,
         prevX: 20,
         offsetX: 20,
+        isActive: true,
         // unallocatedY: 0
       }
     },
@@ -208,3 +277,12 @@
     // }
   }
 </script>
+
+<style>
+  .vdr {
+      border: 2px SOLID #CCAAEE;
+      background: #CCDDFF;
+      border-radius: 25px;
+      text-align: center;
+    }
+</style>

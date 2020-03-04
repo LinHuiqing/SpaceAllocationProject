@@ -5,7 +5,7 @@ import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
 import VueDraggableResizable from 'vue-draggable-resizable'
 // optionally import default styles
-import 'vue-draggable-resizable/dist/VueDraggableResizable.css'
+import './components/vuedraggable.css'
 
 Vue.component('vue-draggable-resizable', VueDraggableResizable)
 Vue.use(Buefy)

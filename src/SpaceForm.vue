@@ -87,6 +87,8 @@
                   <p class="subtitle">Use this form to request for space.</p>
 
                   <SizeSelectionRow></SizeSelectionRow>
+
+                  <PowerAVRow></PowerAVRow>
               </div>
             </div>
           </div>
@@ -105,12 +107,13 @@
 </template>
 
 <script>
-import SizeSelectionRow from './components/space_form/SizeSelectionRow.vue'
+import SizeSelectionRow from './components/space_form/SizeSelectionRow.vue';
+import PowerAVRow from './components/space_form/PowerAVRow.vue';
 
 export default {
   name: "SpaceForm",
   components: {
-    SizeSelectionRow
+    SizeSelectionRow, PowerAVRow
   }
 }
 </script>

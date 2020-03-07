@@ -15,7 +15,7 @@
       <nav class="navbar is-light" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
           <a class="navbar-item" href="https://github.com/LinHuiqing/SpaceAllocationProject">
-            <img src="./assets/logo_transparent2.png" alt="Bulma: Free, open source, and modern CSS framework based on Flexbox" width="80" height="100">
+            <img src="assets/logo_transparent2.png" alt="Bulma: Free, open source, and modern CSS framework based on Flexbox" width="80" height="100">
           </a>
           <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
             <span aria-hidden="false"></span>
@@ -39,7 +39,7 @@
                   <p class="subtitle">Campus Centre Level 1</p>
                   <div>
                     <figure class="image">
-                      <img src="./assets/capstone1.jpg">
+                      <img src="assets/capstone2.jpg">
                     </figure>
                   </div>
                   <div class="buttons">
@@ -75,8 +75,8 @@
 
 <script>
   import VueDraggableResizable from 'vue-draggable-resizable'
-  import './components/vuedraggable.css'
-  import navigationa from './components/navigation'
+  import './vuedraggable.css'
+  import navigationa from './navigation'
 
   export default {
     name: 'app',
@@ -175,59 +175,8 @@
       unallocatedY(max, element) {
         return (max-element.h)/2 + 100
       },
-      // unallocatedX() {
-      //   // let start = JSON.parse(JSON.stringify(this.prevX))
-      //   this.prevX += 20
-      //   // element
-      //   // return this.prevX
-      // }
     }
-    // computed: {
-    //
-    // },
-    // mounted() {
-    //   this.offsetX = this.$refs.workspace.offsetLeft
-    //   this.offsetY = this.$refs.workspace.offsetTop
-    //   // this.element.y = computeCenterY(this.element)
-    // },
-    // methods: {
-    //   update(id, payload) {
-    //     this.elements = this.elements.map(item => {
-    //       if (item.id === id) {
-    //         return {
-    //           ...item,
-    //           ...payload
-    //         }
-    //       }
-    //       return item
-    //     })
-    //   },
-    //   getElementStyles(element) {
-    //     const styles = element.styles ? element.styles : {}
-    //     return {
-    //       width: `${element.width}px`,
-    //       height: `${element.height}px`,
-    //       ...styles
-    //     }
-    //   },
-    //   setSelected(id) {
-    //     this.selectedElement = id
-    //   },
-    //   calculateNextStartX(startX, width) {
-    //     this.prevX = startX + width + this.offsetX;
-    //     return startX;
-    //   },
-    //   computeCenterY(element) {
-    //     let max = 0;
-    //     for (let element in this.elements) {
-    //       if (element.height > max) {
-    //         max = element.height;
-    //       }
-    //     }
-    //     // this.element.y = max/2 + this.offsetY - element.height/2
-    //     return max/2 + this.offsetY - element.height/2
-    //   }
-    // }
+   
   }
 </script>
 

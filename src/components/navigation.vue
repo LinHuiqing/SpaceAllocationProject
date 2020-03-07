@@ -12,15 +12,15 @@
             <b-navbar-item href="#">
                 Home
             </b-navbar-item>
-            <b-navbar-item href="#">
+            <!-- <b-navbar-item href="#">
                 Documentation
-            </b-navbar-item>
-            <b-navbar-dropdown label="Info">
+            </b-navbar-item> -->
+            <b-navbar-dropdown label="Map">
                 <b-navbar-item href="#">
-                    About
+                    Level 1
                 </b-navbar-item>
                 <b-navbar-item href="#">
-                    Contact
+                    Level 2
                 </b-navbar-item>
             </b-navbar-dropdown>
         </template>

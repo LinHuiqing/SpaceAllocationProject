@@ -15,7 +15,7 @@
       <nav class="navbar is-light" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
           <a class="navbar-item" href="https://github.com/LinHuiqing/SpaceAllocationProject">
-            <img src="assets/logo_transparent2.png" alt="Bulma: Free, open source, and modern CSS framework based on Flexbox" width="80" height="100">
+            <img src="../assets/logo_transparent2.png" alt="Bulma: Free, open source, and modern CSS framework based on Flexbox" width="80" height="100">
           </a>
           <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
             <span aria-hidden="false"></span>
@@ -36,10 +36,10 @@
               <div class="tile is-parent is-vertical">
                 <article class="tile is-child notification is-white">
                   <p class="title">Map</p>
-                  <p class="subtitle">Campus Centre Level 1</p>
+                  <p class="subtitle">Campus Centre Level 2</p>
                   <div>
                     <figure class="image">
-                      <img src="assets/capstone2.jpg">
+                      <img src="../assets/capstone2.jpg">
                     </figure>
                   </div>
                   <div class="buttons">

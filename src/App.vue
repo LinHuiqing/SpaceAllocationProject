@@ -24,28 +24,15 @@
           </a>
         </div>
       </nav>
+      <!-- <router-link to="/level1">Level 1</router-link>
+      <router-link to="/level2">Level 2</router-link> -->
       <app-nav></app-nav>
+      <router-view></router-view>
       <section>
         <div class="tile is-ancestor">
           <div class="tile is-vertical">
             <div class="tile">
-              <!-- <div class="tile is-parent is-3">
-                <article class="tile is-child notification is-dark">
-                </article>
-              </div> -->
               <div class="tile is-parent is-vertical">
-                <article class="tile is-child notification is-white">
-                  <p class="title">Map</p>
-                  <p class="subtitle">Campus Centre Level 1</p>
-                  <div>
-                    <figure class="image">
-                      <img src="./assets/capstone1.jpg">
-                    </figure>
-                  </div>
-                  <div class="buttons">
-                    <b-button style="width: 200px; left: 20px top: 20px" type="is-success">Save Layout</b-button>
-                  </div>
-                </article>
                 <article class="tile is-child notification is-light">
                   <p class="title">Groups to be Allocated</p>
                   <p class="subtitle">Drag and Drop on to Map</p>

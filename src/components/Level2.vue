@@ -1,39 +1,11 @@
 <template>
     <div>
-      <section class="hero is-dark is-bold">
-        <div class="hero-body">
-          <div class="container">
-            <h1 class="title">
-              Capstone Space Allocation Project
-            </h1>
-            <h2 class="subtitle">
-              Map
-            </h2>
-          </div>
-        </div>
-      </section>
-      <nav class="navbar is-light" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-          <a class="navbar-item" href="https://github.com/LinHuiqing/SpaceAllocationProject">
-            <img src="../assets/logo_transparent2.png" alt="Bulma: Free, open source, and modern CSS framework based on Flexbox" width="80" height="100">
-          </a>
-          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-            <span aria-hidden="false"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
-        </div>
-      </nav>
-      <app-nav></app-nav>
+      <!-- <app-nav></app-nav> -->
       <section>
-        <div class="tile is-ancestor">
+        <!-- <div class="tile is-ancestor">
           <div class="tile is-vertical">
             <div class="tile">
-              <!-- <div class="tile is-parent is-3">
-                <article class="tile is-child notification is-dark">
-                </article>
-              </div> -->
-              <div class="tile is-parent is-vertical">
+              <div class="tile is-parent is-vertical"> -->
                 <article class="tile is-child notification is-white">
                   <p class="title">Map</p>
                   <p class="subtitle">Campus Centre Level 2</p>
@@ -46,7 +18,7 @@
                     <b-button style="width: 200px; left: 20px top: 20px" type="is-success">Save Layout</b-button>
                   </div>
                 </article>
-                <article class="tile is-child notification is-light">
+                <!-- <article class="tile is-child notification is-light">
                   <p class="title">Groups to be Allocated</p>
                   <p class="subtitle">Drag and Drop on to Map</p>
                   <div :style="{ height: heightOfSpace() + 'px' }">
@@ -55,13 +27,13 @@
                       <p>Name: {{element.title}}</p>
                     </vue-draggable-resizable>
                   </div>
-                </article>
-              </div>
+                </article> -->
+              <!-- </div>
             </div>
           </div>
-        </div>
+        </div> -->
       </section>
-      <footer class="footer">
+      <!-- <footer class="footer">
         <div class="content has-text-centered">
           <p>
             <strong>Capstone Space Allocation Project</strong> by <a href="https://github.com/LinHuiqing/SpaceAllocationProject">Cohort 3 Group 11</a>. The source code is licensed
@@ -69,20 +41,20 @@
             is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
           </p>
         </div>
-      </footer>
+      </footer> -->
     </div>
 </template>
 
 <script>
-  import VueDraggableResizable from 'vue-draggable-resizable'
-  import './vuedraggable.css'
-  import navigationa from './navigation'
+  // import VueDraggableResizable from 'vue-draggable-resizable'
+  // import './vuedraggable.css'
+  // import navigationa from './navigation'
 
   export default {
-    name: 'app',
+    name: 'level2',
     components: {
-      VueDraggableResizable,
-      'app-nav': navigationa
+      // VueDraggableResizable,
+      // 'app-nav': navigationa
     },
     data() {
       return {

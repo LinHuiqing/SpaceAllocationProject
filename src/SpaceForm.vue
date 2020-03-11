@@ -89,6 +89,8 @@
                   <SizeSelectionRow></SizeSelectionRow>
 
                   <PowerAVRow></PowerAVRow>
+
+                  <OtherDetailsRow></OtherDetailsRow>
               </div>
             </div>
           </div>
@@ -109,11 +111,12 @@
 <script>
 import SizeSelectionRow from './components/space_form/SizeSelectionRow.vue';
 import PowerAVRow from './components/space_form/PowerAVRow.vue';
+import OtherDetailsRow from './components/space_form/OtherDetailsRow.vue';
 
 export default {
   name: "SpaceForm",
   components: {
-    SizeSelectionRow, PowerAVRow
+    SizeSelectionRow, PowerAVRow, OtherDetailsRow
   }
 }
 </script>

@@ -14,14 +14,14 @@
                         <b-field label="Length" class="lmao">
                             <b-input type="number"
                                 v-model="length"
-                                v-on:click="cancelPropogation"
+                                @click.native.stop="cancelPropogation"
                                 maxlength=2>
                             </b-input>
                         </b-field>
                         <b-field label="Width" class="lmao">
                             <b-input type="number"
                                 v-model="width"
-                                v-on:click="cancelPropogation"
+                                @click.native.stop="cancelPropogation"
                                 maxlength=2>
                             </b-input>
                         </b-field>
@@ -35,6 +35,12 @@
 <script>
 export default {
     name: "binary-state-card",
+    data: function(){
+        return {
+            length: 0,
+            width: 0,
+        }
+    },
     props: {
         "title": String,
         "description": String,
@@ -47,9 +53,8 @@ export default {
                 "selected": this.selected,
             });
         },
-        cancelPropogation: function(event){
+        cancelPropogation: function(){
             console.log("nani");
-            event.stopPropogation();
         }
     }
 }

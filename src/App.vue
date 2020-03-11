@@ -8,6 +8,7 @@
             </h1>
             <h2 class="subtitle">
               Map
+              <dbtry />
             </h2>
           </div>
         </div>
@@ -65,10 +66,13 @@
   import './components/vuedraggable.css'
   import navigationa from './components/navigation'
 
+  import dbtry from './components/dbtry'
+
   export default {
     name: 'app',
     components: {
       VueDraggableResizable,
+      dbtry,
       'app-nav': navigationa
     },
     data() {

@@ -9,6 +9,7 @@
             <h2 class="subtitle">
               Map
             </h2>
+            <!-- <dbtry /> -->
           </div>
         </div>
       </section>
@@ -26,39 +27,29 @@
       </nav>
       <app-nav></app-nav>
       <section>
-        <div class="tile is-ancestor">
-          <div class="tile is-vertical">
-            <div class="tile">
-              <div class="tile is-parent is-3">
-                <article class="tile is-child notification is-dark">
-                </article>
-              </div>
-              <div class="tile is-parent is-vertical">
-                <article class="tile is-child notification is-white">
-                  <p class="title">Map</p>
-                  <p class="subtitle">Campus Centre Level 1</p>
-                  <div>
-                    <figure class="image">
-                      <img src="./assets/capstone1.jpg">
-                    </figure>
-                  </div>
-                  <div class="buttons">
-                    <b-button style="width: 200px; left: 20px top: 20px" type="is-success">Save Layout</b-button>
-                  </div>
-                </article>
-                <article class="tile is-child notification is-light">
-                  <p class="title">Groups to be Allocated</p>
-                  <p class="subtitle">Drag and Drop on to Map</p>
-                  <div :style="{ height: heightOfSpace() + 'px' }">
-                    <vue-draggable-resizable v-for="element in unallocated" :key="element.id" :x="element.x" :y="unallocatedY(heightOfSpace(), element)" :w="element.w" :h="element.h" :resizable.sync="resizable">
-                      <p>Group {{element.group_no}}</p>
-                      <p>Name: {{element.title}}</p>
-                    </vue-draggable-resizable>
-                  </div>
-                </article>
-              </div>
+        <div class="tile is-parent">
+          <article class="tile is-child notification is-white">
+            <p class="title">Map</p>
+            <p class="subtitle">Campus Centre Level 1</p>
+            <div ref="map_image">
+              <figure class="image">
+                <img src="./assets/capstone1.jpg">
+              </figure>
             </div>
-          </div>
+            <div class="buttons">
+              <b-button style="width: 200px; left: 20px top: 20px" type="is-success">Save Layout</b-button>
+            </div>
+          </article>
+          <article class="tile is-child notification is-light is-2">
+            <p class="title">Groups to be Allocated</p>
+            <p class="subtitle">Drag and Drop on to Map</p>
+            <div :style="{ height: heightOfSpace() + 'px', position: 'relative' }">
+              <vue-draggable-resizable v-for="element in unallocated" :key="element.id" :x="element.x" :y="element.y" :w="calculateProjWidth(element.rawW)" :h="calculateProjWidth(element.rawH)" :resizable.sync="resizable">
+                <p>Group {{element.group_no}}</p>
+                <p>Name: {{element.title}}</p>
+              </vue-draggable-resizable>
+            </div>
+          </article>
         </div>
       </section>
       <footer class="footer">
@@ -74,92 +65,92 @@
 </template>
 
 <script>
+  // import dbtry from './components/dbtry'
   import VueDraggableResizable from 'vue-draggable-resizable'
   import './components/vuedraggable.css'
-  import navigationa from './components/navigation'
+  // import navigationa from './components/navigation'
+  // import Moveable from "vue-moveable";
 
   export default {
     name: 'app',
     components: {
       VueDraggableResizable,
-      'app-nav': navigationa
+      // Moveable,
+      // dbtry,
+      // 'app-nav': navigationa
     },
     data() {
       return {
+        moveable: {
+        draggable: true,
+        throttleDrag: 1,
+        resizable: false,
+        throttleResize: 1,
+        keepRatio: false,
+        scalable: true,
+        throttleScale: 0.01,
+        rotatable: true,
+        throttleRotate: 0.2,
+        pinchable: true,
+        origin: false
+      },
+      states: {
+        scalable: "Scalable",
+        resizable: "Resizable",
+        warpable: "Warpable"
+      },
+      currentState: "scalable",
         unallocated: [
           {
             x: 20,
             y: 0,
-            w: 100,
-            h: 100, 
+            rawW: 2,
+            rawH: 2,
             group_no:7,
             title: "drones"
           }, {
-            x: 140,
-            y: 0,
-            w: 100,
-            h: 100, 
+            x: 20,
+            y: 140,
+            rawW: 2,
+            rawH: 2,
             group_no:3,
             title: "healthcare"
           }, {
-            x: 260,
-            y: 0,
-            w: 100,
-            h: 100, 
+            x: 20,
+            y: 260,
+            rawW: 2,
+            rawH: 2,
             group_no: 12,
             title: "software"
-          }, {
-            x: 380,
-            y: 0,
-            w: 100,
-            h: 100,
-            group_no:10,
-            title: "hello"
-          }, {
-            x: 500,
-            y: 0,
-            w: 100,
-            h: 100,
-            group_no:7,
-            title: "hello"
-          }, {
-            x: 620,
-            y: 0,
-            w: 100,
-            h: 100,
-            group_no:7,
-            title: "hello"
-          }, {
-            x: 740,
-            y: 0,
-            w: 200,
-            h: 100,
-            group_no:7,
-            title: "hello"
-          }, {
-            x: 960,
-            y: 0,
-            w: 200,
-            h: 200,
-            group_no:7,
-            title: "hello"
-          }, {
-            x: 1180,
-            y: 0,
-            w: 200,
-            h: 200,
-            group_no:7,
-            title: "hello"
           }
         ],
         resizable: false,
         prevX: 20,
         offsetX: 20,
         isActive: true,
+        unit: 0,
+        scale: 43,
+
         // unallocatedY: 0
       }
     },
+    mounted() {
+      window.addEventListener("resize", this.calculateWidth);
+      this.calculateWidth();
+    },
+    destroyed() {
+      window.addEventListener("resize", this.calculateWidth);
+    },
     methods: {
+      calculateWidth() {
+        this.$nextTick(function() {
+          this.unit = this.$refs.map_image.clientWidth/this.scale;
+        })
+
+      },
+      calculateProjWidth(width) {
+        return width * this.unit;
+      },
       heightOfSpace() {
         let max = 0;
         // console.log(this.unallocated)
@@ -172,16 +163,17 @@
         // console.log(max)
         return max
       },
-      unallocatedY(max, element) {
-        return (max-element.h)/2 + 100
-      },
+      // unallocatedY(max, element) {
+      //   return (max-element.h)/2 + 100
+      // },
       // unallocatedX() {
       //   // let start = JSON.parse(JSON.stringify(this.prevX))
       //   this.prevX += 20
       //   // element
       //   // return this.prevX
       // }
-    }
+    // },
+  }
     // computed: {
     //
     // },
@@ -235,7 +227,8 @@
   .vdr {
       border: 2px SOLID #CCAAEE;
       background: #CCDDFF;
-      border-radius: 25px;
+      border-radius: 5px;
       text-align: center;
+      font-size: 50%;
     }
 </style>

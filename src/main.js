@@ -11,8 +11,12 @@ import VueDraggableResizable from 'vue-draggable-resizable'
 // optionally import default styles
 import './components/vuedraggable.css'
 
-
+import login from './components/login.vue'
+import register from './components/register.vue'
+import dashboard from './components/dashboard.vue'
+import store from './store.js'
 import firebase from 'firebase/app'
+import 'firebase/auth'
 import 'firebase/firestore'
 
 import { firestorePlugin } from 'vuefire'
@@ -23,8 +27,13 @@ Vue.use(Buefy)
 Vue.use(VueRouter)
 
 firebase.initializeApp({
-  projectId: 'spaceallocation311',
-  databaseURL: 'https://spaceallocation311.firebaseio.com'
+  apiKey: "AIzaSyBQoZ4XZN0hggzkmbV2UAImAI0DPikC6go",
+  authDomain: "spaceallocation311.firebaseapp.com",
+  databaseURL: "https://spaceallocation311.firebaseio.com",
+  projectId: "spaceallocation311",
+  storageBucket: "spaceallocation311.appspot.com",
+  messagingSenderId: "1015509067477",
+  appId: "1:1015509067477:web:22ccf2bf88c29d318fe45c"
 })
 export const db = firebase.firestore()
 
@@ -37,10 +46,36 @@ const routes =[{
   name: 'Level 2',
   path: '/level2',
   component: Level2
+},
+{
+  name: 'register',
+  path:'/register',
+  component: register
+},
+{
+  name: 'login',
+  path:'/login',
+  component: login
+},
+{
+  name:'dashboard',
+  path:'/dashboard',
+  component: dashboard,
+  //meta:{
+    //requiresAuth: true
+  //}
 }]
 
 const router = new VueRouter({routes, mode: 'history'})
-
+//export default router
+/*router.beforeEach(async (to, from, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  if (requiresAuth && !await firebase.getCurrentUser()){
+    next('login');
+  }else{
+    next();
+  }
+});*/
 Vue.config.productionTip = false
 
 // let app 
@@ -52,9 +87,24 @@ Vue.config.productionTip = false
 //   }
 // })
 
+///*
+firebase.auth().onAuthStateChanged(user => {
+  store.dispatch("fetchUser", user);
+});
+//*/
+/*firebase.getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+      const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+          unsubscribe();
+          resolve(user);
+      }, reject);
+  })
+};*/
+
 new Vue({
   el: '#app',
   router,
+  store,
   render: h => h(App)
   }).$mount('#app')
 

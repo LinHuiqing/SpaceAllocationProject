@@ -22,6 +22,9 @@
                     Level 2
                 </b-navbar-item>
             </b-navbar-dropdown> -->
+            <!--router-link to="/login">Level 1</router-link>
+            <router-link to="/register">Level 2</router-link>
+            <router-link to="/dashboard">Level 1</router-link-->
             <router-link to="/level1">Level 1</router-link>
             <router-link to="/level2">Level 2</router-link>
         </template>

@@ -27,14 +27,25 @@
       </nav>
       <app-nav></app-nav>
       <section>
+        <div>
+          <b-button @click='decrement'>-</b-button>
+          <p>{{count}}</p>
+          <b-button @click='increment'>+</b-button>
+        </div>
+      </section>
+      <section>
         <div class="tile is-parent">
           <article class="tile is-child notification is-white">
             <p class="title">Map</p>
             <p class="subtitle">Campus Centre Level 1</p>
-            <div ref="map_image">
+            <div ref="map_image" :style="{ position: 'relative'}">
               <figure class="image">
                 <img src="./assets/capstone1.jpg">
               </figure>
+              <vue-draggable-resizable v-for="element in unallocated" :key="element.id" :x="element.x" :y="element.y" :w="calculateProjWidth(element.rawW)" :h="calculateProjWidth(element.rawH)" :resizable.sync="resizable" :style="{ transform: 'rotate('+calculateProjAngle(element.angle)+'turn)'}">
+                <p>Group {{element.group_no}}</p>
+                <p>Name: {{element.title}}</p>
+              </vue-draggable-resizable>
             </div>
             <div class="buttons">
               <b-button style="width: 200px; left: 20px top: 20px" type="is-success">Save Layout</b-button>
@@ -68,6 +79,8 @@
   // import dbtry from './components/dbtry'
   import VueDraggableResizable from 'vue-draggable-resizable'
   import './components/vuedraggable.css'
+  // import store from './store'
+  // import { mapState } from 'vuex'
   // import navigationa from './components/navigation'
   // import Moveable from "vue-moveable";
 
@@ -81,31 +94,13 @@
     },
     data() {
       return {
-        moveable: {
-        draggable: true,
-        throttleDrag: 1,
-        resizable: false,
-        throttleResize: 1,
-        keepRatio: false,
-        scalable: true,
-        throttleScale: 0.01,
-        rotatable: true,
-        throttleRotate: 0.2,
-        pinchable: true,
-        origin: false
-      },
-      states: {
-        scalable: "Scalable",
-        resizable: "Resizable",
-        warpable: "Warpable"
-      },
-      currentState: "scalable",
         unallocated: [
           {
             x: 20,
             y: 0,
             rawW: 2,
             rawH: 2,
+            angle: 30,
             group_no:7,
             title: "drones"
           }, {
@@ -113,6 +108,7 @@
             y: 140,
             rawW: 2,
             rawH: 2,
+            angle: 45,
             group_no:3,
             title: "healthcare"
           }, {
@@ -120,6 +116,7 @@
             y: 260,
             rawW: 2,
             rawH: 2,
+            angle: 0,
             group_no: 12,
             title: "software"
           }
@@ -128,10 +125,11 @@
         prevX: 20,
         offsetX: 20,
         isActive: true,
-        unit: 0,
+        unit: 1,
         scale: 43,
+        containers: [
 
-        // unallocatedY: 0
+        ]
       }
     },
     mounted() {
@@ -141,15 +139,30 @@
     destroyed() {
       window.addEventListener("resize", this.calculateWidth);
     },
+    computed: {
+      count() {
+        return this.$store.state.allocation.count
+      }
+    },
     methods: {
+      increment () {
+        // console.log("increment");
+        this.$store.commit('allocation/increment')
+      },
+      decrement () {
+        // console.log("decrement");
+        this.$store.commit('allocation/decrement')
+      },
       calculateWidth() {
         this.$nextTick(function() {
           this.unit = this.$refs.map_image.clientWidth/this.scale;
         })
-
       },
       calculateProjWidth(width) {
         return width * this.unit;
+      },
+      calculateProjAngle(angle) {
+        return angle/360;
       },
       heightOfSpace() {
         let max = 0;
@@ -173,7 +186,8 @@
       //   // return this.prevX
       // }
     // },
-  }
+  },
+
     // computed: {
     //
     // },

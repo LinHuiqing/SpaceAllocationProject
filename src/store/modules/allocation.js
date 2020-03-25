@@ -3,7 +3,9 @@
 // initial state
 // shape: [{ id, quantity }]
 const state = {
-  count: 0
+  count: 0,
+  allocation: null,
+  unallocated: null
   // items: [],
   // checkoutStatus: null
 }

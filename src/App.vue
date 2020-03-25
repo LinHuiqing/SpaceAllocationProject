@@ -47,7 +47,7 @@
                   <ul class="collection with-header">
                     <li class="collection-header"><h4>Groups</h4></li>
                     <vue-draggable-resizable v-for="student in students" v-bind:key="student.id"
-                    class="collection-item" :resizable.sync="resizable">
+                    class="collection-item" :w="student.width" :h="student.length" :resizable.sync="resizable">
                     <p>{{student.group_theme}}</p>
                     <p>Group {{student.student_group}}</p>
                     </vue-draggable-resizable>

@@ -2,7 +2,6 @@ import Vue from 'vue'
 import App from './App.vue'
 import Level2 from './components/Level2.vue'
 import Level1 from './components/Level1.vue'
-// const fb = require('./firebaseConfig.js')
 import VueRouter from 'vue-router'
 
 import Buefy from 'buefy'
@@ -12,21 +11,21 @@ import VueDraggableResizable from 'vue-draggable-resizable'
 import './components/vuedraggable.css'
 
 
-import firebase from 'firebase/app'
-import 'firebase/firestore'
+// import firebase from 'firebase/app'
+// import 'firebase/firestore'
 
-import { firestorePlugin } from 'vuefire'
-Vue.use(firestorePlugin)
+// import { firestorePlugin } from 'vuefire'
+// Vue.use(firestorePlugin)
 
 Vue.component('vue-draggable-resizable', VueDraggableResizable)
 Vue.use(Buefy)
 Vue.use(VueRouter)
 
-firebase.initializeApp({
-  projectId: 'spaceallocation311',
-  databaseURL: 'https://spaceallocation311.firebaseio.com'
-})
-export const db = firebase.firestore()
+// firebase.initializeApp({
+//   projectId: 'spaceallocation311',
+//   databaseURL: 'https://spaceallocation311.firebaseio.com'
+// })
+// export const db = firebase.firestore()
 
 const routes =[{
   name: 'Level 1',

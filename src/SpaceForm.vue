@@ -88,6 +88,8 @@
 
                   <SizeSelectionRow></SizeSelectionRow>
 
+                  <TablePedestalRow></TablePedestalRow>
+
                   <PowerAVRow></PowerAVRow>
 
                   <OtherDetailsRow></OtherDetailsRow>
@@ -110,13 +112,14 @@
 
 <script>
 import SizeSelectionRow from './components/space_form/SizeSelectionRow.vue';
+import TablePedestalRow from './components/space_form/TablePedestalRow.vue';
 import PowerAVRow from './components/space_form/PowerAVRow.vue';
 import OtherDetailsRow from './components/space_form/OtherDetailsRow.vue';
 
 export default {
   name: "SpaceForm",
   components: {
-    SizeSelectionRow, PowerAVRow, OtherDetailsRow
+    SizeSelectionRow, TablePedestalRow, PowerAVRow, OtherDetailsRow
   }
 }
 </script>

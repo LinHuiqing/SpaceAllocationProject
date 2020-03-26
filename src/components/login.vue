@@ -3,7 +3,7 @@
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div class="card">
-          <div class="card-header">login</div>
+          <div class="card-header">Login</div>
           <div class="card-body">
             <div v-if="error" class="alert alert-danger">{{error}}</div>
             <form action="#" @submit.prevent="submit">
@@ -41,7 +41,8 @@
 
               <div class="form-group row mb-0">
                 <div class="col-md-8 offset-md-4">
-                  <button type="submit" class="btn btn-primary">login</button>
+                  <button type="submit" class="btn btn-primary">Login</button>
+                  
                 </div>
               </div>
             </form>
@@ -56,28 +57,28 @@
 import firebase from "firebase";
 
 export default {
-    name: 'login',
-    data() {
-        return {
-            form: {
-            email: "",
-            password: ""
-            },
-            error: null
-        };
-    },
-    methods: {
-        submit() {
-            firebase
-            .auth()
-            .signInWithEmailAndPassword(this.form.email, this.form.password)
-            .then(data => {
-                this.$router.replace({ name: "dashboard" });
-            })
-            .catch(err => {
-                this.error = err.message;
-            });
-        }
+  name:'login',
+  data() {
+    return {
+      form: {
+        email: "",
+        password: ""
+      },
+      error: null
+    };
+  },
+  methods: {
+    submit() {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.form.email, this.form.password)
+        .then(() => {
+          this.$router.replace({ name: "Dashboard" });
+        })
+        .catch(err => {
+          this.error = err.message;
+        });
     }
+  }
 };
 </script>

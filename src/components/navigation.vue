@@ -1,6 +1,8 @@
 <template>
     <b-navbar>
         <template slot="brand">
+            
+            <router-link to="/" class="navbar-brand"></router-link>
             <b-navbar-item tag="router-link" :to="{ path: '/' }">
                 <img
                     src="https://raw.githubusercontent.com/buefy/buefy/dev/static/img/buefy-logo.png"
@@ -27,16 +29,23 @@
             <router-link to="/dashboard">Level 1</router-link-->
             <router-link to="/level1">Level 1</router-link>
             <router-link to="/level2">Level 2</router-link>
+            
         </template>
 
         <template slot="end">
+            <template v-if="user.loggedIn">
+                <div class="nav-item">{{user.data.displayName}}</div>
+                <li class="nav-item">
+                    <a class="nav-link" @click.prevent="signOut">Sign out</a>
+                </li>
+            </template>
             <b-navbar-item tag="div">
                 <div class="buttons">
-                    <a class="button is-primary">
-                        <strong>Sign up</strong>
+                    <a class="button is-light">
+                        <router-link to="register" class="nav-link">Sign up</router-link>
                     </a>
                     <a class="button is-light">
-                        Log in
+                        <router-link to="login" class="nav-link">Log in</router-link>
                     </a>
                 </div>
             </b-navbar-item>
@@ -44,9 +53,31 @@
     </b-navbar>
 </template>
 
+
 <script>
+import { mapGetters } from "vuex";
+import * as firebase from 'firebase';
+import 'firebase/auth';
 export default {
-    name: 'navigation'
-}
+  name: 'navigation',
+  computed: {
+    // map `this.user` to `this.$store.getters.user`
+    ...mapGetters({
+      user: "user"
+    })
+  },
+  methods: {
+    signOut() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.$router.replace({
+            name: "home"
+          });
+        });
+    }
+  }
+};
 </script>
 

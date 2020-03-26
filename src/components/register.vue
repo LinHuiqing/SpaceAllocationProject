@@ -3,7 +3,7 @@
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div class="card">
-          <div class="card-header">register</div>
+          <div class="card-header">Register</div>
           <div class="card-body">
             <div v-if="error" class="alert alert-danger">{{error}}</div>
             <form action="#" @submit.prevent="submit">
@@ -58,7 +58,7 @@
 
               <div class="form-group row mb-0">
                 <div class="col-md-8 offset-md-4">
-                  <button type="submit" class="btn btn-primary">register</button>
+                  <button type="submit" class="btn btn-primary">Register</button>
                 </div>
               </div>
             </form>
@@ -71,36 +71,36 @@
 
 
 <script>
-import firebase from "firebase/app";
-
+import * as firebase from 'firebase';
+import 'firebase/auth';
 export default {
-    name:"register",
-    data() {
+  name: 'Register',
+  data() {
     return {
-        form: {
+      form: {
         name: "",
         email: "",
         password: ""
-        },
-        error: null
+      },
+      error: null
     };
-    },
-    methods: {
+  },
+  methods: {
     submit() {
-        firebase
+      firebase
         .auth()
         .createUserWithEmailAndPassword(this.form.email, this.form.password)
         .then(data => {
-            data.user
+          data.user
             .updateProfile({
-                displayName: this.form.name
+              displayName: this.form.name
             })
             .then(() => {});
         })
         .catch(err => {
-            this.error = err.message;
+          this.error = err.message;
         });
     }
-    }
-    };
+  }
+};
 </script>

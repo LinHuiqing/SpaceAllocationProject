@@ -21,18 +21,7 @@ Vue.component('vue-draggable-resizable', VueDraggableResizable)
 Vue.use(Buefy)
 Vue.config.productionTip = false
 
-const configoptions={
-  apiKey: "AIzaSyBQoZ4XZN0hggzkmbV2UAImAI0DPikC6go",
-  authDomain: "spaceallocation311.firebaseapp.com",
-  databaseURL: "https://spaceallocation311.firebaseio.com",
-  projectId: "spaceallocation311",
-  storageBucket: "spaceallocation311.appspot.com",
-  messagingSenderId: "1015509067477",
-  appId: "1:1015509067477:web:22ccf2bf88c29d318fe45c"
-}
-//export const db = firebase.firestore()
 
-firebase.initializeApp(configoptions);
 
 
 
@@ -65,4 +54,3 @@ new Vue({
   store,
   render: h => h(App)
   }).$mount('#app');
-

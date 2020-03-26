@@ -1,6 +1,8 @@
 <template>
     <b-navbar>
         <template slot="brand">
+            
+            <router-link to="/" class="navbar-brand"></router-link>
             <b-navbar-item tag="router-link" :to="{ path: '/' }">
                 <img
                     src="https://raw.githubusercontent.com/buefy/buefy/dev/static/img/buefy-logo.png"
@@ -9,30 +11,41 @@
             </b-navbar-item>
         </template>
         <template slot="start">
-            <b-navbar-item href="#">
+            <!-- <b-navbar-item href="#">
                 Home
             </b-navbar-item>
-            <b-navbar-item href="#">
-                Documentation
-            </b-navbar-item>
-            <b-navbar-dropdown label="Info">
+            <b-navbar-item router-link to="/level1">trial</b-navbar-item>
+            <b-navbar-dropdown label="Map">
+                <b-navbar-item router-link to="/level2">Level 1</b-navbar-item>
                 <b-navbar-item href="#">
-                    About
+                    Level 1
                 </b-navbar-item>
-                <b-navbar-item href="#">
-                    Contact
+                <b-navbar-item tag="router-link" :to="{ name: 'level2' }">
+                    Level 2
                 </b-navbar-item>
-            </b-navbar-dropdown>
+            </b-navbar-dropdown> -->
+            <!--router-link to="/login">Level 1</router-link>
+            <router-link to="/register">Level 2</router-link>
+            <router-link to="/dashboard">Level 1</router-link-->
+            <router-link to="/level1">Level 1</router-link>
+            <router-link to="/level2">Level 2</router-link>
+            
         </template>
 
         <template slot="end">
+            <template v-if="user.loggedIn">
+                <div class="nav-item">{{user.data.displayName}}</div>
+                <li class="nav-item">
+                    <a class="nav-link" @click.prevent="signOut">Sign out</a>
+                </li>
+            </template>
             <b-navbar-item tag="div">
                 <div class="buttons">
-                    <a class="button is-primary">
-                        <strong>Sign up</strong>
+                    <a class="button is-light">
+                        <router-link to="register" class="nav-link">Sign up</router-link>
                     </a>
                     <a class="button is-light">
-                        Log in
+                        <router-link to="login" class="nav-link">Log in</router-link>
                     </a>
                 </div>
             </b-navbar-item>
@@ -40,9 +53,31 @@
     </b-navbar>
 </template>
 
+
 <script>
+import { mapGetters } from "vuex";
+import * as firebase from 'firebase';
+import 'firebase/auth';
 export default {
-    
-}
+  name: 'navigation',
+  computed: {
+    // map `this.user` to `this.$store.getters.user`
+    ...mapGetters({
+      user: "user"
+    })
+  },
+  methods: {
+    signOut() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.$router.replace({
+            name: "home"
+          });
+        });
+    }
+  }
+};
 </script>
 

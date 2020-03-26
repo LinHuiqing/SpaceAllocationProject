@@ -1,7 +1,7 @@
 <template>
     <b-navbar>
         <template slot="brand">
-            
+
             <router-link to="/" class="navbar-brand"></router-link>
             <b-navbar-item tag="router-link" :to="{ path: '/' }">
                 <img
@@ -29,7 +29,7 @@
             <router-link to="/dashboard">Level 1</router-link-->
             <router-link to="/level1">Level 1</router-link>
             <router-link to="/level2">Level 2</router-link>
-            
+
         </template>
 
         <template slot="end">
@@ -55,16 +55,16 @@
 
 
 <script>
-import { mapGetters } from "vuex";
+// import { mapGetters } from "vuex";
 import * as firebase from 'firebase';
 import 'firebase/auth';
 export default {
   name: 'navigation',
   computed: {
     // map `this.user` to `this.$store.getters.user`
-    ...mapGetters({
-      user: "user"
-    })
+    user() {
+      return this.$store.state.login.user
+    }
   },
   methods: {
     signOut() {
@@ -80,4 +80,3 @@ export default {
   }
 };
 </script>
-

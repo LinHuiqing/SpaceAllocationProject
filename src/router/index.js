@@ -2,9 +2,9 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Level2 from '../components/Level2.vue'
 import Level1 from '../components/Level1.vue'
-import Login from '../components/Login.vue'
-import Register from '../components/Register.vue'
-import Dashboard from '../components/Dashboard.vue'
+import Login from '../components/login.vue'
+import Register from '../components/register.vue'
+import Dashboard from '../components/dashboard.vue'
 import firebase from 'firebase'
 
 Vue.use(VueRouter)
@@ -59,4 +59,3 @@ router.beforeEach((to,from,next)=>{
 
 
 export default router
-

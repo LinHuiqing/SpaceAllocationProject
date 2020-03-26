@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import counter from './modules/counter'
 import allocation from './modules/allocation'
+import login from './modules/login'
 // import cart from './modules/cart'
 // import products from './modules/products'
 // import createLogger from '../../../src/plugins/logger'
@@ -12,8 +13,9 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    counter, 
-    allocation
+    counter,
+    allocation,
+    login
     // cart,
     // products
   },

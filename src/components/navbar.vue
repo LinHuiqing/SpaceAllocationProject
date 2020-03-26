@@ -38,15 +38,17 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+// import { mapGetters } from "vuex";
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 export default {
   computed: {
     // map `this.user` to `this.$store.getters.user`
-    ...mapGetters({
-      user: "user"
-    })
+    user() {
+      console.log("HIIIIIIIIIIIIIII");
+      console.log(this.$store.state.login.user);
+      return this.$store.state.login.user
+    }
   },
   methods: {
     signOut() {

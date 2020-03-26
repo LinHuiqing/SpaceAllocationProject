@@ -42,9 +42,10 @@
               <figure class="image">
                 <img src="./assets/capstone1.jpg">
               </figure>
-              <vue-draggable-resizable v-for="element in unallocated" :key="element.id" :x="element.x" :y="element.y" :w="calculateProjWidth(element.rawW)" :h="calculateProjWidth(element.rawH)" :resizable.sync="resizable" :style="{ transform: 'rotate('+calculateProjAngle(element.angle)+'turn)'}">
-                <p>Group {{element.group_no}}</p>
-                <p>Name: {{element.title}}</p>
+              <vue-draggable-resizable v-for="cluster in getClusters" :key="cluster.id" :x="cluster.coordX" :y="cluster.coordY" :w="calculateProjWidth(cluster.length)" :h="calculateProjWidth(cluster.breadth)" :resizable.sync="resizable" :style="{ transform: 'rotate('+calculateProjAngle(cluster.angle)+'turn)'}">
+                <p>Group {{cluster.serial_no}}</p>
+                <!-- <p>Name: {{cluster.theme}}</p> -->
+                <p>id: {{cluster.id}}</p>
               </vue-draggable-resizable>
             </div>
             <div class="buttons">
@@ -54,11 +55,15 @@
           <article class="tile is-child notification is-light is-2">
             <p class="title">Groups to be Allocated</p>
             <p class="subtitle">Drag and Drop on to Map</p>
-            <div :style="{ height: heightOfSpace() + 'px', position: 'relative' }">
-              <vue-draggable-resizable v-for="element in unallocated" :key="element.id" :x="element.x" :y="element.y" :w="calculateProjWidth(element.rawW)" :h="calculateProjWidth(element.rawH)" :resizable.sync="resizable">
+            <div :style="{ position: 'relative' }">
+              <vue-draggable-resizable v-for="group in getGroups" :key="group.id" :x="group.coordX" :y="group.coordY" :w="calculateProjWidth(group.length)" :h="calculateProjWidth(group.breadth)" :resizable.sync="resizable" :style="{ transform: 'rotate('+calculateProjAngle(group.angle)+'turn)'}">
+                <p>Group {{group.serial_no}}</p>
+                <p>id: {{group.id}}</p>
+              </vue-draggable-resizable>
+              <!-- <vue-draggable-resizable v-for="element in unallocated" :key="element.id" :x="element.x" :y="element.y" :w="calculateProjWidth(element.rawW)" :h="calculateProjWidth(element.rawH)" :resizable.sync="resizable" :style="{ transform: 'rotate('+calculateProjAngle(40)+'turn)'}" @click="this.calculateWidth()">
                 <p>Group {{element.group_no}}</p>
                 <p>Name: {{element.title}}</p>
-              </vue-draggable-resizable>
+              </vue-draggable-resizable> -->
             </div>
           </article>
         </div>
@@ -79,6 +84,7 @@
   // import dbtry from './components/dbtry'
   import VueDraggableResizable from 'vue-draggable-resizable'
   import './components/vuedraggable.css'
+  // import db from './components/firebaseInit'
   // import store from './store'
   // import { mapState } from 'vuex'
   // import navigationa from './components/navigation'
@@ -94,43 +100,60 @@
     },
     data() {
       return {
-        unallocated: [
-          {
-            x: 20,
-            y: 0,
-            rawW: 2,
-            rawH: 2,
-            angle: 30,
-            group_no:7,
-            title: "drones"
-          }, {
-            x: 20,
-            y: 140,
-            rawW: 2,
-            rawH: 2,
-            angle: 45,
-            group_no:3,
-            title: "healthcare"
-          }, {
-            x: 20,
-            y: 260,
-            rawW: 2,
-            rawH: 2,
-            angle: 0,
-            group_no: 12,
-            title: "software"
-          }
-        ],
+        // unallocated: [
+        //   {
+        //     x: 20,
+        //     y: 0,
+        //     rawW: 2,
+        //     rawH: 2,
+        //     angle: 30,
+        //     group_no:7,
+        //     title: "drones"
+        //   }, {
+        //     x: 20,
+        //     y: 140,
+        //     rawW: 2,
+        //     rawH: 2,
+        //     angle: 45,
+        //     group_no:3,
+        //     title: "healthcare"
+        //   }, {
+        //     x: 20,
+        //     y: 260,
+        //     rawW: 2,
+        //     rawH: 2,
+        //     angle: 0,
+        //     group_no: 12,
+        //     title: "software"
+        //   }
+        // ],
         resizable: false,
         prevX: 20,
         offsetX: 20,
         isActive: true,
         unit: 1,
-        scale: 43,
-        containers: [
-
-        ]
+        scale: 55,
+        // containers: [
+        //
+        // ]
       }
+    },
+    created(){
+      this.$store.dispatch('allocation/getGroupsFBAsync')
+      this.$store.dispatch('allocation/getClustersFBAsync')
+      // db.collection('students').get().then(querySnapshot => {
+      //   querySnapshot.forEach(doc =>{
+      //     const data ={
+      //       'id': doc.id,
+      //       'student_group':doc.data().number,
+      //       'group_theme':doc.data().theme,
+      //       'length': doc.data().length,
+      //       'width':doc.data().width
+      //
+      //     }
+      //     this.students.push(data)
+      //   })
+      // })
     },
     mounted() {
       window.addEventListener("resize", this.calculateWidth);
@@ -141,17 +164,23 @@
     },
     computed: {
       count() {
-        return this.$store.state.allocation.count
+        return this.$store.state.counter.count
+      },
+      getGroups() {
+        return this.$store.state.allocation.unallocated.clusterGroup
+      },
+      getClusters() {
+        return this.$store.state.allocation.clusters.clusterGroup
       }
     },
     methods: {
       increment () {
         // console.log("increment");
-        this.$store.commit('allocation/increment')
+        this.$store.commit('counter/increment')
       },
       decrement () {
         // console.log("decrement");
-        this.$store.commit('allocation/decrement')
+        this.$store.commit('counter/decrement')
       },
       calculateWidth() {
         this.$nextTick(function() {

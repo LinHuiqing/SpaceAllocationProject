@@ -11,18 +11,17 @@ import './components/vuedraggable.css'
 
 import * as firebase from 'firebase'
 import 'firebase/auth'
-import store from "./store"
 
 Vue.component('vue-draggable-resizable', VueDraggableResizable)
 Vue.use(Buefy)
 Vue.config.productionTip = false
 
 firebase.auth().onAuthStateChanged(user => {
-  store.dispatch("fetchUser", user);
+  store.dispatch("login/fetchUser", user);
 });
 
 new Vue({
-  el: '#app',
+  // el: '#app',
   router,
   store,
   render: h => h(App)

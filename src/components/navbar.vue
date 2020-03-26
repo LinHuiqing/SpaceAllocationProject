@@ -15,6 +15,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto"></ul>
+
         <ul class="navbar-nav ml-auto">
           <template v-if="user.loggedIn">
             <div class="nav-item">{{user.data.displayName}}</div>
@@ -35,13 +36,15 @@
     </div>
   </nav>
 </template>
+
 <script>
 import { mapGetters } from "vuex";
-import firebase from "firebase";
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
 export default {
   computed: {
+    // map `this.user` to `this.$store.getters.user`
     ...mapGetters({
-// map `this.user` to `this.$store.getters.user`
       user: "user"
     })
   },

@@ -25,13 +25,13 @@ export default {
 
 <template>
     <div>
-        <section>
+        <!-- <section>
             <div>
             <b-button @click='decrement'>-</b-button>
             <p>{{count}}</p>
             <b-button @click='increment'>+</b-button>
             </div>
-        </section>
+        </section> -->
         <section>
             <div class="tile is-parent">
             <article class="tile is-child notification is-white">

@@ -43,7 +43,7 @@
               <div class="form-group row mb-0">
                 <div class="col-md-8 offset-md-4">
                   <button type="submit" class="btn btn-primary">Login</button>
-                  
+                  "check"
                 </div>
               </div>
             </form>
@@ -60,6 +60,7 @@ import firebase from "firebase";
 export default {
   name:'login',
   data() {
+    
     return {
       form: {
         email: "",
@@ -74,7 +75,7 @@ export default {
         .auth()
         .signInWithEmailAndPassword(this.form.email, this.form.password)
         .then(() => {
-          this.$router.push("/level1");
+          this.$router.push("/dashboard");
         })
         .catch(err => {
           this.error = err.message;

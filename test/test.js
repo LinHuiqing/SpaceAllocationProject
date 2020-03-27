@@ -978,4 +978,113 @@ describe('fault-based testing', function() {
       assert.equal(isPermutation(inputProjects.getCluster(), outputProjects.getCluster()), false);
     });
   });
+  describe('if extra space, can anyhow', function() {
+    it('1 cluster', function() {
+      let inputClusters = new allocationModule.SpaceList([
+        {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 2,
+          'breadth': 2,
+          'coordX': 0,
+          'coordY': 0,
+          'angle': 0,
+          'level': 1
+        }
+      ], "cluster");
+      let inputProjects = new allocationModule.SpaceList([
+        {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': -1
+        },
+        {
+          'id': 'doc.id',
+          'serial_no': 1,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': -1
+        },
+        {
+          'id': 'doc.id',
+          'serial_no': 2,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': -1
+        },
+        {
+          'id': 'doc.id',
+          'serial_no': 3,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': -1
+        }
+      ], "project");
+      allocationModule.allocateSpace(inputClusters, inputProjects);
+      let outputProjects = new allocationModule.SpaceList([
+        {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': 0
+        },
+        {
+          'id': 'doc.id',
+          'serial_no': 1,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 1,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': 0
+        },
+        {
+          'id': 'doc.id',
+          'serial_no': 2,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 1,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': 0
+        }, {
+          'id': 'doc.id',
+          'serial_no': 3,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 1,
+          'coordY': 1,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': 0
+        }
+      ], "project");
+      assert.equal(isPermutation(inputProjects.getCluster(), outputProjects.getCluster()), true);
+    });
+  });
 });

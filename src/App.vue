@@ -28,8 +28,8 @@
       <!-- <router-link to="/level1">Level 1</router-link>
       <router-link to="/level2">Level 2</router-link> -->
       <app-nav></app-nav>
-      <!--router-view></router-view>
-      <template v-if="user.loggedIn">
+      <router-view></router-view>
+      <!--<template v-if="user.loggedIn">
         <admin/>
       </template> -->
       

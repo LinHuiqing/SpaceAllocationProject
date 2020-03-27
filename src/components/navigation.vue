@@ -10,7 +10,7 @@
                 >
             </b-navbar-item>
         </template>
-        <template slot="start" v-if="user.loggedIn">
+        <template slot="start" v-if="user.loggedIn && user.data.displayName=='tryme'">
             <router-link to="/level1" class="navbar-item">Level 1</router-link>
             <router-link to="/level2" class="navbar-item">Level 2</router-link>
             <!-- <router-link to="/admin" class="navbar-item"></router-link> -->
@@ -33,7 +33,7 @@
                     </router-link>
                 </div>
             </b-navbar-item>
-            <template v-if="user.loggedIn">
+            <template v-else>
                 <div class="nav-item">{{user.data.displayName}}</div>
                 <li class="nav-item">
                     <a class="nav-link"> 

@@ -28,10 +28,10 @@
       <!-- <router-link to="/level1">Level 1</router-link>
       <router-link to="/level2">Level 2</router-link> -->
       <app-nav></app-nav>
+      <!--router-view></router-view>
       <template v-if="user.loggedIn">
         <admin/>
-      </template>
-      <router-view></router-view>
+      </template> -->
       
       <footer class="footer">
         <div class="content has-text-centered">
@@ -49,7 +49,7 @@
   //import VueDraggableResizable from 'vue-draggable-resizable'
   //import './components/vuedraggable.css'
   import navigationa from './components/navigation'
-  import admin from './components/adminview'
+  //import admin from './components/adminview'
 
   export default {
     name: 'app',
@@ -61,7 +61,7 @@
     },
     components: {
       'app-nav': navigationa,
-      admin
+      //admin
     }
  }
 </script>

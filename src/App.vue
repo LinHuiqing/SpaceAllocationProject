@@ -8,6 +8,7 @@
             </h1>
             <h2 class="subtitle">
               Map
+              <!--dbtry /-->
             </h2>
             <!-- <dbtry /> -->
           </div>
@@ -25,7 +26,10 @@
           </a>
         </div>
       </nav>
+      <!-- <router-link to="/level1">Level 1</router-link>
+      <router-link to="/level2">Level 2</router-link> -->
       <app-nav></app-nav>
+      <router-view></router-view>
       <section>
         <div>
           <b-button @click='decrement'>-</b-button>
@@ -81,79 +85,29 @@
 </template>
 
 <script>
-  // import dbtry from './components/dbtry'
   import VueDraggableResizable from 'vue-draggable-resizable'
   import './components/vuedraggable.css'
-  // import db from './components/firebaseInit'
-  // import store from './store'
-  // import { mapState } from 'vuex'
-  // import navigationa from './components/navigation'
-  // import Moveable from "vue-moveable";
+  import navigationa from './components/navigation'
 
   export default {
     name: 'app',
     components: {
       VueDraggableResizable,
-      // Moveable,
-      // dbtry,
-      // 'app-nav': navigationa
+      'app-nav': navigationa
     },
     data() {
       return {
-        // unallocated: [
-        //   {
-        //     x: 20,
-        //     y: 0,
-        //     rawW: 2,
-        //     rawH: 2,
-        //     angle: 30,
-        //     group_no:7,
-        //     title: "drones"
-        //   }, {
-        //     x: 20,
-        //     y: 140,
-        //     rawW: 2,
-        //     rawH: 2,
-        //     angle: 45,
-        //     group_no:3,
-        //     title: "healthcare"
-        //   }, {
-        //     x: 20,
-        //     y: 260,
-        //     rawW: 2,
-        //     rawH: 2,
-        //     angle: 0,
-        //     group_no: 12,
-        //     title: "software"
-        //   }
-        // ],
         resizable: false,
         prevX: 20,
         offsetX: 20,
         isActive: true,
         unit: 1,
         scale: 55,
-        // containers: [
-        //
-        // ]
       }
     },
     created(){
       this.$store.dispatch('allocation/getGroupsFBAsync')
       this.$store.dispatch('allocation/getClustersFBAsync')
-      // db.collection('students').get().then(querySnapshot => {
-      //   querySnapshot.forEach(doc =>{
-      //     const data ={
-      //       'id': doc.id,
-      //       'student_group':doc.data().number,
-      //       'group_theme':doc.data().theme,
-      //       'length': doc.data().length,
-      //       'width':doc.data().width
-      //
-      //     }
-      //     this.students.push(data)
-      //   })
-      // })
     },
     mounted() {
       window.addEventListener("resize", this.calculateWidth);
@@ -175,11 +129,9 @@
     },
     methods: {
       increment () {
-        // console.log("increment");
         this.$store.commit('counter/increment')
       },
       decrement () {
-        // console.log("decrement");
         this.$store.commit('counter/decrement')
       },
       calculateWidth() {
@@ -192,78 +144,9 @@
       },
       calculateProjAngle(angle) {
         return angle/360;
-      },
-      heightOfSpace() {
-        let max = 0;
-        // console.log(this.unallocated)
-        for (const element of this.unallocated) {
-          // console.log(element.h)
-          if (element.h > max) {
-            max = element.h
-          }
-        }
-        // console.log(max)
-        return max
-      },
-      // unallocatedY(max, element) {
-      //   return (max-element.h)/2 + 100
-      // },
-      // unallocatedX() {
-      //   // let start = JSON.parse(JSON.stringify(this.prevX))
-      //   this.prevX += 20
-      //   // element
-      //   // return this.prevX
-      // }
-    // },
+      }
   },
-
-    // computed: {
-    //
-    // },
-    // mounted() {
-    //   this.offsetX = this.$refs.workspace.offsetLeft
-    //   this.offsetY = this.$refs.workspace.offsetTop
-    //   // this.element.y = computeCenterY(this.element)
-    // },
-    // methods: {
-    //   update(id, payload) {
-    //     this.elements = this.elements.map(item => {
-    //       if (item.id === id) {
-    //         return {
-    //           ...item,
-    //           ...payload
-    //         }
-    //       }
-    //       return item
-    //     })
-    //   },
-    //   getElementStyles(element) {
-    //     const styles = element.styles ? element.styles : {}
-    //     return {
-    //       width: `${element.width}px`,
-    //       height: `${element.height}px`,
-    //       ...styles
-    //     }
-    //   },
-    //   setSelected(id) {
-    //     this.selectedElement = id
-    //   },
-    //   calculateNextStartX(startX, width) {
-    //     this.prevX = startX + width + this.offsetX;
-    //     return startX;
-    //   },
-    //   computeCenterY(element) {
-    //     let max = 0;
-    //     for (let element in this.elements) {
-    //       if (element.height > max) {
-    //         max = element.height;
-    //       }
-    //     }
-    //     // this.element.y = max/2 + this.offsetY - element.height/2
-    //     return max/2 + this.offsetY - element.height/2
-    //   }
-    // }
-  }
+ }
 </script>
 
 <style>

@@ -9,6 +9,8 @@
     "test": "mocha"
   },
   "dependencies": {
+    "@firebase/app": "^0.6.0",
+    "@firebase/firestore": "^1.12.0",
     "buefy": "^0.8.12",
     "core-js": "^3.6.4",
     "es6-promise": "^4.2.8",
@@ -17,6 +19,11 @@
     "vue-draggable-resizable": "^2.1.0",
     "vue-firestore": "^0.3.30",
     "vue-moveable": "^1.6.1",
+    "firebase": "^7.12.0",
+    "firebase-admin": "^8.10.0",
+    "vue": "^2.6.11",
+    "vue-draggable-resizable": "^2.1.0",
+    "vue-firestore": "^0.3.30",
     "vue-router": "^3.1.6",
     "vuefire": "^2.2.1",
     "vuex": "^3.1.3"

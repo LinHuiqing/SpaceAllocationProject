@@ -18,9 +18,9 @@
                                 maxlength=2>
                             </b-input>
                         </b-field>
-                        <b-field label="Width" class="lmao">
+                        <b-field label="Breadth" class="lmao">
                             <b-input type="number"
-                                v-model="width"
+                                v-model="breadth"
                                 v-on:click="cancelPropogation"
                                 maxlength=2>
                             </b-input>

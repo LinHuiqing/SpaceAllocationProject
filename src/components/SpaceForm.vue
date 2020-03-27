@@ -3,13 +3,32 @@
         <p class="title">Request for space</p>
         <p class="subtitle">Use this form to request for space.</p>
 
-        <SizeSelectionRow></SizeSelectionRow>
+        <div class="row">
+          <form @submit.prevent="submitGroup" class="col s12">
+            <div class="row">
+              <div class="input-field col s12">
+                <input type="text" v-model="group_no" required>
+                <label>Capstone Group Number</label>
+              </div>
+            </div>
+            <SizeSelectionRow></SizeSelectionRow>
 
-        <PowerAVRow></PowerAVRow>
+           <PowerAVRow v-model="power_outlets"></PowerAVRow>
+            <button type="submit" class="btn">Submit</button>
+            <button><router-link to="/level1" class="btn grey">Cancel</router-link></button>
+          </form>
+        </div>
+
+        <!-- <SizeSelectionRow></SizeSelectionRow>
+
+        <PowerAVRow></PowerAVRow> -->
+        <button type="submit" class="btn">Submit</button>
+        <button><router-link to="/level1" class="btn grey">Cancel</router-link></button>
     </div>
 </template>
 
 <script>
+import db from './firebaseInit'
 import SizeSelectionRow from './space_form/SizeSelectionRow';
 import PowerAVRow from './space_form/PowerAVRow.vue';
 
@@ -17,6 +36,32 @@ export default {
   name: "SpaceForm",
   components: {
     SizeSelectionRow, PowerAVRow
+  },
+  data(){
+    return{
+      group_no: null,
+      length: null,
+      breadth: null,
+      power_outlets:null
+
+    }
+  },
+  methods:{
+    submitGroup(){
+      db.collection('students').add({
+        group_no: this.group_no,
+        length: this.length,
+        breadth:this.breadth,
+        power_outlets:this.power_outlets
+      })
+      .then(docRef =>{
+        console.log('Form submitted: ', docRef.id)
+        this.$router.push('/')
+      })
+      .catch(error => {
+        console.error('Error adding student: ', error)
+    })
   }
+}
 }
 </script>

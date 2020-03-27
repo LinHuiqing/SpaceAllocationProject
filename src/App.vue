@@ -101,10 +101,10 @@
         querySnapshot.forEach(doc =>{
           const data ={
             'id': doc.id,
-            'student_group':doc.data().number,
+            'student_group':doc.data().group_no,
             'group_theme':doc.data().theme,
             'length': doc.data().length,
-            'width':doc.data().width
+            'width':doc.data().breadth
 
           }
           this.students.push(data)

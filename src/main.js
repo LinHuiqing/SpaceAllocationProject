@@ -1,9 +1,9 @@
 import Vue from 'vue'
-import App from './App.vue'
+// import App from './App.vue'
 import Level2 from './components/Level2.vue'
 import Level1 from './components/Level1.vue'
 import VueRouter from 'vue-router'
-// import SpaceForm from './components/SpaceForm.vue'
+import SpaceForm from './components/SpaceForm.vue'
 
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
@@ -55,6 +55,6 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
-  render: h => h(App)
+  render: h => h(SpaceForm)
   }).$mount('#app')
 

@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import counter from './modules/counter'
 import allocation from './modules/allocation'
 import login from './modules/login'
+import form from './modules/form'
 // import cart from './modules/cart'
 // import products from './modules/products'
 // import createLogger from '../../../src/plugins/logger'
@@ -15,7 +16,8 @@ export default new Vuex.Store({
   modules: {
     counter,
     allocation,
-    login
+    login,
+    form
     // cart,
     // products
   },

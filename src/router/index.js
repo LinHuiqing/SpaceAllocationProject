@@ -5,6 +5,7 @@ import Level1 from '../components/Level1.vue'
 import Login from '../components/login.vue'
 import Register from '../components/register.vue'
 import Dashboard from '../components/dashboard.vue'
+import SpaceForm from '../components/SpaceForm.vue'
 import firebase from 'firebase'
 
 Vue.use(VueRouter)
@@ -44,6 +45,14 @@ const router = new VueRouter({
         meta:{
             requireAuth: true
         }
+    },
+    {
+      name: 'Space Form',
+      path: '/form',
+      component: SpaceForm,
+      // meta: {
+      //   requireAuth: true
+      // }
     }
 ]
 });

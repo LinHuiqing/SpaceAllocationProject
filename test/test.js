@@ -164,6 +164,232 @@ describe('algorithm', function() {
       assert.equal(isPermutation(inputProjects.getCluster(), outputProjects.getCluster()), true);
     });
   });
+  describe('complete fit', function() {
+    it('2 clusters', function() {
+      let inputClusters = new allocationModule.SpaceList([
+        {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 2,
+          'breadth': 2,
+          'coordX': 0,
+          'coordY': 0,
+          'angle': 0,
+          'level': 1
+        }, {
+          'id': 'doc.id',
+          'serial_no': 1,
+          'length': 2,
+          'breadth': 2,
+          'coordX': 0,
+          'coordY': 0,
+          'angle': 0,
+          'level': 1
+        }
+      ], "cluster");
+      let inputProjects = new allocationModule.SpaceList([
+        {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 2,
+          'breadth': 2,
+          'coordX': 0,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': -1
+        },
+        {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': -1
+        },
+        {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': -1
+        }, {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': -1
+        }
+      ], "project");
+      allocationModule.allocateSpace(inputClusters, inputProjects);
+      let outputProjects = new allocationModule.SpaceList([
+        {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 2,
+          'breadth': 2,
+          'coordX': 0,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': 0
+        },
+        {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': 1
+        },
+        {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 1,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': 1
+        }, {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 1,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': 1
+        }
+      ], "project");
+      assert.equal(isPermutation(inputProjects.getCluster(), outputProjects.getCluster()), true);
+    });
+  });
+  describe('groups in same cluster can be rearranged', function() {
+    it('1 cluster', function() {
+      let inputClusters = new allocationModule.SpaceList([
+        {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 2,
+          'breadth': 2,
+          'coordX': 0,
+          'coordY': 0,
+          'angle': 0,
+          'level': 1
+        }
+      ], "cluster");
+      let inputProjects = new allocationModule.SpaceList([
+        {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': -1
+        },
+        {
+          'id': 'doc.id',
+          'serial_no': 1,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': -1
+        },
+        {
+          'id': 'doc.id',
+          'serial_no': 2,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': -1
+        },
+        {
+          'id': 'doc.id',
+          'serial_no': 3,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': -1
+        }
+      ], "project");
+      allocationModule.allocateSpace(inputClusters, inputProjects);
+      let outputProjects = new allocationModule.SpaceList([
+        {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': 0
+        },
+        {
+          'id': 'doc.id',
+          'serial_no': 1,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 1,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': 0
+        },
+        {
+          'id': 'doc.id',
+          'serial_no': 2,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 1,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': 0
+        }, {
+          'id': 'doc.id',
+          'serial_no': 3,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 1,
+          'coordY': 1,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': 0
+        }
+      ], "project");
+      assert.equal(isPermutation(inputProjects.getCluster(), outputProjects.getCluster()), true);
+    });
+  });
   describe('partial fit (all same size)', function() {
     it('1 cluster', function() {
       let inputClusters = new allocationModule.SpaceList([
@@ -431,6 +657,325 @@ describe('algorithm', function() {
         }
       ], "project");
       assert.equal(isPermutation(inputProjects.getCluster(), outputProjects.getCluster()), true);
+    });
+  });
+});
+
+describe('fault-based testing', function() {
+  describe('input length does not equal output length', function() {
+    it('1 cluster', function() {
+      let inputClusters = new allocationModule.SpaceList([
+        {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 2,
+          'breadth': 2,
+          'coordX': 0,
+          'coordY': 0,
+          'angle': 0,
+          'level': 1
+        }
+      ], "cluster");
+      let inputProjects = new allocationModule.SpaceList([
+        {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': -1
+        },
+        {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': -1
+        },
+        {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': -1
+        }
+      ], "project");
+      allocationModule.allocateSpace(inputClusters, inputProjects);
+      let outputProjects = new allocationModule.SpaceList([
+        {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': 0
+        },
+        {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 1,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': 0
+        },
+        {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 1,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': 0
+        }, {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 1,
+          'coordY': 1,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': 0
+        }
+      ], "project");
+      assert.equal(isPermutation(inputProjects.getCluster(), outputProjects.getCluster()), false);
+    });
+  });  
+  describe('input groups does not equal output groups', function() {
+    it('1 cluster', function() {
+      let inputClusters = new allocationModule.SpaceList([
+        {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 2,
+          'breadth': 2,
+          'coordX': 0,
+          'coordY': 0,
+          'angle': 0,
+          'level': 1
+        }
+      ], "cluster");
+      let inputProjects = new allocationModule.SpaceList([
+        {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': -1
+        },
+        {
+          'id': 'doc.id',
+          'serial_no': 1,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': -1
+        },
+        {
+          'id': 'doc.id',
+          'serial_no': 2,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': -1
+        },
+        {
+          'id': 'doc.id',
+          'serial_no': 3,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': -1
+        }
+      ], "project");
+      allocationModule.allocateSpace(inputClusters, inputProjects);
+      let outputProjects = new allocationModule.SpaceList([
+        {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': 0
+        },
+        {
+          'id': 'doc.id',
+          'serial_no': 1,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 1,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': 0
+        },
+        {
+          'id': 'doc.id',
+          'serial_no': 2,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 1,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': 0
+        }, {
+          'id': 'doc.id',
+          'serial_no': 4,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 1,
+          'coordY': 1,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': 0
+        }
+      ], "project");
+      assert.equal(isPermutation(inputProjects.getCluster(), outputProjects.getCluster()), false);
+    });
+  });
+  describe('allocated to non-existent cluster', function() {
+    it('1 cluster', function() {
+      let inputClusters = new allocationModule.SpaceList([
+        {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 2,
+          'breadth': 2,
+          'coordX': 0,
+          'coordY': 0,
+          'angle': 0,
+          'level': 1
+        }
+      ], "cluster");
+      let inputProjects = new allocationModule.SpaceList([
+        {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': -1
+        },
+        {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': -1
+        },
+        {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': -1
+        },
+        {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': -1
+        }
+      ], "project");
+      allocationModule.allocateSpace(inputClusters, inputProjects);
+      let outputProjects = new allocationModule.SpaceList([
+        {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': 0
+        },
+        {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 0,
+          'coordY': 1,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': 0
+        },
+        {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 1,
+          'coordY': 0,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': 0
+        }, {
+          'id': 'doc.id',
+          'serial_no': 0,
+          'length': 1,
+          'breadth': 1,
+          'coordX': 1,
+          'coordY': 1,
+          'angle':0,
+          'group_theme': 'doc.data().theme',
+          'allocation': 1
+        }
+      ], "project");
+      assert.equal(isPermutation(inputProjects.getCluster(), outputProjects.getCluster()), false);
     });
   });
 });

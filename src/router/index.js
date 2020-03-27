@@ -43,8 +43,7 @@ const router = new VueRouter({
         path: '/level2',
         component: Level2,
         meta:{
-            requireAuth: true,
-            requireadmin: true
+            requireAuth: true
         }
     },
     {
@@ -52,8 +51,7 @@ const router = new VueRouter({
         path: '/admin',
         component: admin,
         meta:{
-            requireAuth: true,
-            requireadmin: true
+            requireAuth: true
         }
     }
 ]
@@ -63,10 +61,8 @@ router.beforeEach((to,from,next)=>{
     const currentUser = firebase.auth().currentUser;
     const requireAuth = to.matched.some(record => record.meta.requireAuth);
 
-    if(requireAuth && !currentUser) next('/login');
-    else if (!requireAuth && currentUser) next();
-    else if(!requireAuth && !currentUser) next();
-    else if (requireAuth && currentUser && currentUser.displayName ==='tryme') next('level2');
+    if(requireAuth && !currentUser) next('/');
+    else if (!requireAuth && currentUser) next('/');
     else next();
 });
 /*

@@ -13,6 +13,7 @@
         <template slot="start">
             <router-link to="/level1" class="navbar-item">Level 1</router-link>
             <router-link to="/level2" class="navbar-item">Level 2</router-link>
+            <!-- <router-link to="/admin" class="navbar-item"></router-link> -->
         </template>
 
 
@@ -22,6 +23,9 @@
                 <li class="nav-item">
                     <a class="nav-link" @click.prevent="signOut">Sign out</a>
                 </li>
+            </template>
+            <template v-if="user.loggedIn">
+                <admin/>
             </template>
             <b-navbar-item tag="div">
                 <div class="buttons">

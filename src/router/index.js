@@ -5,6 +5,7 @@ import Level1 from '../components/Level1.vue'
 import Login from '../components/login.vue'
 import Register from '../components/register.vue'
 import Dashboard from '../components/dashboard.vue'
+import SpaceForm from '../components/SpaceForm.vue'
 import firebase from 'firebase'
 import admin from '../components/adminview.vue'
 
@@ -52,7 +53,16 @@ const router = new VueRouter({
         component: admin,
         meta:{
             requireAuth: true
+    
         }
+    },
+    {
+      name: 'Space Form',
+      path: '/form',
+      component: SpaceForm,
+      meta: {
+         requireAuth: true
+       }
     }
 ]
 });

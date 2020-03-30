@@ -1,7 +1,8 @@
 const state = {
   user: {
     loggedIn: false,
-    data: null
+    data: null, 
+    displayName: null
   }
 }
 

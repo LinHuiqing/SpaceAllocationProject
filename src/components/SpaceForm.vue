@@ -15,7 +15,7 @@
 
            <PowerAVRow v-model="power_outlets"></PowerAVRow>
             <button type="submit" class="btn">Submit</button>
-            <button><router-link to="/level1" class="btn grey">Cancel</router-link></button>
+            <button><router-link to="/" class="btn grey">Cancel</router-link></button>
           </form>
         </div>
 
@@ -23,7 +23,7 @@
 
         <PowerAVRow></PowerAVRow> -->
         <button type="submit" class="btn">Submit</button>
-        <button><router-link to="/level1" class="btn grey">Cancel</router-link></button>
+        <button><router-link to="/" class="btn grey">Cancel</router-link></button>
     </div>
 </template>
 

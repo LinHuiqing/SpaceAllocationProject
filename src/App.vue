@@ -1,3 +1,6 @@
+<head>
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/2.5.94/css/materialdesignicons.min.css">
+</head>
 <template>
     <div>
       <section class="hero is-dark is-bold">
@@ -30,13 +33,6 @@
       <router-link to="/level2">Level 2</router-link> -->
       <app-nav></app-nav>
       <router-view></router-view>
-      <section>
-        <div>
-          <b-button @click='decrement'>-</b-button>
-          <p>{{count}}</p>
-          <b-button @click='increment'>+</b-button>
-        </div>
-      </section>
       <section>
         <div class="tile is-parent">
           <article class="tile is-child notification is-white">
@@ -128,12 +124,6 @@
       }
     },
     methods: {
-      increment () {
-        this.$store.commit('counter/increment')
-      },
-      decrement () {
-        this.$store.commit('counter/decrement')
-      },
       calculateWidth() {
         this.$nextTick(function() {
           this.unit = this.$refs.map_image.clientWidth/this.scale;

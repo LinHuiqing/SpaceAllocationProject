@@ -41,12 +41,16 @@
             </template>
             <b-navbar-item tag="div">
                 <div class="buttons">
-                    <a class="button is-light">
-                        <router-link to="register" class="nav-link">Sign up</router-link>
-                    </a>
-                    <a class="button is-light">
-                        <router-link to="login" class="nav-link">Log in</router-link>
-                    </a>
+                    <router-link to="register" class="nav-link" >
+                        <a class="button is-warning">
+                            <strong>Sign Up</strong>
+                        </a>
+                    </router-link>
+                    <router-link to="login" class="nav-link">
+                        <a class="button is-light">
+                            Log in
+                        </a>
+                    </router-link>
                 </div>
             </b-navbar-item>
         </template>

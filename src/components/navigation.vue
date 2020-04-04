@@ -10,36 +10,21 @@
                 >
             </b-navbar-item>
         </template>
-        <template slot="start">
-            <!-- <b-navbar-item href="#">
-                Home
-            </b-navbar-item>
-            <b-navbar-item router-link to="/level1">trial</b-navbar-item>
-            <b-navbar-dropdown label="Map">
-                <b-navbar-item router-link to="/level2">Level 1</b-navbar-item>
-                <b-navbar-item href="#">
-                    Level 1
-                </b-navbar-item>
-                <b-navbar-item tag="router-link" :to="{ name: 'level2' }">
-                    Level 2
-                </b-navbar-item>
-            </b-navbar-dropdown> -->
-            <!--router-link to="/login">Level 1</router-link>
-            <router-link to="/register">Level 2</router-link>
-            <router-link to="/dashboard">Level 1</router-link-->
-            <router-link to="/level1">Level 1</router-link>
-            <router-link to="/level2">Level 2</router-link>
-
+        <template slot="start" v-if="user.loggedIn && user.data.displayName=='admin'">
+            
+            <router-link to="/level1" class="navbar-item">Level 1</router-link>
+            <router-link to="/level2" class="navbar-item">Level 2</router-link>
+            <!-- <router-link to="/admin" class="navbar-item"></router-link> -->
+        </template>
+        <template slot="start" v-if="user.loggedIn && user.data.displayName!='admin'">
+            
+            <router-link to="/form" class="navbar-item">Student Form</router-link>
         </template>
 
+
         <template slot="end">
-            <template v-if="user.loggedIn">
-                <div class="nav-item">{{user.data.displayName}}</div>
-                <li class="nav-item">
-                    <a class="nav-link" @click.prevent="signOut">Sign out</a>
-                </li>
-            </template>
-            <b-navbar-item tag="div">
+            
+            <b-navbar-item tag="div" v-if="user.loggedIn==false">
                 <div class="buttons">
                     <router-link to="register" class="nav-link" >
                         <a class="button is-warning">
@@ -48,11 +33,21 @@
                     </router-link>
                     <router-link to="login" class="nav-link">
                         <a class="button is-light">
-                            Log in
+                            <strong>Log in</strong>
                         </a>
                     </router-link>
                 </div>
             </b-navbar-item>
+            <template v-else>
+                <div class="nav-item">{{user.data.displayName}}</div>
+                <li class="nav-item">
+                    <a class="nav-link"> 
+                        <a class="button is-warning" @click.prevent="signOut">
+                            <strong>Sign Out</strong>
+                        </a>
+                    </a>
+                </li>
+            </template>
         </template>
     </b-navbar>
 </template>

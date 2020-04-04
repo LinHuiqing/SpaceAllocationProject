@@ -44,8 +44,8 @@ export default {
                 Custom: false,
             },
             customSize: {
-                width: 0,
-                height: 0,
+                length: 0,
+                breadth: 0,
             }
         }
     },
@@ -59,8 +59,26 @@ export default {
                         this.selections[sizes[i]] = false;
                     }
                 }
+                if (data.title === sizes[0]) {
+                  this.setLength(1);
+                  this.setBreadth(1);
+                } else if (data.title === sizes[1]) {
+                  this.setLength(2);
+                  this.setBreadth(2);
+                } else {
+                  this.customSize.length = data.length;
+                  this.customSize.breadth = data.breadth;
+                  this.setLength(this.customSize.length);
+                  this.setBreadth(this.customSize.breadth);
+                }
             }
-        }
+        },
+        setLength (length) {
+          this.$store.commit('form/setLength', length)
+        },
+        setBreadth (breadth) {
+          this.$store.commit('form/setBreadth', breadth)
+        },
     },
     components: {
         BinaryStateCard, CustomSpaceCard

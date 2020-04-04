@@ -11,6 +11,7 @@ import './components/vuedraggable.css'
 
 import * as firebase from 'firebase'
 import 'firebase/auth'
+import '@mdi/font/css/materialdesignicons.css'
 
 Vue.component('vue-draggable-resizable', VueDraggableResizable)
 Vue.use(Buefy)

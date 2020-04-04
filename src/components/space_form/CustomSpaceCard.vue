@@ -9,20 +9,22 @@
                     <div class="tile is-child">
                         <p>{{ description }}</p>
                     </div>
-                    <div class="tile is-child" v-on:click="cancelPropogation">
+                    <div class="tile is-child">
                         <p>Enter space:</p>
                         <b-field label="Length" class="lmao">
                             <b-input type="number"
+                                min="1"
                                 v-model="length"
-                                v-on:click="cancelPropogation"
-                                maxlength=2>
+                                maxlength=2
+                                v-on:input="cardClicked">
                             </b-input>
                         </b-field>
                         <b-field label="Breadth" class="lmao">
                             <b-input type="number"
+                                min="1"
                                 v-model="breadth"
-                                v-on:click="cancelPropogation"
-                                maxlength=2>
+                                maxlength=2
+                                v-on:input="cardClicked">
                             </b-input>
                         </b-field>
                     </div>
@@ -40,16 +42,20 @@ export default {
         "description": String,
         "selected": Boolean,
     },
+    data() {
+      return {
+        length: "1",
+        breadth: "1"
+      }
+    },
     methods: {
         cardClicked: function(){
             this.$emit("toggleSelection", {
                 "title": this.title,
                 "selected": this.selected,
+                "length": this.length,
+                "breadth": this.breadth
             });
-        },
-        cancelPropogation: function(event){
-            console.log("nani");
-            event.stopPropogation();
         }
     }
 }

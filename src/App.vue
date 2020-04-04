@@ -13,7 +13,6 @@
               Map
               <!--dbtry /-->
             </h2>
-            <!-- <dbtry /> -->
           </div>
         </div>
       </section>
@@ -33,7 +32,12 @@
       <router-link to="/level2">Level 2</router-link> -->
       <app-nav></app-nav>
       <router-view></router-view>
-      <section>
+      
+      <!--<template v-if="user.loggedIn">
+        <admin/>
+      </template> -->
+      
+      <!--section>
         <div class="tile is-parent">
           <article class="tile is-child notification is-white">
             <p class="title">Map</p>
@@ -67,7 +71,7 @@
             </div>
           </article>
         </div>
-      </section>
+      </section-->
       <footer class="footer">
         <div class="content has-text-centered">
           <p>
@@ -81,47 +85,22 @@
 </template>
 
 <script>
-  import VueDraggableResizable from 'vue-draggable-resizable'
-  import './components/vuedraggable.css'
+  //import VueDraggableResizable from 'vue-draggable-resizable'
+  //import './components/vuedraggable.css'
   import navigationa from './components/navigation'
+  //import admin from './components/adminview'
 
   export default {
     name: 'app',
-    components: {
-      VueDraggableResizable,
-      'app-nav': navigationa
-    },
-    data() {
-      return {
-        resizable: false,
-        prevX: 20,
-        offsetX: 20,
-        isActive: true,
-        unit: 1,
-        scale: 55,
-      }
-    },
-    created(){
-      this.$store.dispatch('allocation/getGroupsFBAsync')
-      this.$store.dispatch('allocation/getClustersFBAsync')
-    },
-    mounted() {
-      window.addEventListener("resize", this.calculateWidth);
-      this.calculateWidth();
-    },
-    destroyed() {
-      window.addEventListener("resize", this.calculateWidth);
-    },
     computed: {
-      count() {
-        return this.$store.state.counter.count
-      },
-      getGroups() {
-        return this.$store.state.allocation.unallocated.clusterGroup
-      },
-      getClusters() {
-        return this.$store.state.allocation.clusters.clusterGroup
+    // map `this.user` to `this.$store.getters.user`
+      user() {
+        return this.$store.state.login.user
       }
+    },
+    components: {
+      'app-nav': navigationa,
+      //admin
     },
     methods: {
       calculateWidth() {

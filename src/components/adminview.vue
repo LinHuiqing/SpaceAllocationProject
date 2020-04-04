@@ -1,21 +1,21 @@
 <template>
     <div>
-        <!-- <section>
+        <section>
             <div>
             <b-button @click='decrement'>-</b-button>
             <p>{{count}}</p>
             <b-button @click='increment'>+</b-button>
             </div>
-        </section> -->
+        </section>
         <section>
             <div class="tile is-parent">
             <article class="tile is-child notification is-white">
-                  <p class="title">Map</p>
-                  <p class="subtitle">Campus Centre Level 2</p>
-                  <div>
-                    <figure class="image">
-                      <img src="../assets/capstone2.jpg">
-                    </figure>
+                <p class="title">Map</p>
+                <p class="subtitle">Campus Centre Level 1</p>
+                <div ref="map_image" :style="{ position: 'relative'}">
+                <figure class="image">
+                    <img src="../assets/capstone1.jpg">
+                </figure>
                 <vue-draggable-resizable v-for="cluster in getClusters" :key="cluster.id" :x="cluster.coordX" :y="cluster.coordY" :w="calculateProjWidth(cluster.length)" :h="calculateProjWidth(cluster.breadth)" :resizable.sync="resizable" :style="{ transform: 'rotate('+calculateProjAngle(cluster.angle)+'turn)'}">
                     <p>Group {{cluster.serial_no}}</p>
                     <!-- <p>Name: {{cluster.theme}}</p> -->
@@ -51,7 +51,7 @@
   //import navigationa from './components/navigation'
 
   export default {
-    name: 'level2',
+    name: 'admin',
     components: {
       VueDraggableResizable,
     },

@@ -1,3 +1,4 @@
+/*
 class Space {
   constructor (rawObject) {
     // const data ={
@@ -13,13 +14,6 @@ class Space {
     this.serial_no = rawObject.serial_no;
     this.length = rawObject.length;
     this.breadth = rawObject.breadth;
-    // if (dimensions[0] >= dimensions[1]) {
-    //   this.length = dimensions[0];
-    //   this.breadth = dimensions[1];
-    // } else {
-    //   this.length = dimensions[1];
-    //   this.breadth = dimensions[0];
-    // }
     this.coordX = rawObject.coordX;
     this.coordY = rawObject.coordY;
     this.angle = rawObject.angle;
@@ -125,6 +119,7 @@ class SpaceList {
         clusterGroup.push(space);
       } else {
         // TODO: throw error
+        throw "Please input a valid list type."
       }
 
     }
@@ -167,9 +162,14 @@ class SpaceList {
     // console.log(this.cluster);
     return this.clusterGroup;
   }
-  // setCluster (clusterList) {
-  //   this.clusterGroup = clusterList;
-  // }
+  setCluster (clusterList) {
+    console.log(clusterList);
+    let parsedList = [];
+    for (let clusterObject in clusterList) {
+      parsedList.push(new Cluster(clusterObject))
+    }
+    this.clusterGroup = parsedList1;
+  }
   pushSpace (spaceObject) {
     let space = new Cluster(spaceObject);
     this.clusterGroup.push(space);
@@ -179,6 +179,30 @@ class SpaceList {
     this.clusterGroup.remove(space); // TODO: CHECK SYNTAX!!
   }
 }
+*/
+
+/* new leaf */
+function increasingBreadthSorter(space1, space2) {
+  if (space1.breadth == space2.breadth) {
+    return 0;
+  } else {
+    return space1.breadth < space2.breadth ? -1:1;
+  }
+}
+function decreasingBreadthSorter(space1, space2) {
+  if (space1.breadth == space2.breadth) {
+    return 0;
+  } else {
+    return space1.breadth > space2.breadth ? -1:1;
+  }
+}
+// sortByBreadth(key) {
+//   if (key=="decreasing") {
+//     this.clusterGroup.sort(this._decreasingBreadthSorter);
+//   } else {
+//     this.clusterGroup.sort(this._increasingBreadthSorter);
+//   }
+// }
 
 // var inputSpaces = [[10,3,0], [8,6,0], [5,5,0], [9,5,0], [12,6,-45], [12,6,0], [20,7,0], [13,5,0], [10,5,0], [5,5,0], [14,4,225], [28,3,0], [28,5,210], [28,4,-30]];
 // var inputProjects = [[10,2,0], [11, 3, 0]];
@@ -199,30 +223,36 @@ class SpaceList {
 // console.log(spaceList);
 // console.log(projectsList);
 
-function allocateSpace(spaceList, projectsList) {
-  projectsList.sortByBreadth("decreasing");
-  spaceList.sortByBreadth();
+function allocateSpace(rawSpaceList, projectsList) {
+  // projectsList.sortByBreadth("decreasing");
+  projectsList.sort(decreasingBreadthSorter);
+  // console.log(rawSpaceList);
+  // let spaceList = new SpaceList([]);
+  // spaceList.setCluster(JSON.parse(JSON.stringify(rawSpaceList)));
+  let spaceList = JSON.parse(JSON.stringify(rawSpaceList));
+  // console.log(spaceList);
+  spaceList.sort(increasingBreadthSorter);
   // console.log(spaceList);
   // let spacesCount = spaceList.getCluster().length;
 
-  for (let project of projectsList.getCluster()) {
+  for (let project of projectsList) {
     // console.log(project);
-    for (let space of spaceList.getCluster()) {
+    for (let space of spaceList) {
       // console.log(space);
       if (project.length > space.length || project.breadth > space.breadth) {
         continue;
       }
 
       // console.log("slot found!!");
-      project.setAllocation(space.serial_no);
+      project.allocation = space.serial_no;
       project.coordX = space.coordX;
       project.coordY = space.coordY;
       project.angle = space.angle;
 
       if (project.length == space.length && project == space.breadth) {
         // spaceList.sortByIndex();
-        let removeIndex = spaceList.getCluster().indexOf(space);
-        spaceList.clusterGroup.splice(removeIndex, 1);
+        let removeIndex = spaceList.indexOf(space);
+        spaceList.splice(removeIndex, 1);
         // spaceList.remove(space);
       } else if (project.length == space.length) {
         space.breadth -= project.breadth;
@@ -234,26 +264,91 @@ function allocateSpace(spaceList, projectsList) {
         // console.log("cut length", space.coordX, space.coordY);
       } else {
         // spaceList.lastIndex ++;
-        let projectObject = project.getObject();
-        let clusterObject = space.getObject();
-        let newSpace = new Cluster(clusterObject);
-        newSpace.setDimensions(projectObject.length, clusterObject.breadth - projectObject.breadth)
-        newSpace.setStartCoords(clusterObject.coordX, clusterObject.coordY + projectObject.breadth);
+        // console.log(space);
+        // let projectObject = project.getObject();
+        // let clusterObject = space.getObject();
+        // let newSpace = new Cluster(clusterObject);
+        let newSpace = JSON.parse(JSON.stringify(space));
+        newSpace.length = project.length
+        newSpace.breadth = space.breadth - project.breadth
+        newSpace.coordY = space.coordY + project.breadth
+        // newSpace.setDimensions(projectObject.length, clusterObject.breadth - projectObject.breadth)
+        // newSpace.setStartCoords(clusterObject.coordX, clusterObject.coordY + projectObject.breadth);
         // console.log(newSpace);
-        spaceList.pushSpace(newSpace);
+        spaceList.push(newSpace);
         space.length -= project.length;
         space.coordX += project.length;
         // console.log(space);
       }
-      spaceList.sortByBreadth();
+      // spaceList.sortByBreadth();
+      spaceList.sort(increasingBreadthSorter);
       break;
     }
   }
+  // console.log(projectsList);
 }
+
+/*
+var inputSpaces = [
+  { 'id': "jdnfsk",
+    'serial_no' : 1,
+    'length': 2,
+    'breadth': 2,
+    'coordX': 0,
+    'coordY': 0,
+    'angle': 0,
+    'level': 1
+  }]
+var inputProjects = [
+  { 'id': "doc.id",
+    'group_no': 1,
+    'length': 1,
+    'breadth': 1,
+    'coordX': 0,
+    'coordY': 0,
+    'angle': 0,
+    'group_theme': "doc.data().theme",
+    'allocation': -1
+  }, {
+    'id': "doc.id",
+    'group_no': 1,
+    'length': 1,
+    'breadth': 1,
+    'coordX': 0,
+    'coordY': 0,
+    'angle': 0,
+    'group_theme': "doc.data().theme",
+    'allocation': -1
+  }, {
+    'id': "doc.id",
+    'group_no': 1,
+    'length': 1,
+    'breadth': 1,
+    'coordX': 0,
+    'coordY': 0,
+    'angle': 0,
+    'group_theme': "doc.data().theme",
+    'allocation': -1
+  }, {
+    'id': "doc.id",
+    'group_no': 1,
+    'length': 1,
+    'breadth': 1,
+    'coordX': 0,
+    'coordY': 0,
+    'angle': 0,
+    'group_theme': "doc.data().theme",
+    'allocation': -1
+  }
+]
+*/
+// console.log(inputProjects);
+// allocateSpace(inputSpaces, inputProjects);
+// console.log(inputProjects);
 // console.log(spaceList);
 // allocateSpace(spaceList, projectsList);
 // spaceList.sortByIndex();
 // projectsList.sortByIndex();
 // console.log(spaceList);
 // console.log(projectsList);
-module.exports = { allocateSpace, SpaceList };
+module.exports = { allocateSpace };

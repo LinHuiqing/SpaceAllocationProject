@@ -32,11 +32,11 @@
       <router-link to="/level2">Level 2</router-link> -->
       <app-nav></app-nav>
       <router-view></router-view>
-      
+
       <!--<template v-if="user.loggedIn">
         <admin/>
       </template> -->
-      
+
       <footer class="footer">
         <div class="content has-text-centered">
           <p>
@@ -52,7 +52,7 @@
 <script>
   //import VueDraggableResizable from 'vue-draggable-resizable'
   //import './components/vuedraggable.css'
-  import navigationa from './components/navigation'
+  import navigation from './components/navigation'
   //import admin from './components/adminview'
 
   export default {
@@ -64,21 +64,10 @@
       }
     },
     components: {
-      'app-nav': navigationa,
+      'app-nav': navigation,
       //admin
     },
     methods: {
-      calculateWidth() {
-        this.$nextTick(function() {
-          this.unit = this.$refs.map_image.clientWidth/this.scale;
-        })
-      },
-      calculateProjWidth(width) {
-        return width * this.unit;
-      },
-      calculateProjAngle(angle) {
-        return angle/360;
-      }
   },
  }
 </script>

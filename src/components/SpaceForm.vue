@@ -7,23 +7,31 @@
           <form @submit.prevent="submitGroup" class="col s12">
             <div class="row">
               <div class="input-field col s12">
-                <input type="text" v-model="group_no" required>
-                <label>Capstone Group Number</label>
+                <b-field label="Capstone Group Number">
+                  <b-input type="number" v-model="group_no" required></b-input>
+                </b-field>
               </div>
             </div>
             <SizeSelectionRow></SizeSelectionRow>
 
            <PowerAVRow></PowerAVRow>
-            <button type="submit" class="btn">Submit</button>
-            <button><router-link to="/" class="btn grey">Cancel</router-link></button>
+
+           <b-field label="Theme">
+              <b-select placeholder="Select a theme">
+                  <option value="1">Data Analytics</option>
+                  <option value="2">Artificial Intelligence</option>
+                  <option value="3">Healthcare</option>
+                  <option value="4">Drones</option>
+                  <option value="5">Others</option>
+              </b-select>
+          </b-field>
+
+           <div class="buttons">
+            <b-button type="is-success" @click="submitGroup">Submit</b-button>
+            <b-button type="is-danger"><router-link to="/" style="all: inherit;">Cancel</router-link></b-button>
+          </div>
           </form>
         </div>
-
-        <!-- <SizeSelectionRow></SizeSelectionRow>
-
-        <PowerAVRow></PowerAVRow> -->
-        <button type="submit" class="btn">Submit</button>
-        <button><router-link to="/" class="btn grey">Cancel</router-link></button>
 
     </div>
 </template>

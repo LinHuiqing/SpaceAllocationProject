@@ -12,7 +12,7 @@
             <article class="tile is-child notification is-white">
                   <p class="title">Map</p>
                   <p class="subtitle">Campus Centre Level 2</p>
-                  <div>
+                  <div ref="map_image">
                     <figure class="image">
                       <img src="../assets/capstone2.jpg">
                     </figure>
@@ -61,7 +61,7 @@
         prevX: 20,
         offsetX: 20,
         isActive: true,
-        unit: 1,
+        // unit: 1,
         scale: 55,
       }
     },
@@ -81,18 +81,18 @@
         return this.$store.state.counter.count
       },
       getGroups() {
-        return this.$store.state.allocation.unallocated.clusterGroup
+        return this.$store.state.allocation.unallocated
       },
       getClusters() {
-        return this.$store.state.allocation.clusters.clusterGroup
+        return this.$store.state.allocation.clusters[2]
+      },
+      getUnit() {
+        return this.$store.state.allocation.unit;
       }
     },
     methods: {
-      increment () {
-        this.$store.commit('counter/increment')
-      },
-      decrement () {
-        this.$store.commit('counter/decrement')
+      setUnit( unit ) {
+        this.$store.commit('allocation/setUnit', unit)
       },
       calculateWidth() {
         this.$nextTick(function() {
@@ -100,7 +100,7 @@
         })
       },
       calculateProjWidth(width) {
-        return width * this.unit;
+        return width * this.getUnit;
       },
       calculateProjAngle(angle) {
         return angle/360;

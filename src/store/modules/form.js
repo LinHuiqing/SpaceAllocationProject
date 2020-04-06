@@ -8,7 +8,8 @@ const state = {
   breadth: 1,
   power_outlets: 0,
   monitors: 0,
-  frames: 0
+  frames: 0,
+  themes: ["Data Analytics", "Artificial Intelligence", "Healthcare", "Drones"]
 }
 
 // actions
@@ -38,14 +39,14 @@ const mutations = {
     })
   },
   setGroupNo ( state, groupNo ) {
-    state.group_no = groupNo;
+    state.group_no = parseInt(groupNo);
   },
   setLength ( state, length ) {
-    console.log("length", length);
+    // console.log("length", length);
     state.length = parseInt(length);
   },
   setBreadth ( state, breadth ) {
-    console.log("breadth", breadth);
+    // console.log("breadth", breadth);
     state.breadth = parseInt(breadth);
   },
   setPowerOutlets ( state, powerOutlets ) {

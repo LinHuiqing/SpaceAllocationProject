@@ -58,7 +58,7 @@ var allocationModule = require('../src/api/algorithm/space-allocation-algorithm'
 describe('algorithm', function() {
   describe('complete fit', function() {
     it('1 cluster', function() {
-      let inputClusters = new allocationModule.SpaceList([
+      let inputClusters = [
         {
           'id': 'doc.id',
           'serial_no': 0,
@@ -69,8 +69,8 @@ describe('algorithm', function() {
           'angle': 0,
           'level': 1
         }
-      ], "cluster");
-      let inputProjects = new allocationModule.SpaceList([
+      ];
+      let inputProjects = [
         {
           'id': 'doc.id',
           'serial_no': 0,
@@ -114,9 +114,9 @@ describe('algorithm', function() {
           'group_theme': 'doc.data().theme',
           'allocation': -1
         }
-      ], "project");
+      ];
       allocationModule.allocateSpace(inputClusters, inputProjects);
-      let outputProjects = new allocationModule.SpaceList([
+      let outputProjects = [
         {
           'id': 'doc.id',
           'serial_no': 0,
@@ -160,13 +160,13 @@ describe('algorithm', function() {
           'group_theme': 'doc.data().theme',
           'allocation': 0
         }
-      ], "project");
-      assert.equal(isPermutation(inputProjects.getCluster(), outputProjects.getCluster()), true);
+      ];
+      assert.equal(isPermutation(inputProjects, outputProjects), true);
     });
   });
   describe('partial fit (all same size)', function() {
     it('1 cluster', function() {
-      let inputClusters = new allocationModule.SpaceList([
+      let inputClusters = [
         {
           'id': 'doc.id',
           'serial_no': 0,
@@ -177,8 +177,8 @@ describe('algorithm', function() {
           'angle': 0,
           'level': 1
         }
-      ], "cluster");
-      let inputProjects = new allocationModule.SpaceList([
+      ];
+      let inputProjects = [
         {
           'id': 'doc.id',
           'serial_no': 0,
@@ -233,9 +233,9 @@ describe('algorithm', function() {
           'group_theme': 'doc.data().theme',
           'allocation': -1
         }
-      ], "project");
+      ];
       allocationModule.allocateSpace(inputClusters, inputProjects);
-      let outputProjects = new allocationModule.SpaceList([
+      let outputProjects = [
         {
           'id': 'doc.id',
           'serial_no': 0,
@@ -290,15 +290,15 @@ describe('algorithm', function() {
           'group_theme': 'doc.data().theme',
           'allocation': -1
         }
-      ], "project");
-      assert.equal(isPermutation(inputProjects.getCluster(), outputProjects.getCluster()), true);
+      ];
+      assert.equal(isPermutation(inputProjects, outputProjects), true);
     });
   });
   describe('partial fit (prioritising large projects)', function() {
     it('2 clusters', function() {
       // var inputSpaces = [[1,2,0], [2,1,0]];
       // var inputProjects = [[1,1,0], [1,1,0], [1,1,0], [1,1,0], [1,2,0]]
-      let inputClusters = new allocationModule.SpaceList([
+      let inputClusters = [
         {
           'id': 'doc.id',
           'serial_no': 0,
@@ -318,8 +318,8 @@ describe('algorithm', function() {
           'angle': 0,
           'level': 1
         }
-      ], "cluster");
-      let inputProjects = new allocationModule.SpaceList([
+      ];
+      let inputProjects = [
         {
           'id': 'doc.id',
           'serial_no': 0,
@@ -373,9 +373,9 @@ describe('algorithm', function() {
           'group_theme': 'doc.data().theme',
           'allocation': -1
         }
-      ], "project");
+      ];
       allocationModule.allocateSpace(inputClusters, inputProjects);
-      let outputProjects = new allocationModule.SpaceList([
+      let outputProjects = [
         {
           'id': 'doc.id',
           'serial_no': 0,
@@ -429,8 +429,8 @@ describe('algorithm', function() {
           'group_theme': 'doc.data().theme',
           'allocation': 0
         }
-      ], "project");
-      assert.equal(isPermutation(inputProjects.getCluster(), outputProjects.getCluster()), true);
+      ];
+      assert.equal(isPermutation(inputProjects, outputProjects), true);
     });
   });
 });

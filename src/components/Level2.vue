@@ -9,16 +9,16 @@
                     <figure class="image">
                       <img src="../assets/floorplan_level2.jpg">
                     </figure>
-                    <vue-draggable-resizable v-for="(cluster, index) in getClusters" :key=index :x="calculateProjWidth(cluster.coordX)" :y="calculateProjWidth(cluster.coordY)" :w="calculateProjWidth(cluster.length)" :h="calculateProjWidth(cluster.breadth)" :resizable.sync="resizable" :style="{ transform: 'rotate('+calculateProjAngle(cluster.angle)+'turn)'}">
+                    <drr v-for="(group, index) in getAllocatedGroups" :key=index+13 :x="calculateProjWidth(group.coordX)" :y="calculateProjWidth(group.coordY)" :w="calculateProjWidth(group.length)" :h="calculateProjWidth(group.breadth)"
+                    :angle="group.angle" style="background-color: rgba(50, 50, 50, 0.3); font-size:50%">
+                        <p>Group {{group.serial_no}}</p>
+                    </drr>
+                    <drr v-for="(cluster, index) in getClusters" :key=index :x="calculateProjWidth(cluster.coordX)" :y="calculateProjWidth(cluster.coordY)" :w="calculateProjWidth(cluster.length)" :h="calculateProjWidth(cluster.breadth)" :resizable.sync="resizable" :moveable.sync="moveable" :angle="cluster.angle" style="background-color:rgba(50, 50, 50, 0.3)">
+                    </drr>
+                    <!-- <vue-draggable-resizable v-for="(cluster, index) in getClusters" :key=index :x="calculateProjWidth(cluster.coordX)" :y="calculateProjWidth(cluster.coordY)" :w="calculateProjWidth(cluster.length)" :h="calculateProjWidth(cluster.breadth)" :resizable.sync="resizable" :style="{ transform: 'rotate('+calculateProjAngle(cluster.angle)+'turn)'}">
                         <p>Cluster {{cluster.serial_no}}</p>
                         <p>id: {{cluster.id}}</p>
-                        <!-- <div>
-                          <vue-draggable-resizable v-for="(group, index) in getClusterGroups(cluster)" :key=index :x="group.coordX" :y="group.coordY" :w="calculateProjWidth(group.length)" :h="calculateProjWidth(group.breadth)" :resizable.sync="resizable" :style="{ transform: 'rotate('+calculateProjAngle(group.angle)+'turn)'}">
-                              <p>Group {{group.serial_no}}</p>
-                              <p>id: {{group.id}}</p>
-                          </vue-draggable-resizable>
-                        </div> -->
-                    </vue-draggable-resizable>
+                    </vue-draggable-resizable> -->
                 </div>
                 <div class="buttons">
                 <b-button style="width: 200px; left: 20px top: 20px" type="is-success">Save Layout</b-button>
@@ -28,10 +28,13 @@
                 <p class="title">Groups to be Allocated</p>
                 <p class="subtitle">Drag and Drop on to Map</p>
                 <div :style="{ position: 'relative' }">
-                <vue-draggable-resizable v-for="group in getGroups" :key="group.id" :x="group.coordX" :y="group.coordY" :w="calculateProjWidth(group.length)" :h="calculateProjWidth(group.breadth)" :resizable.sync="resizable" :style="{ transform: 'rotate('+calculateProjAngle(group.angle)+'turn)'}">
+                <!-- <vue-draggable-resizable v-for="group in getGroups" :key="group.id" :x="group.coordX" :y="group.coordY" :w="calculateProjWidth(group.length)" :h="calculateProjWidth(group.breadth)" :resizable.sync="resizable" :style="{ transform: 'rotate('+calculateProjAngle(group.angle)+'turn)'}">
                     <p>Group {{group.serial_no}}</p>
                     <p>id: {{group.id}}</p>
-                </vue-draggable-resizable>
+                </vue-draggable-resizable> -->
+                <drr v-for="(group, index) in getUnallocatedGroups" :key=index :x=0 :y=0 :w="calculateProjWidth(group.length)" :h="calculateProjWidth(group.breadth)" style="background-color: rgba(50, 50, 50, 0.3); font-size:50%">
+                    <p>Group {{group.serial_no}}</p>
+                </drr>
                 <!-- <vue-draggable-resizable v-for="element in unallocated" :key="element.id" :x="element.x" :y="element.y" :w="calculateProjWidth(element.rawW)" :h="calculateProjWidth(element.rawH)" :resizable.sync="resizable" :style="{ transform: 'rotate('+calculateProjAngle(40)+'turn)'}" @click="this.calculateWidth()">
                     <p>Group {{element.group_no}}</p>
                     <p>Name: {{element.title}}</p>
@@ -44,14 +47,14 @@
 </template>
 
 <script>
-  import VueDraggableResizable from 'vue-draggable-resizable'
+  // import VueDraggableResizable from 'vue-draggable-resizable'
   // import './vuedraggable.css'
   //import navigationa from './components/navigation'
 
   export default {
     name: 'level2',
     components: {
-      VueDraggableResizable,
+      // VueDraggableResizable,
     },
     data() {
       return {

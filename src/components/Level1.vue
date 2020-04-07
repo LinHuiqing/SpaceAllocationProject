@@ -15,15 +15,15 @@
                 </article>
               </div>
                 <div ref="map_image" style="position: relative; width: 1200px">
-                <figure class="image">
-                    <img src="../assets/floorplan_level1.jpg">
-                </figure>
-                <drr v-for="(group, index) in getAllocatedGroups" :key=index :x="calculateProjWidth(group.coordX)" :y="calculateProjWidth(group.coordY)" :w="calculateProjWidth(group.length)" :h="calculateProjWidth(group.breadth)"
-                :angle="group.angle" style="background-color: rgba(50, 50, 50, 0.3); font-size:50%">
-                    <p>Group {{group.serial_no}}</p>
-                </drr>
-                <drr v-for="(cluster, index) in getClusters" :key=index :x="calculateProjWidth(cluster.coordX)" :y="calculateProjWidth(cluster.coordY)" :w="calculateProjWidth(cluster.length)" :h="calculateProjWidth(cluster.breadth)" :resizable.sync="resizable" :moveable.sync="moveable" :angle="cluster.angle" style="background-color:rgba(50, 50, 50, 0.3)">
-                </drr>
+                  <figure class="image">
+                      <img src="../assets/floorplan_level1.jpg">
+                  </figure>
+                  <drr v-for="(group, index) in getAllocatedGroups" :key=index+13 :x="calculateProjWidth(group.coordX)" :y="calculateProjWidth(group.coordY)" :w="calculateProjWidth(group.length)" :h="calculateProjWidth(group.breadth)"
+                  :angle="group.angle" style="background-color: rgba(50, 50, 50, 0.3); font-size:50%">
+                      <p>Group {{group.serial_no}}</p>
+                  </drr>
+                  <drr v-for="(cluster, index) in getClusters" :key=index :x="calculateProjWidth(cluster.coordX)" :y="calculateProjWidth(cluster.coordY)" :w="calculateProjWidth(cluster.length)" :h="calculateProjWidth(cluster.breadth)" :resizable.sync="resizable" :moveable.sync="moveable" :angle="cluster.angle" style="background-color:rgba(50, 50, 50, 0.3)">
+                  </drr>
                 <!-- <vue-draggable-resizable v-for="(cluster, index) in getClusters" :key=index :x="calculateProjWidth(cluster.coordX)" :y="calculateProjWidth(cluster.coordY)" :w="calculateProjWidth(cluster.length)" :h="calculateProjWidth(cluster.breadth)" :resizable.sync="resizable" :moveable.sync="moveable" :style="{ transform: 'rotate('+calculateProjAngle(cluster.angle)+'turn)'}">
                     <p>Cluster {{cluster.serial_no}}</p>
                     <p>id: {{cluster.id}}</p>
@@ -47,9 +47,9 @@
                     <p>Group {{group.serial_no}}</p>
                     <p>id: {{group.id}}</p>
                 </vue-draggable-resizable> -->
-                <drr v-for="(group, index) in getUnallocatedGroups" :key=index :x=0 :y=0 :w="calculateProjWidth(group.length)" :h="calculateProjWidth(group.breadth)" style="background-color: rgba(50, 50, 50, 0.3); font-size:50%">
-                    <p>Group {{group.serial_no}}</p>
-                </drr>
+                  <drr v-for="(group, index) in getUnallocatedGroups" :key=index :x=0 :y=0 :w="calculateProjWidth(group.length)" :h="calculateProjWidth(group.breadth)" style="background-color: rgba(50, 50, 50, 0.3); font-size:50%">
+                      <p>Group {{group.serial_no}}</p>
+                  </drr>
                 </div>
             </article>
             </div>

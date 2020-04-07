@@ -141,24 +141,27 @@ const mutations = {
   //   allocateTop();
   //   // allocateSpace(allSpaces, state.unallocated)
   // },
-  allocateBottom(state) {
-    allocateSpace(state.clusters[1], state.unallocated)
+  allocateAll(state) {
+    let allClusters = JSON.parse(JSON.stringify(state.clusters[1]));
+    allClusters.push(JSON.parse(JSON.stringify(state.clusters[2])));
+    allocateSpace(allClusters, state.unallocated)
     // console.log(1);
   },
-  allocateTop(state) {
-    allocateSpace(state.clusters[2], state.unallocated)
-    // console.log(3);
-  },
+  // allocateTop(state) {
+  //   allocateSpace(state.clusters[2], state.unallocated)
+  //   // console.log(3);
+  // },
   resetAllocation(state) {
-    console.log(state.unallocated);
+    // console.log(state.unallocated);
     state.unallocated = state.unallocated || [];
-    console.log(state.unallocated);
+    // console.log(state.unallocated);
     for (let cluster in state.allocated) {
-      console.log(cluster);
+      // console.log(cluster);
       state.unallocated.push(...state.allocated[cluster]);
       resetAllocationFB(state.allocated[cluster]);
+      state.allocated = {};
     }
-    console.log(state.unallocated);
+    // console.log(state.unallocated);
   }
 }
 

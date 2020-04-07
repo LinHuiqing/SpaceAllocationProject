@@ -12,7 +12,7 @@ import drr from '@minogin/vue-drag-resize-rotate'
 
 import * as firebase from 'firebase'
 import 'firebase/auth'
-import '@mdi/font/css/materialdesignicons.css'
+// import '@mdi/font/css/materialdesignicons.css'
 
 Vue.component('vue-draggable-resizable', VueDraggableResizable)
 Vue.component('drr', drr)

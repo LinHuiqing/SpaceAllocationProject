@@ -38,7 +38,6 @@
            </div>
           </form>
         </div>
-
     </div>
 </template>
 
@@ -72,9 +71,10 @@ export default {
   },
   methods:{
     submitGroup(){
+      this.$buefy.dialog.alert('Form submitted!')
       this.$store.dispatch('form/submitGroupFBAsync')
+    },
   }
-}
 }
 </script>
 

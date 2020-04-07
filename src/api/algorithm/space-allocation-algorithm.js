@@ -51,6 +51,8 @@ function allocateSpace(rawSpaceList, projectsList) {
       project.allocation = space.serial_no;
       project.coordX = space.coordX;
       project.coordY = space.coordY;
+      // project.coordX = (space.coordX - space.length/2) + project.length/2;
+      // project.coordY = (space.coordY - space.breadth/2) + project.breadth/2;
       project.angle = space.angle;
 
       if (project.length == space.length && project == space.breadth) {

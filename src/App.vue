@@ -71,13 +71,3 @@
   },
  }
 </script>
-
-<style>
-  .vdr {
-      border: 2px SOLID #CCAAEE;
-      background: #CCDDFF;
-      border-radius: 1px;
-      text-align: center;
-      font-size: 50%;
-    }
-</style>

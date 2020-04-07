@@ -17,14 +17,8 @@
            <PowerAVRow></PowerAVRow>
 
            <b-field label="Theme">
-              <b-select placeholder="Select a theme">
-                  <option value="1">Data Analytics</option>
-                  <option value="2">Artificial Intelligence</option>
-                  <option value="3">Healthcare</option>
-                  <option value="4">Drones</option>
-                  <option value="5">Others</option>
-              </b-select>
-          </b-field>
+             <b-input v-model="theme" required></b-input>
+           </b-field>
 
            <div class="buttons">
             <b-button type="is-success" @click="submitGroup">Submit</b-button>
@@ -55,6 +49,14 @@ export default {
         this.$store.commit('form/setGroupNo', value)
       }
     },
+    theme: {
+      get() {
+        return this.$store.state.form.theme
+      },
+      set(value) {
+        this.$store.commit('form/setTheme', value)
+      }
+    }
   },
   methods:{
     submitGroup(){

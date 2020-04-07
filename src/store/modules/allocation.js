@@ -1,6 +1,26 @@
 import db from '../../api/firebase/firebaseInit'
 import { allocateSpace } from './../../api/algorithm/space-allocation-algorithm'
 
+function sortByDecreasingAllocation(space1, space2) {
+  if (space1.allocation == space2.allocation) {
+    return 0;
+  } else {
+    return space1.allocation < space2.allocation ? -1:1;
+  }
+}
+
+function updateAllocation(group) {
+  let groupRef = db.collection('groups').doc(group.id);
+  groupRef.update({allocation: group.allocation, coordX: group.coordX, coordY: group.coordY, angle: group.angle});
+}
+
+function resetAllocationFB(arr) {
+  for (let group of arr) {
+    let groupRef = db.collection('groups').doc(group.id);
+    groupRef.update({allocation: -1, angle: 0});
+  }
+}
+
 // initial state
 // shape: [{ id, quantity }]
 const state = {
@@ -19,12 +39,37 @@ const actions = {
   getGroupsFBAsync ({ commit }) {
     commit('getGroupsFB')
   },
-  allocateAll ({commit}) {
+  allocateAll ({state, commit}) {
     // console.log("allocating");
-    commit('allocateBottom');
+    commit('allocateAll');
     // console.log(2);
-    commit('allocateTop');
+    // commit('allocateTop');
     // console.log(4);
+    // let unallocatedCopy = JSON.parse(JSON.stringify{state.unallocated});
+    // unallocatedCopy.sort(sortByDecreasingAllocation);
+    state.unallocated.sort(sortByDecreasingAllocation);
+    let removeIndex = 0;
+    for (let group of state.unallocated) {
+      // console.log("group", group);
+      if (group.allocation != -1) {
+        let current_ls = state.allocated[group.allocation] || [];
+        current_ls.push(group);
+        state.allocated[group.allocation] = current_ls;
+        removeIndex++;
+        updateAllocation(group);
+        // let removeIndex = state.unallocated.indexOf(group);
+        // state.unallocated.splice(removeIndex, 1);
+        // console.log(group.allocation);
+        // console.log("unallocated", state.unallocated);
+        // console.log("allocated", state.allocated);
+      }
+    }
+    state.unallocated.splice(0, removeIndex);
+    // console.log("unallocated", state.unallocated);
+    // console.log("allocated", state.allocated);
+  },
+  resetAllocation ({commit}) {
+    commit('resetAllocation');
   }
 }
 
@@ -81,7 +126,7 @@ const mutations = {
           state.allocated[allocation] = rawGroups[allocation];
         }
       }
-      console.log(state.allocated);
+      console.log("allocated", state.allocated);
     })
   },
   setUnit(state, unit) {
@@ -103,6 +148,17 @@ const mutations = {
   allocateTop(state) {
     allocateSpace(state.clusters[2], state.unallocated)
     // console.log(3);
+  },
+  resetAllocation(state) {
+    console.log(state.unallocated);
+    state.unallocated = state.unallocated || [];
+    console.log(state.unallocated);
+    for (let cluster in state.allocated) {
+      console.log(cluster);
+      state.unallocated.push(...state.allocated[cluster]);
+      resetAllocationFB(state.allocated[cluster]);
+    }
+    console.log(state.unallocated);
   }
 }
 

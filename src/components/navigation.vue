@@ -39,14 +39,11 @@
                 </div>
             </b-navbar-item>
             <template v-else>
-                <div class="nav-item">{{user.data.displayName}}</div>
-                <li class="nav-item">
-                    <a class="nav-link">
-                        <a class="button is-warning" @click.prevent="signOut">
-                            <strong>Sign Out</strong>
-                        </a>
+                <a class="nav-link">
+                    <a class="button is-warning" @click.prevent="signOut">
+                        <strong>Sign Out</strong>
                     </a>
-                </li>
+                </a>
             </template>
         </template>
     </b-navbar>

@@ -47,7 +47,7 @@
 
 <script>
   import VueDraggableResizable from 'vue-draggable-resizable'
-  import './vuedraggable.css'
+  // import './vuedraggable.css'
   //import navigationa from './components/navigation'
 
   export default {
@@ -108,13 +108,3 @@
   },
  }
 </script>
-
-<style>
-  .vdr {
-      border: 2px SOLID #CCAAEE;
-      background: #CCDDFF;
-      border-radius: 5px;
-      text-align: center;
-      font-size: 50%;
-    }
-</style>

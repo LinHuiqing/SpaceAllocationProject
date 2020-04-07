@@ -1,26 +1,24 @@
 <template>
     <div>
-        <!-- <section>
-            <div>
-            <b-button @click='decrement'>-</b-button>
-            <p>{{count}}</p>
-            <b-button @click='increment'>+</b-button>
-            </div>
-        </section> -->
         <section>
-            <div class="tile is-parent">
+            <div class="tile is-parent" style="overflow:scroll">
             <article class="tile is-child notification is-white">
                   <p class="title">Map</p>
                   <p class="subtitle">Campus Centre Level 2</p>
-                  <div>
+                  <div ref="map_image" style="position: relative; width: 1200px">
                     <figure class="image">
-                      <img src="../assets/capstone2.jpg">
+                      <img src="../assets/floorplan_level2.jpg">
                     </figure>
-                <vue-draggable-resizable v-for="cluster in getClusters" :key="cluster.id" :x="cluster.coordX" :y="cluster.coordY" :w="calculateProjWidth(cluster.length)" :h="calculateProjWidth(cluster.breadth)" :resizable.sync="resizable" :style="{ transform: 'rotate('+calculateProjAngle(cluster.angle)+'turn)'}">
-                    <p>Group {{cluster.serial_no}}</p>
-                    <!-- <p>Name: {{cluster.theme}}</p> -->
-                    <p>id: {{cluster.id}}</p>
-                </vue-draggable-resizable>
+                    <vue-draggable-resizable v-for="(cluster, index) in getClusters" :key=index :x="calculateProjWidth(cluster.coordX)" :y="calculateProjWidth(cluster.coordY)" :w="calculateProjWidth(cluster.length)" :h="calculateProjWidth(cluster.breadth)" :resizable.sync="resizable" :style="{ transform: 'rotate('+calculateProjAngle(cluster.angle)+'turn)'}">
+                        <p>Cluster {{cluster.serial_no}}</p>
+                        <p>id: {{cluster.id}}</p>
+                        <!-- <div>
+                          <vue-draggable-resizable v-for="(group, index) in getClusterGroups(cluster)" :key=index :x="group.coordX" :y="group.coordY" :w="calculateProjWidth(group.length)" :h="calculateProjWidth(group.breadth)" :resizable.sync="resizable" :style="{ transform: 'rotate('+calculateProjAngle(group.angle)+'turn)'}">
+                              <p>Group {{group.serial_no}}</p>
+                              <p>id: {{group.id}}</p>
+                          </vue-draggable-resizable>
+                        </div> -->
+                    </vue-draggable-resizable>
                 </div>
                 <div class="buttons">
                 <b-button style="width: 200px; left: 20px top: 20px" type="is-success">Save Layout</b-button>
@@ -47,7 +45,7 @@
 
 <script>
   import VueDraggableResizable from 'vue-draggable-resizable'
-  import './vuedraggable.css'
+  // import './vuedraggable.css'
   //import navigationa from './components/navigation'
 
   export default {
@@ -61,8 +59,8 @@
         prevX: 20,
         offsetX: 20,
         isActive: true,
-        unit: 1,
-        scale: 55,
+        // unit: 1,
+        scale: 60,
       }
     },
     created(){
@@ -81,26 +79,26 @@
         return this.$store.state.counter.count
       },
       getGroups() {
-        return this.$store.state.allocation.unallocated.clusterGroup
+        return this.$store.state.allocation.unallocated
       },
       getClusters() {
-        return this.$store.state.allocation.clusters.clusterGroup
+        return this.$store.state.allocation.clusters[2]
+      },
+      getUnit() {
+        return this.$store.state.allocation.unit;
       }
     },
     methods: {
-      increment () {
-        this.$store.commit('counter/increment')
-      },
-      decrement () {
-        this.$store.commit('counter/decrement')
+      setUnit( unit ) {
+        this.$store.commit('allocation/setUnit', unit)
       },
       calculateWidth() {
         this.$nextTick(function() {
-          this.unit = this.$refs.map_image.clientWidth/this.scale;
+          this.setUnit(this.$refs.map_image.clientWidth/this.scale)
         })
       },
       calculateProjWidth(width) {
-        return width * this.unit;
+        return width * this.getUnit;
       },
       calculateProjAngle(angle) {
         return angle/360;
@@ -108,13 +106,3 @@
   },
  }
 </script>
-
-<style>
-  .vdr {
-      border: 2px SOLID #CCAAEE;
-      background: #CCDDFF;
-      border-radius: 5px;
-      text-align: center;
-      font-size: 50%;
-    }
-</style>

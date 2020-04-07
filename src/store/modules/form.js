@@ -9,7 +9,7 @@ const state = {
   power_outlets: 0,
   monitors: 0,
   frames: 0,
-  themes: ["Data Analytics", "Artificial Intelligence", "Healthcare", "Drones"]
+  theme: ""
 }
 
 // actions
@@ -22,13 +22,18 @@ const actions = {
 // mutations
 const mutations = {
   submitGroupFB ( state ){
-    db.collection('students').add({
-      group_no: state.group_no,
+    db.collection('groups').add({
+      serial_no: state.group_no,
       length: state.length,
       breadth:state.breadth,
       power_outlets: state.power_outlets,
       monitors: state.monitors,
-      frames: state.frames
+      frames: state.frames,
+      theme: state.theme,
+      angle: 0,
+      allocation: -1,
+      coordX: 0,
+      coordY: 0
     })
     .then(docRef =>{
       console.log('Form submitted: ', docRef.id)
@@ -57,6 +62,9 @@ const mutations = {
   },
   setFrames ( state, frames ) {
     state.frames = parseInt(frames);
+  },
+  setTheme ( state, theme ) {
+    state.theme = theme;
   }
 }
 

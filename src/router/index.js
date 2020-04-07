@@ -32,39 +32,40 @@ const router = new VueRouter({
         component: Dashboard,
         meta:{
             requireAuth: true
+            
         }
     },
     {
         name: 'Level 1',
         path: '/level1',
         component: Level1,
+        meta:{
+            requireAuth: true
+            
+        },
         beforeEnter: (to,from,next)=>{
             if(firebase.auth().currentUser.displayName=="admin"){
                 next();
             }
-            else{
-                next("/");
-            }
-          },
-        meta:{
-            requireAuth: true
+            else next("/");
         }
+        
     },
     {
         name: 'Level 2',
         path: '/level2',
         component: Level2,
-        beforeEnter: (to,from,next)=>{
-            if(firebase.auth().currentUser.displayName=="admin"){
-                next();
-            }
-            else{
-                next("/");
-            }
-          },
         meta:{
             requireAuth: true
+            
+        },
+        beforeEnter: (to,from,next)=>{
+            if(firebase.auth().currentUser.displayName=="admin"){
+                next()
+            }
+            else next("/")
         }
+        // meta
     },
     {
         name: 'admin',
@@ -79,26 +80,16 @@ const router = new VueRouter({
       name: 'Space Form',
       path: '/form',
       component: SpaceForm,
-      beforeEnter: (to,from,next)=>{
+      meta:{
+        requireAuth: true
+        
+    },
+    beforeEnter: (to,from,next)=>{
         if(firebase.auth().currentUser.displayName!="admin"){
-            next();
+            next()
         }
-        else{
-            next("/");
-        }
-      },
-      meta: {
-         requireAuth: true
-         
-       }
-       /*beforeRouteLeave (to, from, next) {
-            const answer = window.confirm('Do you really want to leave? you have unsaved changes!')
-            if (answer) {
-                next()
-            } else {
-                next(false)
-            }
-        }*/
+        else next("/")
+    }
     }
 ]
 });

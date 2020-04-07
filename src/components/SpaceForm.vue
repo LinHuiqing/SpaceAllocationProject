@@ -22,7 +22,7 @@
 
            <div class="buttons">
             <b-button type="is-success" @click="submitGroup">Submit</b-button>
-            <b-button type="is-danger"><router-link to="home" style="all: inherit;">Cancel</router-link></b-button>
+            <b-button type="is-danger"><router-link to="Dashboard" style="all: inherit;">Cancel</router-link></b-button>
           </div>
           </form>
         </div>

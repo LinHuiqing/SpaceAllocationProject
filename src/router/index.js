@@ -17,6 +17,10 @@ const router = new VueRouter({
     base: process.env.BASE_URL,
     routes: [
         {
+            path: '/',
+            name: 'home'
+        },
+        {
         path: '/login',
         name: 'login',
         component: Login
@@ -41,13 +45,6 @@ const router = new VueRouter({
         component: Level1,
         meta:{
             requireAuth: true
-            
-        },
-        beforeEnter: (to,from,next)=>{
-            if(firebase.auth().currentUser.displayName=="admin"){
-                next();
-            }
-            else next("/");
         }
         
     },
@@ -57,15 +54,7 @@ const router = new VueRouter({
         component: Level2,
         meta:{
             requireAuth: true
-            
-        },
-        beforeEnter: (to,from,next)=>{
-            if(firebase.auth().currentUser.displayName=="admin"){
-                next()
-            }
-            else next("/")
         }
-        // meta
     },
     {
         name: 'admin',
@@ -82,13 +71,6 @@ const router = new VueRouter({
       component: SpaceForm,
       meta:{
         requireAuth: true
-        
-    },
-    beforeEnter: (to,from,next)=>{
-        if(firebase.auth().currentUser.displayName!="admin"){
-            next()
-        }
-        else next("/")
     }
     }
 ]
@@ -102,14 +84,5 @@ router.beforeEach((to,from,next)=>{
     else if (!requireAuth && currentUser) next("/");
     else next();
 });
-/*
-router.beforeEach((to,from,next)=>{
-    const name = firebase.auth().currentUser.data.displayName;
-    const requireadmin = to.matched.some(record => record.meta.requireadmin);
-    const check = 'tryme';
-    if(requireadmin && !name==check) next('/login');
-    else if (!requireadmin && name==check) next('/register');
-    else next();
-});
-*/
+
 export default router

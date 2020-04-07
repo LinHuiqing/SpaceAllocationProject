@@ -17,7 +17,6 @@
             <!-- <router-link to="/admin" class="navbar-item"></router-link> -->
         </template>
         <template slot="start" v-if="user.loggedIn && user.data.displayName!='admin'">
-
             <router-link to="/form" class="navbar-item">Student Form</router-link>
         </template>
 

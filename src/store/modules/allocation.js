@@ -40,11 +40,7 @@ const actions = {
     commit('getGroupsFB')
   },
   allocateAll ({state, commit}) {
-    // console.log("allocating");
     commit('allocateAll');
-    // console.log(2);
-    // commit('allocateTop');
-    // console.log(4);
     // let unallocatedCopy = JSON.parse(JSON.stringify{state.unallocated});
     // unallocatedCopy.sort(sortByDecreasingAllocation);
     state.unallocated.sort(sortByDecreasingAllocation);
@@ -132,25 +128,11 @@ const mutations = {
   setUnit(state, unit) {
     state.unit = unit;
   },
-  // allocateAll(state) {
-  //   // console.log("HELLO");
-  //   // let allSpaces = state.clusters[1].clusterGroup;
-  //   // allSpaces.push(...state.clusters[2].clusterGroup)
-  //   // console.log(allSpaces);
-  //   allocateBottom();
-  //   allocateTop();
-  //   // allocateSpace(allSpaces, state.unallocated)
-  // },
   allocateAll(state) {
     let allClusters = JSON.parse(JSON.stringify(state.clusters[1]));
     allClusters.push(JSON.parse(JSON.stringify(state.clusters[2])));
     allocateSpace(allClusters, state.unallocated)
-    // console.log(1);
   },
-  // allocateTop(state) {
-  //   allocateSpace(state.clusters[2], state.unallocated)
-  //   // console.log(3);
-  // },
   resetAllocation(state) {
     // console.log(state.unallocated);
     state.unallocated = state.unallocated || [];

@@ -7,6 +7,10 @@ import pytest
 from itertools import chain, combinations
 
 
+# CSS selector that points to the mount point of the space form component. If the mock vue parent component changes, this must change.
+SPACE_FORM_ROOT_SELECTOR = "body > div > div"
+
+
 def powerset(iterable):
     "powerset([1,2,3]) --> () (1,) (2,) (3,) (1,2) (1,3) (2,3) (1,2,3)"
     s = list(iterable)
@@ -17,14 +21,15 @@ def powerset(iterable):
 def setup_selenium():
     driver = webdriver.Chrome(binary_path)
     driver.get(os.environ["APP_URL"])
+    driver._form = driver.find_element_by_css_selector(SPACE_FORM_ROOT_SELECTOR)
     yield driver
     driver.quit()
 
 
 def test_can_select_only_one_booth_size(setup_selenium):
     driver = setup_selenium
-    size_selection_row = driver.find_element_by_css_selector(
-        "body > div > section:nth-child(3) > div > div > div > div.tile.is-parent.is-vertical > div:nth-child(3) > div"
+    size_selection_row = driver._form.find_element_by_css_selector(
+        "div.tile.is-parent.is-vertical > div:nth-child(3) > div"
     )
     cards = size_selection_row.find_elements_by_class_name("binary-state-card")
     for card in cards:
@@ -70,11 +75,16 @@ def test_numerical_input_fields_cannot_go_below_zero(setup_selenium):
         assert input_field.get_property("value") == str(0)
 
 
+# latest version of SpaceForm.vue removes the additional details row
+# xfail this test until it comes back
+@pytest.mark.xfail(
+    reason="xfail this test until SpaceForm.vue has the additional details row"
+)
 @pytest.mark.parametrize("combination", powerset(range(3)), ids=lambda k: str(k))
 def test_can_select_multiple_additional_details(setup_selenium, combination):
     driver = setup_selenium
-    cards = driver.find_element_by_css_selector(
-        "body > div > section:nth-child(3) > div > div > div > div.tile.is-parent.is-vertical > div:nth-child(6) > div"
+    cards = driver._form.find_element_by_css_selector(
+        "div:nth-child(6) > div"
     ).find_elements_by_class_name("binary-state-card")
     cards_to_select = [card for (i, card) in enumerate(cards) if i in combination]
     for card_to_select in cards_to_select:

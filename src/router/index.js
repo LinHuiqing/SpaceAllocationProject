@@ -7,7 +7,6 @@ import Register from '../components/register.vue'
 import Dashboard from '../components/dashboard.vue'
 import SpaceForm from '../components/SpaceForm.vue'
 import firebase from 'firebase'
-import admin from '../components/adminview.vue'
 
 Vue.use(VueRouter)
 
@@ -54,15 +53,6 @@ const router = new VueRouter({
         component: Level2,
         meta:{
             requireAuth: true
-        }
-    },
-    {
-        name: 'admin',
-        path: '/admin',
-        component: admin,
-        meta:{
-            requireAuth: true
-    
         }
     },
     {

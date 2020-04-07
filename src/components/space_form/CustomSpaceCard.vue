@@ -9,20 +9,22 @@
                     <div class="tile is-child">
                         <p>{{ description }}</p>
                     </div>
-                    <div class="tile is-child" v-on:click="cancelPropogation">
+                    <div class="tile is-child">
                         <p>Enter space:</p>
                         <b-field label="Length" class="lmao">
                             <b-input type="number"
+                                min="1"
                                 v-model="length"
-                                @click.native.stop="cancelPropogation"
-                                maxlength=2>
+                                maxlength=2
+                                v-on:input="cardClicked">
                             </b-input>
                         </b-field>
-                        <b-field label="Width" class="lmao">
+                        <b-field label="Breadth" class="lmao">
                             <b-input type="number"
-                                v-model="width"
-                                @click.native.stop="cancelPropogation"
-                                maxlength=2>
+                                min="1"
+                                v-model="breadth"
+                                maxlength=2
+                                v-on:input="cardClicked">
                             </b-input>
                         </b-field>
                     </div>
@@ -35,26 +37,25 @@
 <script>
 export default {
     name: "binary-state-card",
-    data: function(){
-        return {
-            length: 0,
-            width: 0,
-        }
-    },
     props: {
         "title": String,
         "description": String,
         "selected": Boolean,
+    },
+    data() {
+      return {
+        length: "1",
+        breadth: "1"
+      }
     },
     methods: {
         cardClicked: function(){
             this.$emit("toggleSelection", {
                 "title": this.title,
                 "selected": this.selected,
+                "length": this.length,
+                "breadth": this.breadth
             });
-        },
-        cancelPropogation: function(){
-            console.log("nani");
         }
     }
 }

@@ -32,7 +32,7 @@
 
            <div class="tile is-parent">
            <div class="buttons">
-            <b-button type="is-success" @click="submitGroup">Submit</b-button>
+            <b-button type="is-success" @click="submitGroup"><router-link to="Dashboard" style="all: inherit;">Submit</router-link></b-button>
             <b-button type="is-danger"><router-link to="Dashboard" style="all: inherit;">Cancel</router-link></b-button>
           </div>
            </div>

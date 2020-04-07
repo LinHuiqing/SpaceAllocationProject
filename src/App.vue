@@ -21,10 +21,6 @@
       <app-nav></app-nav>
       <router-view></router-view>
 
-      <!--<template v-if="user.loggedIn">
-        <admin/>
-      </template> -->
-
       <footer class="footer">
         <div class="content has-text-centered">
           <p>
@@ -41,7 +37,6 @@
   //import VueDraggableResizable from 'vue-draggable-resizable'
   //import './components/vuedraggable.css'
   import navigation from './components/navigation'
-  //import admin from './components/adminview'
 
   export default {
     name: 'app',
@@ -52,8 +47,7 @@
       }
     },
     components: {
-      'app-nav': navigation,
-      //admin
+      'app-nav': navigation
     },
     methods: {
   },

@@ -12,8 +12,8 @@
         </template>
         <template slot="start" v-if="user.loggedIn && user.data.displayName=='admin'">
 
-            <router-link to="/level1" class="navbar-item">Level 1</router-link>
-            <router-link to="/level2" class="navbar-item">Level 2</router-link>
+            <router-link to="/level1" id="lvl1" class="navbar-item">Level 1</router-link>
+            <router-link to="/level2" id="lvl2" class="navbar-item">Level 2</router-link>
         </template>
         <template slot="start" v-if="user.loggedIn && user.data.displayName!='admin'">
             <router-link to="/form" class="navbar-item">Student Form</router-link>

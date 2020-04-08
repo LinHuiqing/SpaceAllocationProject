@@ -6,7 +6,7 @@ from chromedriver_py import binary_path
 import pytest
 from itertools import chain, combinations
 
-
+delay = 1
 # CSS selector that points to the mount point of the space form component. If the mock vue parent component changes, this must change.
 SPACE_FORM_ROOT_SELECTOR = "body > div > div"
 
@@ -14,6 +14,7 @@ SPACE_FORM_ROOT_SELECTOR = "body > div > div"
 def powerset(iterable):
     "powerset([1,2,3]) --> () (1,) (2,) (3,) (1,2) (1,3) (2,3) (1,2,3)"
     s = list(iterable)
+    time.sleep(delay)
     return chain.from_iterable(combinations(s, r) for r in range(1, len(s) + 1))
 
 
@@ -34,9 +35,10 @@ def test_can_select_only_one_booth_size(setup_selenium):
     cards = size_selection_row.find_elements_by_class_name("binary-state-card")
     for card in cards:
         card.click()
-        time.sleep(0.2)
+        time.sleep(delay)
         assert "selected" in card.get_attribute("class")
         for other_card in [c for c in cards if c != card]:
+            time.sleep(delay)
             assert "selected" not in other_card.get_attribute("class")
 
 
@@ -58,6 +60,7 @@ def test_increment_decrement_buttons_change_text_value(setup_selenium):
         # test if pressing plus will increase the value by one
         plus_button.click()
         assert input_field.get_property("value") == str(randint)
+        time.sleep(delay)
 
 
 def test_numerical_input_fields_cannot_go_below_zero(setup_selenium):
@@ -73,6 +76,7 @@ def test_numerical_input_fields_cannot_go_below_zero(setup_selenium):
         for i in range(15):
             minus_button.click()
         assert input_field.get_property("value") == str(0)
+        time.sleep(delay)
 
 
 # latest version of SpaceForm.vue removes the additional details row
@@ -89,8 +93,10 @@ def test_can_select_multiple_additional_details(setup_selenium, combination):
     cards_to_select = [card for (i, card) in enumerate(cards) if i in combination]
     for card_to_select in cards_to_select:
         card_to_select.click()
-    time.sleep(0.5)
+        time.sleep(delay)
     for card in cards_to_select:
         assert "selected" in card.get_attribute("class")
+        time.sleep(delay)
     for card in [c for c in cards if c not in cards_to_select]:
         assert "selected" not in card.get_attribute("class")
+        time.sleep(delay)

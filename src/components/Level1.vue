@@ -23,7 +23,7 @@
                       <p>Group {{group.serial_no}}</p>
                   </drr>
                   <drr v-for="(cluster, index) in getClusters" :key=index :x="calculateProjWidth(cluster.coordX)" :y="calculateProjWidth(cluster.coordY)" :w="calculateProjWidth(cluster.length)" :h="calculateProjWidth(cluster.breadth)" :resizable.sync="resizable" :moveable.sync="moveable" :angle="cluster.angle" style="background-color:rgba(100, 100, 150, 0.3)">
-                    <p>Cluster {{cluster.serial_no}}</p>
+                    <!-- <p>Cluster {{cluster.serial_no}}</p> -->
                   </drr>
                   <!-- <vue-draggable-resizable v-for="(group, index) in getAllocatedGroups" :key=index+13 :x="calculateProjWidth(group.coordX)" :y="calculateProjWidth(group.coordY)" :w="calculateProjWidth(group.length)" :h="calculateProjWidth(group.breadth)" :style="{ transform: 'rotate('+calculateProjAngle(group.angle)+'turn)'}">
                       <p>Group {{group.serial_no}}</p>

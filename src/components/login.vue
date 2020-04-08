@@ -42,7 +42,7 @@
 
               <div class="form-group row mb-0">
                 <div class="col-md-8 offset-md-4">
-                  <button type="submit" class="btn btn-primary">Login</button>
+                  <button id="loginbtn" type="submit" class="btn btn-primary">Login</button>
                 </div>
               </div>
             </form>
@@ -59,7 +59,7 @@ import firebase from "firebase";
 export default {
   name:'login',
   data() {
-    
+
     return {
       form: {
         email: "",

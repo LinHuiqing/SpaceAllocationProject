@@ -5,13 +5,12 @@
             <router-link to="/" class="navbar-brand"></router-link>
             <b-navbar-item tag="router-link" :to="{ path: '/' }">
                 <img
-                    src="https://raw.githubusercontent.com/buefy/buefy/dev/static/img/buefy-logo.png"
+                    src="./../assets/logo.png"
                     alt="Lightweight UI components for Vue.js based on Bulma"
                 >
             </b-navbar-item>
         </template>
         <template slot="start" v-if="user.loggedIn && user.data.displayName=='admin'">
-
             <router-link id="lvl1" to="/level1" class="navbar-item">Level 1</router-link>
             <router-link id="lvl2" to="/level2" class="navbar-item">Level 2</router-link>
         </template>

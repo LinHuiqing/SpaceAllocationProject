@@ -27,7 +27,7 @@ function isPermutation(arr1, arr2) {
 
 var assert = require('assert');
 
-describe('test functions', function() {
+describe('Test Functions', function() {
   describe('#isPermutation()', function() {
     it('should return true when lists are permutations', function() {
       assert.equal(isPermutation([1,2,3], [2,1,3]), true);
@@ -55,9 +55,9 @@ describe('test functions', function() {
 
 var allocationModule = require('../src/api/algorithm/space-allocation-algorithm');
 
-describe('algorithm', function() {
-  describe('complete fit', function() {
-    it('1 cluster', function() {
+describe('Space Allocation Algorithm - Black-box Testing', function() {
+  describe('Allocate projects (4 of 1m*1m) into cluster (1 of 2m*2m)', function() {
+    it('projects should completely fit into the given cluster', function() {
       let inputClusters = [
         {
           'id': 'doc.id',
@@ -164,9 +164,9 @@ describe('algorithm', function() {
       assert.equal(isPermutation(inputProjects, outputProjects), true);
     });
   });
-  describe('complete fit', function() {
-    it('2 clusters', function() {
-      let inputClusters = new allocationModule.SpaceList([
+  describe('Allocate projects (4 of 1m*1m & 1 of 2m*2m) into clusters (2 of 2m*2m)', function() {
+    it('projects should completely fit into the given clusters', function() {
+      let inputClusters = [
         {
           'id': 'doc.id',
           'serial_no': 0,
@@ -186,8 +186,8 @@ describe('algorithm', function() {
           'angle': 0,
           'level': 1
         }
-      ], "cluster");
-      let inputProjects = new allocationModule.SpaceList([
+      ];
+      let inputProjects = [
         {
           'id': 'doc.id',
           'serial_no': 0,
@@ -231,9 +231,9 @@ describe('algorithm', function() {
           'group_theme': 'doc.data().theme',
           'allocation': -1
         }
-      ], "project");
+      ];
       allocationModule.allocateSpace(inputClusters, inputProjects);
-      let outputProjects = new allocationModule.SpaceList([
+      let outputProjects = [
         {
           'id': 'doc.id',
           'serial_no': 0,
@@ -277,13 +277,13 @@ describe('algorithm', function() {
           'group_theme': 'doc.data().theme',
           'allocation': 1
         }
-      ], "project");
-      assert.equal(isPermutation(inputProjects.getCluster(), outputProjects.getCluster()), true);
+      ]
+      assert.equal(isPermutation(inputProjects, outputProjects), true);
     });
   });
   describe('groups in same cluster can be rearranged', function() {
     it('1 cluster', function() {
-      let inputClusters = new allocationModule.SpaceList([
+      let inputClusters = [
         {
           'id': 'doc.id',
           'serial_no': 0,
@@ -294,8 +294,8 @@ describe('algorithm', function() {
           'angle': 0,
           'level': 1
         }
-      ], "cluster");
-      let inputProjects = new allocationModule.SpaceList([
+      ];
+      let inputProjects = [
         {
           'id': 'doc.id',
           'serial_no': 0,
@@ -340,9 +340,9 @@ describe('algorithm', function() {
           'group_theme': 'doc.data().theme',
           'allocation': -1
         }
-      ], "project");
+      ];
       allocationModule.allocateSpace(inputClusters, inputProjects);
-      let outputProjects = new allocationModule.SpaceList([
+      let outputProjects = [
         {
           'id': 'doc.id',
           'serial_no': 0,
@@ -386,12 +386,12 @@ describe('algorithm', function() {
           'group_theme': 'doc.data().theme',
           'allocation': 0
         }
-      ], "project");
-      assert.equal(isPermutation(inputProjects.getCluster(), outputProjects.getCluster()), true);
+      ]
+      assert.equal(isPermutation(inputProjects, outputProjects), true);
     });
   });
-  describe('partial fit (all same size)', function() {
-    it('1 cluster', function() {
+  describe('Allocate projects (5 of 1m*1m) into clusters (1 of 2m*2m)', function() {
+    it('partial allocation should be generated - 4 projects allocated cluster while 1 project remains unallocated', function() {
       let inputClusters = [
         {
           'id': 'doc.id',
@@ -520,8 +520,8 @@ describe('algorithm', function() {
       assert.equal(isPermutation(inputProjects, outputProjects), true);
     });
   });
-  describe('partial fit (prioritising large projects)', function() {
-    it('2 clusters', function() {
+  describe('Allocate projects (4 of 1m*1m & 1 of 1m*2m) into clusters (1 of 1m*2m & 1 of 2m*1m); large projects should be prioritised', function() {
+    it('partial allocation should be generated - allocated: 1m*2m, 2 of 1m*1m; unallocated: 2 of 1m*1m', function() {
       // var inputSpaces = [[1,2,0], [2,1,0]];
       // var inputProjects = [[1,1,0], [1,1,0], [1,1,0], [1,1,0], [1,2,0]]
       let inputClusters = [
@@ -661,10 +661,10 @@ describe('algorithm', function() {
   });
 });
 
-describe('fault-based testing', function() {
-  describe('input length does not equal output length', function() {
-    it('1 cluster', function() {
-      let inputClusters = new allocationModule.SpaceList([
+describe('Space Allocation Algorithm - Fault-based Testing', function() {
+  describe('Allocate projects (3 of 1m*1m) into cluster (1 of 2m*2m)', function() {
+    it('all projects should be allocated with some space left', function() {
+      let inputClusters = [
         {
           'id': 'doc.id',
           'serial_no': 0,
@@ -675,8 +675,8 @@ describe('fault-based testing', function() {
           'angle': 0,
           'level': 1
         }
-      ], "cluster");
-      let inputProjects = new allocationModule.SpaceList([
+      ];
+      let inputProjects = [
         {
           'id': 'doc.id',
           'serial_no': 0,
@@ -710,9 +710,9 @@ describe('fault-based testing', function() {
           'group_theme': 'doc.data().theme',
           'allocation': -1
         }
-      ], "project");
+      ];
       allocationModule.allocateSpace(inputClusters, inputProjects);
-      let outputProjects = new allocationModule.SpaceList([
+      let outputProjects = [
         {
           'id': 'doc.id',
           'serial_no': 0,
@@ -756,13 +756,13 @@ describe('fault-based testing', function() {
           'group_theme': 'doc.data().theme',
           'allocation': 0
         }
-      ], "project");
-      assert.equal(isPermutation(inputProjects.getCluster(), outputProjects.getCluster()), false);
+      ];
+      assert.equal(isPermutation(inputProjects, outputProjects), false);
     });
-  });  
-  describe('input groups does not equal output groups', function() {
+  });
+  describe('Allocate projects (3 of 1m*1m) into cluster (1 of 2m*2m) input groups does not equal output groups', function() {
     it('1 cluster', function() {
-      let inputClusters = new allocationModule.SpaceList([
+      let inputClusters = [
         {
           'id': 'doc.id',
           'serial_no': 0,
@@ -773,8 +773,8 @@ describe('fault-based testing', function() {
           'angle': 0,
           'level': 1
         }
-      ], "cluster");
-      let inputProjects = new allocationModule.SpaceList([
+      ];
+      let inputProjects = [
         {
           'id': 'doc.id',
           'serial_no': 0,
@@ -819,9 +819,9 @@ describe('fault-based testing', function() {
           'group_theme': 'doc.data().theme',
           'allocation': -1
         }
-      ], "project");
+      ];
       allocationModule.allocateSpace(inputClusters, inputProjects);
-      let outputProjects = new allocationModule.SpaceList([
+      let outputProjects = [
         {
           'id': 'doc.id',
           'serial_no': 0,
@@ -865,13 +865,13 @@ describe('fault-based testing', function() {
           'group_theme': 'doc.data().theme',
           'allocation': 0
         }
-      ], "project");
-      assert.equal(isPermutation(inputProjects.getCluster(), outputProjects.getCluster()), false);
+      ];
+      assert.equal(isPermutation(inputProjects, outputProjects), false);
     });
   });
   describe('allocated to non-existent cluster', function() {
     it('1 cluster', function() {
-      let inputClusters = new allocationModule.SpaceList([
+      let inputClusters = [
         {
           'id': 'doc.id',
           'serial_no': 0,
@@ -882,8 +882,8 @@ describe('fault-based testing', function() {
           'angle': 0,
           'level': 1
         }
-      ], "cluster");
-      let inputProjects = new allocationModule.SpaceList([
+      ];
+      let inputProjects = [
         {
           'id': 'doc.id',
           'serial_no': 0,
@@ -928,9 +928,9 @@ describe('fault-based testing', function() {
           'group_theme': 'doc.data().theme',
           'allocation': -1
         }
-      ], "project");
+      ];
       allocationModule.allocateSpace(inputClusters, inputProjects);
-      let outputProjects = new allocationModule.SpaceList([
+      let outputProjects = [
         {
           'id': 'doc.id',
           'serial_no': 0,
@@ -974,13 +974,13 @@ describe('fault-based testing', function() {
           'group_theme': 'doc.data().theme',
           'allocation': 1
         }
-      ], "project");
-      assert.equal(isPermutation(inputProjects.getCluster(), outputProjects.getCluster()), false);
+      ];
+      assert.equal(isPermutation(inputProjects, outputProjects), false);
     });
   });
   describe('if extra space, can anyhow', function() {
     it('1 cluster', function() {
-      let inputClusters = new allocationModule.SpaceList([
+      let inputClusters = [
         {
           'id': 'doc.id',
           'serial_no': 0,
@@ -991,8 +991,8 @@ describe('fault-based testing', function() {
           'angle': 0,
           'level': 1
         }
-      ], "cluster");
-      let inputProjects = new allocationModule.SpaceList([
+      ];
+      let inputProjects = [
         {
           'id': 'doc.id',
           'serial_no': 0,
@@ -1037,9 +1037,9 @@ describe('fault-based testing', function() {
           'group_theme': 'doc.data().theme',
           'allocation': -1
         }
-      ], "project");
+      ];
       allocationModule.allocateSpace(inputClusters, inputProjects);
-      let outputProjects = new allocationModule.SpaceList([
+      let outputProjects = [
         {
           'id': 'doc.id',
           'serial_no': 0,
@@ -1083,8 +1083,8 @@ describe('fault-based testing', function() {
           'group_theme': 'doc.data().theme',
           'allocation': 0
         }
-      ], "project");
-      assert.equal(isPermutation(inputProjects.getCluster(), outputProjects.getCluster()), true);
+      ];
+      assert.equal(isPermutation(inputProjects, outputProjects), true);
     });
   });
 });

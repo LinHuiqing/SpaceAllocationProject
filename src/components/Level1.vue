@@ -1,3 +1,7 @@
+// <head>
+//   <script type="text/javascript" src="html2canvas-master/dist/html2canvas.js"></script>
+// </head>
+
 <template>
     <div>
         <section>
@@ -27,13 +31,13 @@
                     </a>
                   </div>
                 </header>
-                <div ref="map_image" style="position: relative; width: 1200px">
+                <div ref="map_image" style="position: relative; width: 1200px" id='layout'>
                   <figure class="image">
                       <img src="../assets/floorplan_level1.jpg">
                   </figure>
                   <drr v-for="(group, index) in getAllocatedGroups" :key=index+13 :x="calculateProjCoordX(group.coordX, group.length, group.breadth, group.angle)" :y="calculateProjCoordY(group.coordY, group.length, group.breadth, group.angle)" :w="calculateProjWidth(group.length)" :h="calculateProjWidth(group.breadth)"
                   :angle="group.angle">
-                      <p>Group {{group.serial_no}}</p>
+                      <p>{{group.serial_no}}</p>
                   </drr>
                   <!-- <drr v-for="(cluster, index) in getClusters" :key=index :x="calculateProjCoordX(cluster.coordX, cluster.length, cluster.breadth, cluster.angle)" :y="calculateProjCoordY(cluster.coordY, cluster.length, cluster.breadth, cluster.angle)" :w="calculateProjWidth(cluster.length)" :h="calculateProjWidth(cluster.breadth)" :resizable.sync="resizable" :moveable.sync="moveable" :angle="cluster.angle" style="background-color:rgba(100, 100, 150, 0.3)">
                     <p>Cluster {{cluster.serial_no}}</p>
@@ -41,7 +45,7 @@
                 </div>
               </div>
                 <div class="tile">
-                <b-button style="width: 200px; left: 20px top: 20px" type="is-success">Save Layout</b-button>
+                <b-button style="width: 200px; left: 20px top: 20px" type="is-success" @click='screenshot()'>Save Layout</b-button>
                 </div>
             </article>
             <article class="tile is-child notification is-light is-2">
@@ -61,6 +65,7 @@
 <script>
   import drr from '@minogin/vue-drag-resize-rotate'
   import ResizeText from 'vue-resize-text'
+  import html2canvas from '../html2canvas'
 
   export default {
     name: 'level1',
@@ -143,6 +148,12 @@
       getClusterGroups(cluster) {
         return this.$store.state.allocation.allocated[cluster.serial_no]
       },
+    screenshot() {
+    html2canvas(document.getElementById("layout")).then(function(canvas) {
+                    document.body.appendChild(canvas);
+                });
+    
+  }
   },
  }
 </script>
@@ -150,7 +161,7 @@
 <style>
   .drr {
     background-color: rgba(50, 50, 50, 0.3);
-    font-size:50%;
+    font-size:90%;
     border-style: groove;
     border-width: thin;
   }

@@ -10,17 +10,13 @@
               Capstone Space Allocation Project
             </h1>
             <h2 class="subtitle">
-              Map
-              <!--dbtry /-->
+              Cohort 3 Group 11
             </h2>
           </div>
         </div>
       </section>
-      <!-- <router-link to="/level1">Level 1</router-link>
-      <router-link to="/level2">Level 2</router-link> -->
       <app-nav></app-nav>
       <router-view></router-view>
-
       <footer class="footer">
         <div class="content has-text-centered">
           <p>

@@ -1,5 +1,5 @@
 <template>
-    <b-navbar>
+    <b-navbar type="is-light" mobile-burger="true">
         <template slot="brand">
 
             <router-link to="/" class="navbar-brand"></router-link>
@@ -10,11 +10,16 @@
                 >
             </b-navbar-item>
         </template>
+        <!-- allows admin to access space allocation -->
         <template slot="start" v-if="user.loggedIn && user.data.displayName=='admin'">
-
-            <router-link to="/level1" id="lvl1" class="navbar-item">Level 1</router-link>
-            <router-link to="/level2" id="lvl2" class="navbar-item">Level 2</router-link>
+            <b-navbar-item>
+                <router-link to="/level1" id="lvl1" class="navbar-item">Level 1</router-link>
+            </b-navbar-item>
+            <b-navbar-item>
+                <router-link to="/level2" id="lvl2" class="navbar-item">Level 2</router-link>
+            </b-navbar-item>
         </template>
+        <!-- direct to student form when user does not have admin access -->
         <template slot="start" v-if="user.loggedIn && user.data.displayName!='admin'">
             <router-link to="/form" class="navbar-item">Student Form</router-link>
         </template>

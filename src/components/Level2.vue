@@ -8,11 +8,29 @@
                   <p class="title">Map</p>
                   <p class="subtitle">Campus Centre Level 2</p>
                 </article>
-                <article class="tile is-child buttons">
+                <!-- <article class="tile is-child buttons">
                   <b-button type="is-warning" @click="allocateAll()">Allocate</b-button>
                   <b-button type="is-danger" @click="resetAllocation()">Reset</b-button>
-                </article>
+                </article> -->
               </div>
+              <div class="mb-12 v-card v-card--outlined v-sheet theme--light">
+                <header class="v-sheet v-sheet--tile theme--light v-toolbar v-toolbar--dense v-toolbar--flat grey lighten-3" style="height: 48px;">
+                  <div class="v-toolbar__content" style="height: 48px;">
+                    <!---->
+                    <div class="spacer"></div>
+                  
+                    <span class="v-tooltip v-tooltip--bottom"></span>
+                    <b-button type="is-primary" @click="allocateAll()">Allocate</b-button>
+                    <span class="v-tooltip v-tooltip--bottom"></span>
+                    <b-button type="is-light" @click="resetAllocation()">Reset</b-button>
+                    <span class="v-tooltip v-tooltip--bottom"></span>
+                    <a href="https://github.com/LinHuiqing/SpaceAllocationProject" target="_blank" class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default" aria-label="View on Github">
+                      <span class="v-btn__content">
+                        <i aria-hidden="true" class="v-icon notranslate mdi mdi-code-tags theme--light"></i>
+                      </span>
+                    </a>
+                  </div>
+                </header>
                   <div ref="map_image" style="position: relative; width: 1200px">
                     <figure class="image">
                       <img src="../assets/floorplan_level2.jpg">
@@ -25,8 +43,12 @@
                       <p>Cluster {{cluster.serial_no}}</p>
                     </drr> -->
                 </div>
+              </div>
+
+              <div class="tile">
                 <div class="buttons">
                 <b-button style="width: 200px; left: 20px top: 20px" type="is-success">Save Layout</b-button>
+                </div>
                 </div>
             </article>
             <article class="tile is-child notification is-light is-2">

@@ -20,7 +20,6 @@
       <router-link to="/level2">Level 2</router-link> -->
       <app-nav></app-nav>
       <router-view></router-view>
-
       <footer class="footer">
         <div class="content has-text-centered">
           <p>

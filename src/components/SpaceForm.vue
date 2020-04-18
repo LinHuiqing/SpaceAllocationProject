@@ -1,34 +1,48 @@
 <template>
-    <div class="tile is-parent is-vertical">
-        <p class="title">Request for space</p>
-        <p class="subtitle">Use this form to request for space.</p>
+    <div class="tile is-parent is-vertical" :class="$style.form">
+      <div class="tile is-parent is-vertical">
+        <h1 class="title">Request for space</h1>
+        <h1 class="subtitle">Use this form to request for space.</h1>
+      </div>
 
         <div class="row">
           <form @submit.prevent="submitGroup" class="col s12">
-            <div class="row">
-              <div class="input-field col s12">
-                <input type="text" v-model="group_no" required>
-                <label>Capstone Group Number</label>
+            <div class="tile is-parent">
+              <div class="input-field">
+                <b-field label="Capstone Group Number" type="is-info" >
+                  <b-input type="number" v-model="group_no" placeholder="Enter Group number" required></b-input>
+                </b-field>
               </div>
             </div>
+            <div class="tile is-parent">
+            <div class="input-field">
+          <b-field label="Theme" type="is-info">
+             <b-input type="text" v-model="theme" placeholder="Enter project theme" required></b-input>
+           </b-field>
+            </div>
+            </div>
+            
+            <div class="tile is-parent" name="sizerow">
             <SizeSelectionRow></SizeSelectionRow>
+            </div>
+            <div class="tile is-parent">
+           <PowerAVRow></PowerAVRow>
+           </div>
+          
 
-           <PowerAVRow v-model="power_outlets"></PowerAVRow>
-            <button type="submit" class="btn">Submit</button>
-            <button><router-link to="/level1" class="btn grey">Cancel</router-link></button>
+           <div class="tile is-parent">
+           <div class="buttons">
+            <b-button type="is-success" @click="submitGroup"><router-link to="Dashboard" style="all: inherit;">Submit</router-link></b-button>
+            <b-button type="is-danger"><router-link to="Dashboard" style="all: inherit;">Cancel</router-link></b-button>
+          </div>
+           </div>
           </form>
         </div>
-
-        <!-- <SizeSelectionRow></SizeSelectionRow>
-
-        <PowerAVRow></PowerAVRow> -->
-        <button type="submit" class="btn">Submit</button>
-        <button><router-link to="/level1" class="btn grey">Cancel</router-link></button>
     </div>
 </template>
 
 <script>
-import db from './firebaseInit'
+
 import SizeSelectionRow from './space_form/SizeSelectionRow';
 import PowerAVRow from './space_form/PowerAVRow.vue';
 
@@ -37,31 +51,35 @@ export default {
   components: {
     SizeSelectionRow, PowerAVRow
   },
-  data(){
-    return{
-      group_no: null,
-      length: null,
-      breadth: null,
-      power_outlets:null
-
+  computed: {
+    group_no: {
+      get () {
+        return this.$store.state.form.group_no
+      },
+      set (value) {
+        this.$store.commit('form/setGroupNo', value)
+      }
+    },
+    theme: {
+      get() {
+        return this.$store.state.form.theme
+      },
+      set(value) {
+        this.$store.commit('form/setTheme', value)
+      }
     }
   },
   methods:{
     submitGroup(){
-      db.collection('students').add({
-        group_no: this.group_no,
-        length: this.length,
-        breadth:this.breadth,
-        power_outlets:this.power_outlets
-      })
-      .then(docRef =>{
-        console.log('Form submitted: ', docRef.id)
-        this.$router.push('/')
-      })
-      .catch(error => {
-        console.error('Error adding student: ', error)
-    })
+      this.$buefy.dialog.alert('Form submitted!')
+      this.$store.dispatch('form/submitGroupFBAsync')
+    },
   }
 }
-}
 </script>
+
+<style module>
+.form {
+    transform: scale(0.95);
+}
+</style>

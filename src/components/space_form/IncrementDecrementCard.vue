@@ -14,7 +14,7 @@
                             <b-field label="Quantity">
                                 <b-numberinput
                                     min="0"
-                                    v-model="internal_value"
+                                    v-model="value"
                                     v-on:input="valueChanged">
                                 </b-numberinput>
                             </b-field>
@@ -29,22 +29,18 @@
 <script>
 export default {
     name: "increment-decrement-card",
-    data: function(){ 
+    data: function(){
         return {
-            "internal_value": this.value ?? 0, 
+            value: 0,
         };
     },
     props: {
         "title": String,
-        "description": String,
-        "value": Number,
+        "description": String
     },
     methods: {
-        valueChanged: function(value){
-            this.$emit("valueChanged", {
-                "title": this.title,
-                "value": value,
-            });
+        valueChanged(){
+            this.$emit("valueChanged", this.value);
         },
     }
 }

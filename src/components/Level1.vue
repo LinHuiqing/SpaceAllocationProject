@@ -1,7 +1,3 @@
-// <head>
-//   <script type="text/javascript" src="html2canvas-master/dist/html2canvas.js"></script>
-// </head>
-
 <template>
     <div>
         <section>
@@ -65,7 +61,7 @@
 <script>
   import drr from '@minogin/vue-drag-resize-rotate'
   import ResizeText from 'vue-resize-text'
-  import html2canvas from '../html2canvas'
+  // import html2canvas from '../html2canvas'
 
   export default {
     name: 'level1',
@@ -148,12 +144,12 @@
       getClusterGroups(cluster) {
         return this.$store.state.allocation.allocated[cluster.serial_no]
       },
-    screenshot() {
-    html2canvas(document.getElementById("layout")).then(function(canvas) {
-                    document.body.appendChild(canvas);
-                });
+  //   screenshot() {
+  //   html2canvas(document.getElementById("layout")).then(function(canvas) {
+  //                   document.body.appendChild(canvas);
+  //               });
     
-  }
+  // }
   },
  }
 </script>

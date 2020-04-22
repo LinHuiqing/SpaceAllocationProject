@@ -14,7 +14,23 @@
                   <b-button type="is-danger" @click="resetAllocation()">Reset</b-button>
                 </article>
               </div>
-                <div ref="map_image" style="position: relative; width: 1200px">
+              <div class="mb-12 v-card v-card--outlined v-sheet theme--light">
+                <header class="v-sheet v-sheet--tile theme--light v-toolbar v-toolbar--dense v-toolbar--flat grey lighten-3" style="height: 48px;">
+                  <div class="v-toolbar__content" style="height: 48px;">
+                    <div class="spacer"></div>
+                    <span class="v-tooltip v-tooltip--bottom"></span>
+                    <b-button type="is-primary" @click="allocateAll()">Allocate</b-button>
+                    <span class="v-tooltip v-tooltip--bottom"></span>
+                    <b-button type="is-light" @click="resetAllocation()">Reset</b-button>
+                    <span class="v-tooltip v-tooltip--bottom"></span>
+                    <a href="https://github.com/LinHuiqing/SpaceAllocationProject" target="_blank" class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default" aria-label="View on Github">
+                      <span class="v-btn__content">
+                        <i aria-hidden="true" class="v-icon notranslate mdi mdi-code-tags theme--light"></i>
+                      </span>
+                    </a>
+                  </div>
+                </header>
+                <div ref="map_image" style="position: relative; width: 1200px" id='layout'>
                   <figure class="image">
                       <img src="../assets/floorplan_level1.jpg">
                   </figure>
@@ -35,7 +51,7 @@
                 <p class="subtitle">Drag and Drop on to Map</p>
                 <div :style="{ position: 'relative' }">
                   <drr v-for="(group, index) in getUnallocatedGroups" :key=index :x=lastXPos :y=lastYPos :w="calculateProjWidth(group.length)" :h="calculateProjWidth(group.breadth)">
-                      <p>Group {{group.serial_no}}</p>
+                      <p>{{group.serial_no}}</p>
                   </drr>
                 </div>
             </article>
@@ -61,7 +77,7 @@
         isActive: true,
         scale: 60,
         lastYPos: 50,
-        lastXPos: 50
+        lastXPos: 50,
       }
     },
     created(){
@@ -77,7 +93,7 @@
     },
     computed: {
       getUnallocatedGroups() {
-        console.log("unallocated", this.$store.state.allocation.unallocated);
+        // console.log("unallocated", this.$store.state.allocation.unallocated);
         return this.$store.state.allocation.unallocated
       },
       getClusters() {
@@ -90,7 +106,9 @@
         let all_allocated = []
         // console.log("allocated", this.$store.state.allocation.allocated);
         for (let cluster in this.$store.state.allocation.allocated) {
-          all_allocated.push(...this.$store.state.allocation.allocated[cluster]);
+          if (cluster <=10) {
+            all_allocated.push(...this.$store.state.allocation.allocated[cluster]);
+          }
         }
         return all_allocated;
       }
@@ -125,6 +143,12 @@
       getClusterGroups(cluster) {
         return this.$store.state.allocation.allocated[cluster.serial_no]
       },
+  //   screenshot() {
+  //   html2canvas(document.getElementById("layout")).then(function(canvas) {
+  //                   document.body.appendChild(canvas);
+  //               });
+
+  // }
   },
  }
 </script>

@@ -130,7 +130,7 @@ const mutations = {
   },
   allocateAll(state) {
     let allClusters = JSON.parse(JSON.stringify(state.clusters[1]));
-    allClusters.push(JSON.parse(JSON.stringify(state.clusters[2])));
+    allClusters.push.apply(allClusters, JSON.parse(JSON.stringify(state.clusters[2])));
     allocateSpace(allClusters, state.unallocated)
   },
   resetAllocation(state) {

@@ -11,10 +11,8 @@
             </b-navbar-item>
         </template>
         <template slot="start" v-if="user.loggedIn && user.data.displayName=='admin'">
-
-            <router-link to="/level1" class="navbar-item">Level 1</router-link>
-            <router-link to="/level2" class="navbar-item">Level 2</router-link>
-            <!-- <router-link to="/admin" class="navbar-item"></router-link> -->
+            <router-link class="navbar-item" to="/level1" id="lvl1">Level 1</router-link>
+            <router-link class="navbar-item" to="/level2" id="lvl2">Level 2</router-link>
         </template>
         <template slot="start" v-if="user.loggedIn && user.data.displayName!='admin'">
 

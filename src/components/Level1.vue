@@ -12,9 +12,7 @@
               <div class="mb-12 v-card v-card--outlined v-sheet theme--light">
                 <header class="v-sheet v-sheet--tile theme--light v-toolbar v-toolbar--dense v-toolbar--flat grey lighten-3" style="height: 48px;">
                   <div class="v-toolbar__content" style="height: 48px;">
-                    <!---->
                     <div class="spacer"></div>
-                  
                     <span class="v-tooltip v-tooltip--bottom"></span>
                     <b-button type="is-primary" @click="allocateAll()">Allocate</b-button>
                     <span class="v-tooltip v-tooltip--bottom"></span>
@@ -35,9 +33,9 @@
                   :angle="group.angle">
                       <p>{{group.serial_no}}</p>
                   </drr>
-                  <drr v-for="(cluster, index) in getClusters" :key=index :x="calculateProjCoordX(cluster.coordX, cluster.length, cluster.breadth, cluster.angle)" :y="calculateProjCoordY(cluster.coordY, cluster.length, cluster.breadth, cluster.angle)" :w="calculateProjWidth(cluster.length)" :h="calculateProjWidth(cluster.breadth)" :resizable.sync="resizable" :moveable.sync="moveable" :angle="cluster.angle" style="background-color:rgba(100, 100, 150, 0.3)">
+                  <!-- <drr v-for="(cluster, index) in getClusters" :key=index :x="calculateProjCoordX(cluster.coordX, cluster.length, cluster.breadth, cluster.angle)" :y="calculateProjCoordY(cluster.coordY, cluster.length, cluster.breadth, cluster.angle)" :w="calculateProjWidth(cluster.length)" :h="calculateProjWidth(cluster.breadth)" :resizable.sync="resizable" :moveable.sync="moveable" :angle="cluster.angle" style="background-color:rgba(100, 100, 150, 0.3)">
                     <p>Cluster {{cluster.serial_no}}</p>
-                  </drr>
+                  </drr> -->
                 </div>
               </div>
                 <div class="tile">
@@ -48,8 +46,8 @@
                 <p class="title">Groups to be Allocated</p>
                 <p class="subtitle">Drag and Drop on to Map</p>
                 <div :style="{ position: 'relative' }">
-                  <drr v-for="(group, index) in getUnallocatedGroups" :key=index :x=lastXPos :y=lastYPos :w="calculateProjWidth(group.length)" :h="calculateProjWidth(group.breadth)" style="background-color: rgba(50, 50, 50, 0.3); font-size:50%">
-                      <p>Group {{group.serial_no}}</p>
+                  <drr v-for="(group, index) in getUnallocatedGroups" :key=index :x=lastXPos :y=lastYPos :w="calculateProjWidth(group.length)" :h="calculateProjWidth(group.breadth)">
+                      <p>{{group.serial_no}}</p>
                   </drr>
                 </div>
             </article>
@@ -80,7 +78,7 @@
         isActive: true,
         scale: 60,
         lastYPos: 50,
-        lastXPos: 50
+        lastXPos: 50,
       }
     },
     created(){
@@ -96,7 +94,7 @@
     },
     computed: {
       getUnallocatedGroups() {
-        console.log("unallocated", this.$store.state.allocation.unallocated);
+        // console.log("unallocated", this.$store.state.allocation.unallocated);
         return this.$store.state.allocation.unallocated
       },
       getClusters() {
@@ -109,7 +107,9 @@
         let all_allocated = []
         // console.log("allocated", this.$store.state.allocation.allocated);
         for (let cluster in this.$store.state.allocation.allocated) {
-          all_allocated.push(...this.$store.state.allocation.allocated[cluster]);
+          if (cluster <=10) {
+            all_allocated.push(...this.$store.state.allocation.allocated[cluster]);
+          }
         }
         return all_allocated;
       }
@@ -148,7 +148,7 @@
   //   html2canvas(document.getElementById("layout")).then(function(canvas) {
   //                   document.body.appendChild(canvas);
   //               });
-    
+
   // }
   },
  }

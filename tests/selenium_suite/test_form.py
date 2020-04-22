@@ -20,7 +20,8 @@ def powerset(iterable):
 @pytest.fixture(scope="function", autouse=True)
 def setup_selenium():
     driver = webdriver.Chrome(binary_path)
-    driver.get(os.environ["APP_URL"])
+    driver.maximize_window()
+    driver.get(os.environ["FORM_APP_URL"])
     driver._form = driver.find_element_by_css_selector(SPACE_FORM_ROOT_SELECTOR)
     yield driver
     driver.quit()

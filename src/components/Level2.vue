@@ -18,7 +18,7 @@
                   <div class="v-toolbar__content" style="height: 48px;">
                     <!---->
                     <div class="spacer"></div>
-                  
+
                     <span class="v-tooltip v-tooltip--bottom"></span>
                     <b-button type="is-primary" @click="allocateAll()">Allocate</b-button>
                     <span class="v-tooltip v-tooltip--bottom"></span>
@@ -36,8 +36,8 @@
                       <img src="../assets/floorplan_level2.jpg">
                     </figure>
                     <drr v-for="(group, index) in getAllocatedGroups" :key=index+13 :x="calculateProjCoordX(group.coordX, group.length, group.breadth, group.angle)" :y="calculateProjCoordY(group.coordY, group.length, group.breadth, group.angle)" :w="calculateProjWidth(group.length)" :h="calculateProjWidth(group.breadth)"
-                    :angle="group.angle" style="background-color: rgba(50, 50, 50, 0.3); font-size:50%">
-                        <p>Group {{group.serial_no}}</p>
+                    :angle="group.angle">
+                        <p>{{group.serial_no}}</p>
                     </drr>
                     <!-- <drr v-for="(cluster, index) in getClusters" :key=index :x="calculateProjCoordX(cluster.coordX, cluster.length, cluster.breadth, cluster.angle)" :y="calculateProjCoordY(cluster.coordY, cluster.length, cluster.breadth, cluster.angle)" :w="calculateProjWidth(cluster.length)" :h="calculateProjWidth(cluster.breadth)" :resizable.sync="resizable" :moveable.sync="moveable" :angle="cluster.angle" style="background-color:rgba(100, 100, 150, 0.3)">
                       <p>Cluster {{cluster.serial_no}}</p>
@@ -55,8 +55,8 @@
                 <p class="title">Groups to be Allocated</p>
                 <p class="subtitle">Drag and Drop on to Map</p>
                 <div :style="{ position: 'relative' }">
-                <drr v-for="(group, index) in getUnallocatedGroups" :key=index :x=lastXPos :y=lastYPos :w="calculateProjWidth(group.length)" :h="calculateProjWidth(group.breadth)" style="background-color: rgba(50, 50, 50, 0.3); font-size:50%">
-                    <p>Group {{group.serial_no}}</p>
+                <drr v-for="(group, index) in getUnallocatedGroups" :key=index :x=lastXPos :y=lastYPos :w="calculateProjWidth(group.length)" :h="calculateProjWidth(group.breadth)">
+                    <p>{{group.serial_no}}</p>
                 </drr>
                 </div>
             </article>
@@ -108,7 +108,18 @@
       },
       getUnit() {
         return this.$store.state.allocation.unit;
-      }
+      },
+      getAllocatedGroups() {
+        let all_allocated = []
+        // console.log("allocated", this.$store.state.allocation.allocated);
+        for (let cluster in this.$store.state.allocation.allocated) {
+          if (cluster > 10) {
+            all_allocated.push(...this.$store.state.allocation.allocated[cluster]);
+          }
+        }
+        console.log("allocated level 2", all_allocated);
+        return all_allocated;
+      },
     },
     methods: {
       setUnit( unit ) {
@@ -129,7 +140,7 @@
         return this.calculateProjWidth(coordY + (breadth/2 * Math.cos((angle*Math.PI)/180)) + (length/2 * Math.sin((angle*Math.PI)/180)))
       },
       calculateProjCoordX(coordX, length, breadth, angle) {
-        return this.calculateProjWidth(coordX + (length/2 * Math.cos((angle*Math.PI)/180)) + (breadth/2 * Math.sin((angle*Math.PI)/180)))
+        return this.calculateProjWidth(coordX + (length/2 * Math.cos((angle*Math.PI)/180)) + (breadth/2 * Math.sin((-angle*Math.PI)/180)))
       },
       allocateAll() {
         this.$store.dispatch("allocation/allocateAll")

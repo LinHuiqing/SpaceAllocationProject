@@ -38,9 +38,6 @@
                   </drr> -->
                 </div>
               </div>
-                <div class="tile">
-                <b-button style="width: 200px; left: 20px top: 20px" type="is-success" @click='screenshot()'>Save Layout</b-button>
-                </div>
             </article>
             <article class="tile is-child notification is-light is-2">
                 <p class="title">Groups to be Allocated</p>

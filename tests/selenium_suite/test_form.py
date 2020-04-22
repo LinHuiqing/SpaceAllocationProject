@@ -74,24 +74,3 @@ def test_numerical_input_fields_cannot_go_below_zero(setup_selenium):
         for i in range(15):
             minus_button.click()
         assert input_field.get_property("value") == str(0)
-
-
-# latest version of SpaceForm.vue removes the additional details row
-# xfail this test until it comes back
-@pytest.mark.xfail(
-    reason="xfail this test until SpaceForm.vue has the additional details row"
-)
-@pytest.mark.parametrize("combination", powerset(range(3)), ids=lambda k: str(k))
-def test_can_select_multiple_additional_details(setup_selenium, combination):
-    driver = setup_selenium
-    cards = driver._form.find_element_by_css_selector(
-        "div:nth-child(6) > div"
-    ).find_elements_by_class_name("binary-state-card")
-    cards_to_select = [card for (i, card) in enumerate(cards) if i in combination]
-    for card_to_select in cards_to_select:
-        card_to_select.click()
-    time.sleep(0.5)
-    for card in cards_to_select:
-        assert "selected" in card.get_attribute("class")
-    for card in [c for c in cards if c not in cards_to_select]:
-        assert "selected" not in card.get_attribute("class")

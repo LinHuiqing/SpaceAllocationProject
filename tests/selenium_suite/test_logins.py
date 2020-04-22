@@ -22,6 +22,7 @@ if not (os.path.exists("bundle.js") and os.path.isfile("bundle.js")):
 @pytest.fixture(scope="function", autouse=True)
 def setup_selenium():
     driver = webdriver.Chrome(binary_path)
+    driver.maximize_window()
     # navigate to the login page
     driver.get(os.environ["APP_URL"] + "/login")
     # inject javascript testing modules via window.test

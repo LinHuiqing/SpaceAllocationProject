@@ -29,6 +29,10 @@ function decreasingBreadthSorter(space1, space2) {
 
 function allocateSpace(rawSpaceList, projectsList) {
   // projectsList.sortByBreadth("decreasing");
+  if (!Array.isArray(rawSpaceList) || !Array.isArray(projectsList)) {
+    // console.log("branch", 0);
+    throw new TypeError("Invalid input to allocateSpace() function.");
+  }
   projectsList.sort(decreasingBreadthSorter);
   // console.log(rawSpaceList);
   // let spaceList = new SpaceList([]);
@@ -44,6 +48,7 @@ function allocateSpace(rawSpaceList, projectsList) {
     for (let space of spaceList) {
       // console.log(space);
       if (project.length > space.length || project.breadth > space.breadth) {
+        // console.log("branch", 1);
         continue;
       }
 
@@ -55,24 +60,28 @@ function allocateSpace(rawSpaceList, projectsList) {
       // project.coordY = (space.coordY - space.breadth/2) + project.breadth/2;
       project.angle = space.angle;
 
-      if (project.length == space.length && project == space.breadth) {
+      if (project.length == space.length && project.breadth == space.breadth) {
+        // console.log("branch", 2);
         // spaceList.sortByIndex();
         let removeIndex = spaceList.indexOf(space);
         spaceList.splice(removeIndex, 1);
         // spaceList.remove(space);
       } else if (project.length == space.length) {
+        // console.log("branch", 3);
         space.breadth -= project.breadth;
         // space.coordY += project.breadth;
-        space.coordY += project.breadth * Math.cos((project.angle*Math.PI)/180);
-        space.coordX += project.breadth * Math.sin((project.angle*Math.PI)/180);
+        space.coordY += project.breadth * Math.cos((project.angle*Math.PI)/180).toFixed(3);
+        space.coordX -= project.breadth * Math.sin((project.angle*Math.PI)/180).toFixed(3);
         // console.log("cut breadth", space.coordX, space.coordY);
       } else if (project.breadth == space.breadth) {
+        // console.log("branch", 4);
         space.length -= project.length;
         // space.coordX += project.length;
-        space.coordY += project.length * Math.sin((project.angle*Math.PI)/180);
-        space.coordX += project.length * Math.cos((project.angle*Math.PI)/180);
+        space.coordY += project.length * Math.sin((project.angle*Math.PI)/180).toFixed(3);
+        space.coordX += project.length * Math.cos((project.angle*Math.PI)/180).toFixed(3);
         // console.log("cut length", space.coordX, space.coordY);
       } else {
+        // console.log("branch", 5);
         // spaceList.lastIndex ++;
         // console.log(space);
         // let projectObject = project.getObject();
@@ -82,8 +91,8 @@ function allocateSpace(rawSpaceList, projectsList) {
         newSpace.length = project.length
         newSpace.breadth = space.breadth - project.breadth
         // newSpace.coordY = space.coordY + project.breadth
-        newSpace.coordY = space.coordY + project.breadth * Math.cos((project.angle*Math.PI)/180);
-        newSpace.coordX = space.coordX + project.breadth * Math.sin((project.angle*Math.PI)/180);
+        newSpace.coordY = space.coordY + project.breadth * Math.cos((project.angle*Math.PI)/180).toFixed(3);
+        newSpace.coordX = space.coordX - project.breadth * Math.sin((project.angle*Math.PI)/180).toFixed(3);
 
         // newSpace.setDimensions(projectObject.length, clusterObject.breadth - projectObject.breadth)
         // newSpace.setStartCoords(clusterObject.coordX, clusterObject.coordY + projectObject.breadth);
@@ -91,8 +100,8 @@ function allocateSpace(rawSpaceList, projectsList) {
         spaceList.push(newSpace);
         space.length -= project.length;
         // space.coordX += project.length;
-        space.coordY += project.length * Math.sin((project.angle*Math.PI)/180);
-        space.coordX += project.length * Math.cos((project.angle*Math.PI)/180);
+        space.coordY += project.length * Math.sin((project.angle*Math.PI)/180).toFixed(3);
+        space.coordX += project.length * Math.cos((project.angle*Math.PI)/180).toFixed(3);
         // space.coordY += project.length * Math.sin((project.angle*Math.PI)/180);
         // space.coordX += project.length * Math.cos((project.angle*Math.PI)/180);
         // console.log(space);

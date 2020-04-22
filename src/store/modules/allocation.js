@@ -64,9 +64,9 @@ const actions = {
     // console.log("unallocated", state.unallocated);
     // console.log("allocated", state.allocated);
   },
-  resetAllocation ({commit}) {
-    commit('resetAllocation');
-  }
+  // resetAllocation ({commit}) {
+  //   commit('resetAllocation');
+  // }
 }
 
 // mutations

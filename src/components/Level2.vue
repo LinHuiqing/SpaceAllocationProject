@@ -8,10 +8,10 @@
                   <p class="title">Map</p>
                   <p class="subtitle">Campus Centre Level 2</p>
                 </article>
-                <article class="tile is-child buttons">
+                <!-- <article class="tile is-child buttons">
                   <b-button type="is-warning" @click="allocateAll()">Allocate</b-button>
                   <b-button type="is-danger" @click="resetAllocation()">Reset</b-button>
-                </article>
+                </article> -->
               </div>
               <div class="mb-12 v-card v-card--outlined v-sheet theme--light">
                 <header class="v-sheet v-sheet--tile theme--light v-toolbar v-toolbar--dense v-toolbar--flat grey lighten-3" style="height: 48px;">
@@ -43,8 +43,12 @@
                       <p>Cluster {{cluster.serial_no}}</p>
                     </drr> -->
                 </div>
+              </div>
+
+              <div class="tile">
                 <div class="buttons">
                 <b-button style="width: 200px; left: 20px top: 20px" type="is-success">Save Layout</b-button>
+                </div>
                 </div>
             </article>
             <article class="tile is-child notification is-light is-2">
@@ -136,7 +140,7 @@
         return this.calculateProjWidth(coordY + (breadth/2 * Math.cos((angle*Math.PI)/180)) + (length/2 * Math.sin((angle*Math.PI)/180)))
       },
       calculateProjCoordX(coordX, length, breadth, angle) {
-        return this.calculateProjWidth(coordX + (length/2 * Math.cos((angle*Math.PI)/180)) + (breadth/2 * Math.sin((angle*Math.PI)/180)))
+        return this.calculateProjWidth(coordX + (length/2 * Math.cos((angle*Math.PI)/180)) + (breadth/2 * Math.sin((-angle*Math.PI)/180)))
       },
       allocateAll() {
         this.$store.dispatch("allocation/allocateAll")

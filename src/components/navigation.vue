@@ -1,21 +1,21 @@
 <template>
-    <b-navbar>
+    <b-navbar type="is-light" mobile-burger="true">
         <template slot="brand">
 
             <router-link to="/" class="navbar-brand"></router-link>
             <b-navbar-item tag="router-link" :to="{ path: '/' }">
                 <img
-                    src="https://raw.githubusercontent.com/buefy/buefy/dev/static/img/buefy-logo.png"
-                    alt="Lightweight UI components for Vue.js based on Bulma"
+                    src="../assets/logo.png"
                 >
             </b-navbar-item>
         </template>
+        <!-- allows admin to access space allocation -->
         <template slot="start" v-if="user.loggedIn && user.data.displayName=='admin'">
             <router-link class="navbar-item" to="/level1" id="lvl1">Level 1</router-link>
             <router-link class="navbar-item" to="/level2" id="lvl2">Level 2</router-link>
         </template>
+        <!-- direct to student form when user does not have admin access -->
         <template slot="start" v-if="user.loggedIn && user.data.displayName!='admin'">
-
             <router-link to="/form" class="navbar-item">Student Form</router-link>
         </template>
 
@@ -37,14 +37,11 @@
                 </div>
             </b-navbar-item>
             <template v-else>
-                <div class="nav-item">{{user.data.displayName}}</div>
-                <li class="nav-item">
-                    <a class="nav-link">
-                        <a class="button is-warning" @click.prevent="signOut">
-                            <strong>Sign Out</strong>
-                        </a>
+                <a class="nav-link">
+                    <a class="button is-warning" @click.prevent="signOut">
+                        <strong>Sign Out</strong>
                     </a>
-                </li>
+                </a>
             </template>
         </template>
     </b-navbar>

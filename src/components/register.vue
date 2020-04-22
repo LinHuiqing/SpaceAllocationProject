@@ -95,7 +95,7 @@ export default {
             .updateProfile({
               displayName: this.form.name
             })
-            .then(() => {});
+            .then(() => {this.$router.push("/dashboard");});
         })
         .catch(err => {
           this.error = err.message;

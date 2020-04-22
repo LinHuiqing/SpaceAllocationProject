@@ -10,33 +10,13 @@
               Capstone Space Allocation Project
             </h1>
             <h2 class="subtitle">
-              Map
-              <!--dbtry /-->
+              Cohort 3 Group 11
             </h2>
           </div>
         </div>
       </section>
-      <nav class="navbar is-light" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-          <a class="navbar-item" href="https://github.com/LinHuiqing/SpaceAllocationProject">
-            <img src="./assets/logo_transparent2.png" alt="Bulma: Free, open source, and modern CSS framework based on Flexbox" width="80" height="100">
-          </a>
-          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-            <span aria-hidden="false"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
-        </div>
-      </nav>
-      <!-- <router-link to="/level1">Level 1</router-link>
-      <router-link to="/level2">Level 2</router-link> -->
       <app-nav></app-nav>
       <router-view></router-view>
-
-      <!--<template v-if="user.loggedIn">
-        <admin/>
-      </template> -->
-
       <footer class="footer">
         <div class="content has-text-centered">
           <p>
@@ -53,7 +33,6 @@
   //import VueDraggableResizable from 'vue-draggable-resizable'
   //import './components/vuedraggable.css'
   import navigation from './components/navigation'
-  //import admin from './components/adminview'
 
   export default {
     name: 'app',
@@ -64,8 +43,7 @@
       }
     },
     components: {
-      'app-nav': navigation,
-      //admin
+      'app-nav': navigation
     },
     methods: {
   },

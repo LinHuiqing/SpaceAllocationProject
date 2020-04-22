@@ -7,7 +7,6 @@ import Register from '../components/register.vue'
 import Dashboard from '../components/dashboard.vue'
 import SpaceForm from '../components/SpaceForm.vue'
 import firebase from 'firebase'
-import admin from '../components/adminview.vue'
 
 Vue.use(VueRouter)
 
@@ -16,6 +15,10 @@ const router = new VueRouter({
     mode: 'history',
     base: process.env.BASE_URL,
     routes: [
+        {
+            path: '/',
+            name: 'home'
+        },
         {
         path: '/login',
         name: 'login',
@@ -29,7 +32,11 @@ const router = new VueRouter({
     {
         path: '/dashboard',
         name: 'Dashboard',
-        component: Dashboard
+        component: Dashboard,
+        meta:{
+            requireAuth: true
+            
+        }
     },
     {
         name: 'Level 1',
@@ -38,6 +45,7 @@ const router = new VueRouter({
         meta:{
             requireAuth: true
         }
+        
     },
     {
         name: 'Level 2',
@@ -48,21 +56,12 @@ const router = new VueRouter({
         }
     },
     {
-        name: 'admin',
-        path: '/admin',
-        component: admin,
-        meta:{
-            requireAuth: true
-    
-        }
-    },
-    {
       name: 'Space Form',
       path: '/form',
       component: SpaceForm,
-      meta: {
-         requireAuth: true
-       }
+      meta:{
+        requireAuth: true
+    }
     }
 ]
 });
@@ -71,18 +70,9 @@ router.beforeEach((to,from,next)=>{
     const currentUser = firebase.auth().currentUser;
     const requireAuth = to.matched.some(record => record.meta.requireAuth);
 
-    if(requireAuth && !currentUser) next();
-    else if (!requireAuth && currentUser) next();
+    if(requireAuth && !currentUser) next("/");
+    else if (!requireAuth && currentUser) next("/");
     else next();
 });
-/*
-router.beforeEach((to,from,next)=>{
-    const name = firebase.auth().currentUser.data.displayName;
-    const requireadmin = to.matched.some(record => record.meta.requireadmin);
-    const check = 'tryme';
-    if(requireadmin && !name==check) next('/login');
-    else if (!requireadmin && name==check) next('/register');
-    else next();
-});
-*/
+
 export default router

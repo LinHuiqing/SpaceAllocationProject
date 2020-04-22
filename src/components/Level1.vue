@@ -8,11 +8,6 @@
                   <p class="title">Map</p>
                   <p class="subtitle">Campus Centre Level 1</p>
                 </article>
-                <article class="tile is-child buttons">
-                  <b-button type="is-warning" @click="allocateAll()">Allocate</b-button>
-                  <!-- <b-button type="is-success" @click="clickME()">Save</b-button> -->
-                  <b-button type="is-danger" @click="resetAllocation()">Reset</b-button>
-                </article>
               </div>
               <div class="mb-12 v-card v-card--outlined v-sheet theme--light">
                 <header class="v-sheet v-sheet--tile theme--light v-toolbar v-toolbar--dense v-toolbar--flat grey lighten-3" style="height: 48px;">
@@ -36,17 +31,18 @@
                   </figure>
                   <drr v-for="(group, index) in getAllocatedGroups" :key=index+13 :x="calculateProjCoordX(group.coordX, group.length, group.breadth, group.angle)" :y="calculateProjCoordY(group.coordY, group.length, group.breadth, group.angle)" :w="calculateProjWidth(group.length)" :h="calculateProjWidth(group.breadth)"
                   :angle="group.angle">
-                      <p>Group {{group.serial_no}}</p>
+                      <p>{{group.serial_no}}</p>
                   </drr>
                   <!-- <drr v-for="(cluster, index) in getClusters" :key=index :x="calculateProjCoordX(cluster.coordX, cluster.length, cluster.breadth, cluster.angle)" :y="calculateProjCoordY(cluster.coordY, cluster.length, cluster.breadth, cluster.angle)" :w="calculateProjWidth(cluster.length)" :h="calculateProjWidth(cluster.breadth)" :resizable.sync="resizable" :moveable.sync="moveable" :angle="cluster.angle" style="background-color:rgba(100, 100, 150, 0.3)">
                     <p>Cluster {{cluster.serial_no}}</p>
                   </drr> -->
                 </div>
-                <div class="buttons">
-                <b-button style="width: 200px; left: 20px top: 20px" type="is-success">Save Layout</b-button>
+              </div>
+                <div class="tile">
+                <b-button style="width: 200px; left: 20px top: 20px" type="is-success" @click='screenshot()'>Save Layout</b-button>
                 </div>
             </article>
-            <article class="tile is-child notification is-light ">
+            <article class="tile is-child notification is-light is-2">
                 <p class="title">Groups to be Allocated</p>
                 <p class="subtitle">Drag and Drop on to Map</p>
                 <div :style="{ position: 'relative' }">
@@ -62,11 +58,16 @@
 
 <script>
   import drr from '@minogin/vue-drag-resize-rotate'
+  import ResizeText from 'vue-resize-text'
+  // import html2canvas from '../html2canvas'
 
   export default {
     name: 'level1',
     components: {
       drr
+    },
+    directives: {
+      ResizeText
     },
     data() {
       return {
@@ -132,7 +133,7 @@
         return this.calculateProjWidth(coordY + (breadth/2 * Math.cos((angle*Math.PI)/180)) + (length/2 * Math.sin((angle*Math.PI)/180)))
       },
       calculateProjCoordX(coordX, length, breadth, angle) {
-        return this.calculateProjWidth(coordX + (length/2 * Math.cos((angle*Math.PI)/180)) + (breadth/2 * Math.sin((angle*Math.PI)/180)))
+        return this.calculateProjWidth(coordX + (length/2 * Math.cos((angle*Math.PI)/180)) + (breadth/2 * Math.sin((-angle*Math.PI)/180)))
       },
       allocateAll() {
         this.$store.dispatch("allocation/allocateAll")
@@ -156,7 +157,7 @@
 <style>
   .drr {
     background-color: rgba(50, 50, 50, 0.3);
-    font-size:50%;
+    font-size:90%;
     border-style: groove;
     border-width: thin;
   }

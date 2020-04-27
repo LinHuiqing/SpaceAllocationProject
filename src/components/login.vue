@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <router-link></router-link>
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div class="card">
@@ -59,7 +58,7 @@ import firebase from "firebase";
 export default {
   name:'login',
   data() {
-    
+
     return {
       form: {
         email: "",

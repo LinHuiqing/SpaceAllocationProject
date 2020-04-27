@@ -25,7 +25,6 @@ function isPermutation(arr1, arr2) {
   }
 }
 
-let expect = require('chai').expect;
 let assert = require('assert');
 
 describe('Test Functions', function() {

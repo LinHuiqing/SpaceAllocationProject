@@ -37,21 +37,20 @@ const mutations = {
     })
     .then(docRef =>{
       console.log('Form submitted: ', docRef.id)
-      // this.$router.push('/')
     })
     .catch(error => {
       console.error('Error adding student: ', error)
     })
   },
   setGroupNo ( state, groupNo ) {
-    state.group_no = parseInt(groupNo);
+    if (groupNo != ""){
+      state.group_no = parseInt(groupNo);
+    }
   },
   setLength ( state, length ) {
-    // console.log("length", length);
     state.length = parseInt(length);
   },
   setBreadth ( state, breadth ) {
-    // console.log("breadth", breadth);
     state.breadth = parseInt(breadth);
   },
   setPowerOutlets ( state, powerOutlets ) {

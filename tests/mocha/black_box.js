@@ -1,4 +1,3 @@
-let expect = require('chai').expect;
 let assert = require('assert');
 
 let allocationModule = require('../../src/api/algorithm/space-allocation-algorithm');

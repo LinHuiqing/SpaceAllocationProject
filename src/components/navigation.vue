@@ -1,5 +1,5 @@
 <template>
-    <b-navbar type="is-light" mobile-burger="true">
+    <b-navbar type="is-light" :mobile-burger="mobileBurger">
         <template slot="brand">
 
             <router-link to="/" class="navbar-brand"></router-link>
@@ -54,6 +54,11 @@ import * as firebase from 'firebase';
 import 'firebase/auth';
 export default {
   name: 'navigation',
+  data() {
+    return {
+      mobileBurger: true,
+    }
+  },
   computed: {
     // map `this.user` to `this.$store.getters.user`
     user() {

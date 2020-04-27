@@ -33,6 +33,7 @@
                   :angle="group.angle">
                       <p>{{group.serial_no}}</p>
                   </drr>
+                  <!-- display clusters for debugging purposes -->
                   <!-- <drr v-for="(cluster, index) in getClusters" :key=index :x="calculateProjCoordX(cluster.coordX, cluster.length, cluster.breadth, cluster.angle)" :y="calculateProjCoordY(cluster.coordY, cluster.length, cluster.breadth, cluster.angle)" :w="calculateProjWidth(cluster.length)" :h="calculateProjWidth(cluster.breadth)" :resizable.sync="resizable" :moveable.sync="moveable" :angle="cluster.angle" style="background-color:rgba(100, 100, 150, 0.3)">
                     <p>Cluster {{cluster.serial_no}}</p>
                   </drr> -->
@@ -56,7 +57,6 @@
 <script>
   import drr from '@minogin/vue-drag-resize-rotate'
   import ResizeText from 'vue-resize-text'
-  // import html2canvas from '../html2canvas'
 
   export default {
     name: 'level1',
@@ -87,11 +87,10 @@
       this.calculateWidth();
     },
     destroyed() {
-      window.addEventListener("resize", this.calculateWidth);
+      window.removeEventListener("resize", this.calculateWidth);
     },
     computed: {
       getUnallocatedGroups() {
-        // console.log("unallocated", this.$store.state.allocation.unallocated);
         return this.$store.state.allocation.unallocated
       },
       getClusters() {
@@ -102,7 +101,6 @@
       },
       getAllocatedGroups() {
         let all_allocated = []
-        // console.log("allocated", this.$store.state.allocation.allocated);
         for (let cluster in this.$store.state.allocation.allocated) {
           if (cluster <=10) {
             all_allocated.push(...this.$store.state.allocation.allocated[cluster]);
@@ -141,12 +139,6 @@
       getClusterGroups(cluster) {
         return this.$store.state.allocation.allocated[cluster.serial_no]
       },
-  //   screenshot() {
-  //   html2canvas(document.getElementById("layout")).then(function(canvas) {
-  //                   document.body.appendChild(canvas);
-  //               });
-
-  // }
   },
  }
 </script>

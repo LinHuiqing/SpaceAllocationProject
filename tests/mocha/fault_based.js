@@ -462,21 +462,21 @@ describe('Space Allocation Algorithm - Fault-based Testing', function() {
     it('error should be thrown if any of the inputs are null', function() {
       expect(function() {
         allocationModule.allocateSpace([], null);
-      }).to.throw(TypeError, "Invalid input to allocateSpace() function.");
+      }).to.throw(TypeError);
       expect(function() {
         allocationModule.allocateSpace(null, []);
-      }).to.throw(TypeError, "Invalid input to allocateSpace() function.");
+      }).to.throw(TypeError);
       expect(function() {
         allocationModule.allocateSpace(null, null);
-      }).to.throw(TypeError, "Invalid input to allocateSpace() function.");
+      }).to.throw(TypeError);
     });
     it('error should be thrown on string input', function() {
       expect(function() {
         allocationModule.allocateSpace("", "dsufhnkj");
-      }).to.throw(TypeError, "Invalid input to allocateSpace() function.");
+      }).to.throw(TypeError);
       expect(function() {
         allocationModule.allocateSpace("dsufhnkj", []);
-      }).to.throw(TypeError, "Invalid input to allocateSpace() function.");
+      }).to.throw(TypeError);
     });
   });
 });

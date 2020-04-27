@@ -96,7 +96,7 @@ export default {
               displayName: this.form.name
             })
             .then(()=>{this.$store.state.login.user})
-            .then(() => {this.$router.push("/dashboard",alert('your account has been created'));});
+            .then(() => {this.$router.push("/dashboard")});
         })
         .catch(err => {
           this.error = err.message;

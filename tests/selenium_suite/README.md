@@ -1,20 +1,9 @@
 # Selenium Test Suites – Python
 
-This test suite tests UI logic of the space input form. Requires a Python installation and a version of Chrome compatible with the chromedriver binary specified in `requirements.txt` (e.g. if version 80 is specified in requirements file, your system should have chromium version 80 installed as well)
+This test suite tests UI logic of the space input form, login forms, and tests for XSS vulnerabilities. Requires a Python installation and a version of Chrome compatible with the chromedriver binary specified in `requirements.txt` (e.g. if version 80 is specified in requirements file, your system should have chromium version 80 installed as well)
 
 ## Running the tests
 
-### Setup the mock space form
-
-The mock space form is a "mini" vue project that contains just enough code to display the Space Form component. In particular, it contains a mock VueX store for the form.
-
-```bash
-cd dummy_space_form
-npm install
-npm run serve
-```
-
-And take note of the running url (especially the port) the page is being served on.
 
 ### Setup the Python environment
 
@@ -31,14 +20,44 @@ Install required dependencies:
 pip install -r requirements.txt
 ```
 
-Export Environment Variables (see what was outputted when serving your mock space form):
+### Setup the JS environments
+
+There are two JS projects: one vue-mini project in `dummy_space_form`, and one in this directory.
+
+The former is for testing the space form individually, the other is for injecting testing tools for `test_logins` and `test_xss`.
+
+### Setup dummy_space_form
 
 ```bash
-export APP_URL=http://localhost:8080
+cd dummy_space_form
+npm install
+npm run serve
 ```
 
-Run tests.
+Take note of the app URL without trailing slashes, and save it to the `FORM_APP_URL` environment variable.
+
+### Setup injection files
 
 ```bash
-pytest test_form.py
+cd (this directory)
+npm install
+npx webpack
 ```
+
+### Setup the main app
+
+In the project root, `npm install` and `npm run serve`.
+
+Take note of the app URL without trailing slashes, and save it to the `APP_URL` environment variable.
+
+### Set other environment variables
+
+4 other environment variables are required to run all the tests in this test suite:
+
+| Key            | Value                            |
+| -------------- | -------------------------------- |
+| ADMIN_EMAIL    | email for the admin account      |
+| ADMIN_PASSWORD | password for the admin account   |
+| USER_EMAIL     | email for sample user account    |
+| USER_PASSWORD  | password for sample user account |
+

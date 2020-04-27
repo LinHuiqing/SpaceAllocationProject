@@ -65,7 +65,7 @@ const router = new VueRouter({
     }
 ]
 });
-
+// before changing path, authenticate user if invalid then direct to home
 router.beforeEach((to,from,next)=>{
     const currentUser = firebase.auth().currentUser;
     const requireAuth = to.matched.some(record => record.meta.requireAuth);

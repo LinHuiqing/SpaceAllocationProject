@@ -15,7 +15,6 @@
 </template>
 
 <script>
-//import { mapGetters } from "vuex";
 export default {
   name: 'Dashboard',
   computed: {
@@ -23,9 +22,7 @@ export default {
       return this.$store.state.login.user
     }
     // map `this.user` to `this.$store.getters.user`
-    // ...mapGetters({
-    //   user: "user"
-    // })
+    
   }
 };
 </script>
